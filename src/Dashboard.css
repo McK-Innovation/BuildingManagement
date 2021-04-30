@@ -5,6 +5,48 @@
     align-items: stretch;
 }
 
+.bar {
+    box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.5);
+    background-color: #121212 !important;
+    max-height: 6em;
+}
+
+.card-style {
+    box-shadow: 0 0 0.875rem 0 rgba(33, 37, 41, 0.4);
+}
+
+body {
+    background-color: #f7f7fc !important;
+}
+
+.main{
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    min-height: 100vh;
+    transition: margin-left .35s ease-in-out,left .35s ease-in-out,margin-right .35s ease-in-out,right .35s ease-in-out;
+    background: #FBF7F5;
+    flex-direction: column;
+    overflow: hidden;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+
+.wrapper {
+    align-items: stretch;
+    display: flex;
+    width: 100%;
+    background: #222e3c;
+
+}
+
+.back {
+    background-image: url("/src/images/back2.png");
+    background-repeat:repeat-x;
+    background-color: #FBF7F5;
+
+}
 
 
 

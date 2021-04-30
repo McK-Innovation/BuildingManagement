@@ -30,54 +30,52 @@ const Dashboard = ()=> {
 
 
 
-        <div className="container-fluid px-0">
+        <div className="wrapper">
 
-            <div className="row collapse show no-gutters d-flex h-100 position-relative">
 
-                <div className="col-2 p-0 h-100 w-sidebar navbar-collapse collapse d-none d-md-flex sidebar">
-                    <SideBar/>
-                </div>
 
-                <div className= "col-10 offset-2 mx-auto">
-                   <div className="navbar navbar-dark bg-dark  ">
-                       <a className="navbar-brand mx-auto" href="#" >
+
+            <SideBar className = 'sidebar'>
+
+            </SideBar>
+
+            <div className="main back">
+
+                   <div className="navbar navbar-dark bar font-weight-light ">
+                       <a className="navbar-brand mx-auto my-auto" href="#" >
                            <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30"
                                 className="d-inline-block align-top" alt=""/>
-                               Bootstrap
+                           Welcome Back <span className= "font-weight-bold">{user.name}</span>!
                        </a>
                    </div>
-                </div>
-                <div className="container-fluid p-3 ">
 
-                    <div className="row">
-                        <div className="col-9 offset-3">
 
-                            <div className= "row text-center">
+
+                    <div className= "content p-5">
+
+                        <div className="container-fluid p-0">
+
+                            <div className= "row text-left">
                                 <div className="col">
-                                    <h1>Welcome Back {user.name}</h1>
+                                    <h3 className= "text-light">Manage <span className= "font-weight-light">Dashboard</span></h3>
                                 </div>
                             </div>
 
-                            <div className= "row">
-                               <div className= "col">
-                                    <h2>DashBoard Stuff</h2>
-                               </div>
-                            </div>
 
-                            <div className= "row">
+                            <div className= "row py-4 text-center">
                                 <div className="col">
-                                    <h2> What do you want to manage?</h2>
+                                    <h4> What do you want to manage?</h4>
                                 </div>
                             </div>
 
-                            <div className="row">
+                            <div className="row py-2">
                                 <div className="col">
                                     <div>
 
-                                            <div className="card text-white bg-dark mb-3" style={{maxWidth: "18rem"}}>
+                                            <div className="card text-white bg-dark mb-3 card-style" style={{maxWidth: "18rem"}}>
                                                 <div className="card-header"></div>
                                                 <div className="card-body">
-                                                    <h5 className="card-title">Manage Users</h5>
+                                                    <h6 className="card-title">Manage Users</h6>
                                                     <p className="card-text">Change user permissions, group membership, username and password</p>
                                                 </div>
                                             </div>
@@ -85,13 +83,13 @@ const Dashboard = ()=> {
                                     </div>
                                 </div>
 
-                                <div className="col">
+                                <div className="col-lg-6 mx-auto">
                                     <div>
 
-                                            <div className="card text-white bg-dark mb-3" style={{maxWidth: "18rem"}}>
+                                            <div className="card text-white bg-dark mb-3 card-style" style={{maxWidth: "18rem"}}>
                                                 <div className="card-header"></div>
                                                 <div className="card-body">
-                                                    <h5 className="card-title">Manage Group</h5>
+                                                    <h6 className="card-title">Manage Group</h6>
                                                     <p className="card-text">View group permissions and group settings</p>
                                                 </div>
                                             </div>
@@ -100,7 +98,7 @@ const Dashboard = ()=> {
                                 </div>
                             </div>
                         </div>
-                    </div>
+
                     </div>
                 </div>
             </div>
