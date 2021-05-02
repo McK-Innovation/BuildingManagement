@@ -2,7 +2,7 @@ import {useLocation} from "react-router";
 import {useKeycloak} from "@react-keycloak/web";
 import {useCallback} from "react";
 import {Redirect} from "react-router-dom";
-import Yup from "yup";
+import * as Yup from "yup";
 import {Formik, ErrorMessage, Form, Field} from "formik";
 const LoginPage = ()=> {
 

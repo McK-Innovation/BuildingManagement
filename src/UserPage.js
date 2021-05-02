@@ -1,8 +1,8 @@
 import {useState} from "react";
 
-const userPage = () => {
+const UserPage = () => {
     const [input, inputChange] = useState("");
-    const [arrayOfInfo, updateArray] = useState([{name: "tim cooper", username: "timmycoop123"}, {name: "Elijah", username: "Elijah231"}]);
+    const [arrayOfInfo, updateArray] = useState([{name: "Tim Cooper", username: "timmycoop123"}, {name: "Elijah", username: "Elijah231"}]);
 
     //useEffect(()=>{
 
@@ -13,26 +13,19 @@ const userPage = () => {
     return (
         <div>
             <div className="container">
-                <div className="navbar navbar-light mx-3">
-                </div>
-                <div className="row">
-                    <div className="col">
-                        <input/>
 
-                    </div>
-                </div>
 
-                <div className="row">
-                    <div className="col">
-                        <div className="input-group mb-3">
+                <div className="row mt-4">
+                    <div className="col-12">
+                        <div className="input-group mb-3 p-2">
                             <div className="input-group-prepend">
                                 <span className="input-group-text" id="basic-addon1">@</span>
                             </div>
-                            <input type="text"  value = {input} className="form-control" placeholder="Username" aria-label="Username"
+                            <input type="text"  value = {input} className="form-control p-4" placeholder="Username" aria-label="Username"
                                    aria-describedby="basic-addon1" onChange={(e)=>{inputChange(e.target.value)}}/>
                         </div>
                     </div>
-                    <div className="col">
+                    <div className="col-10 offset-1">
                         {arrayOfInfo
 
                             .filter(item => {
@@ -45,21 +38,38 @@ const userPage = () => {
 
                             }).map((input, key) =>(
 
-                            <div className= "row">
-                                <button type='button'
-                                        className='close'
-                                >
-                                   <span
-                                       aria-hidden="true">&times;
-                                   </span>
+                                <div className= "wrap m-4 p-2">
+                                    <div className="row">
 
-                                </button>
 
-                                <div className="col">
-                                    {input.name} - {input.username}
+                                        <div className= "col-sm-1">
+                                            <i className="bi bi-person-lines-fill"></i>
+                                        </div>
+
+                                        <div className="col-sm-10">
+                                            <h6>Name:<span className="font-weight-bold">  {input.name}</span> / Username: <span className="font-weight-bold">  {input.username}</span></h6>
+                                        </div>
+
+                                        <div className="col-sm-1">
+                                            <button type='button'
+                                                           className='close alert-danger'
+
+                                        >
+                                                   <span
+                                                       aria-hidden="true"
+                                                       style = {{color:"whitesmoke", fontWeight: "bolder"}}
+                                                   >
+
+                                                       <i className="bi bi-x-circle text-danger"></i>
+                                                   </span>
+
+                                        </button>
+                                    </div>
+
+                                    </div>
                                 </div>
 
-                            </div>
+
                         ))}
 
 
@@ -73,4 +83,4 @@ const userPage = () => {
         )
 }
 
-export {userPage}
+export {UserPage}

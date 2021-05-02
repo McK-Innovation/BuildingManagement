@@ -5,9 +5,13 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Dashboard from "./Dashboard";
 import 'bootstrap/dist/css/bootstrap.min.css'
+import 'jquery/dist/jquery.min.js';
+import 'bootstrap-icons/font/bootstrap-icons.css'
+import RoutingTest from "./RoutingTest";
 ReactDOM.render(
     //<App/>
-    <Dashboard/>
+    //<Dashboard/>
+    <RoutingTest/>
   ,
   document.getElementById('root')
 );

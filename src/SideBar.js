@@ -5,6 +5,7 @@ const SideBar = (props)=> {
 
 
     //once the state updates, ill have data. Loaded some initial dummy data
+    //add icons
     const [open , updateOpen] = useState(props)
 
     return (
@@ -16,27 +17,36 @@ const SideBar = (props)=> {
             </div>
 
             <div className="sidebar-header">
-                <h3>Bootstrap Sidebar</h3>
-                <strong>BS</strong>
+                <h3><span className= "font-weight-bold">Building</span>Key</h3>
+                <strong>BK</strong>
             </div>
 
             <ul className="list-unstyled components">
-                <p>Dummy Heading</p>
-                <li className="active">
-                    <a href="#" data-toggle="collapse" aria-expanded="false">Users</a>
+
+                <li className="hvr-grow">
+                    <a href="#" data-toggle="collapse" aria-expanded="false">
+                        <i className="bi bi-person-badge icon-space"></i>
+                        <span className="text-light align-middle">Users</span></a>
                 </li>
 
-                <li>
-                    <a href="#">Group</a>
+                <li className="hvr-grow">
+
+                    <a href="#">  <i className="bi bi-people icon-space"></i><span className="align-middle">Groups</span></a>
                 </li>
 
-                <li>
-                    <a href="#">Sign out</a>
+
+                <li className= "hvr-grow">
+
+                    <a href="#"> <i className="bi bi-gear icon-space"></i><span className="align-middle">Settings</span></a>
                 </li>
 
-                <li>
-                    <a href="#">Setting</a>
-                </li>
+                <hr/>
+
+                <li className= "hvr-grow">
+
+                <a href="#">  <i className="bi bi-box-arrow-left icon-space"></i><span className="align-middle">Log Out</span></a>
+            </li>
+
             </ul>
         </nav>
 

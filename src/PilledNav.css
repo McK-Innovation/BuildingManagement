@@ -1,0 +1,31 @@
+@media (min-width: 576px) {
+    .rounded-nav {
+        border-radius: 50rem !important;
+    }
+}
+
+@media (min-width: 576px) {
+    .rounded-nav .nav-link {
+        border-radius: 50rem !important;
+    }
+}
+.nav-pills .nav-link.active{
+    color: lavender!important;
+    background-color: #003451!important;
+}
+
+.nav-pills .nav-link {
+    color: #555!important;
+    background: rgba(53, 47, 47, 0)!important;
+}
+.text-uppercase {
+    letter-spacing: 0.1em;
+}
+.rounded-nav .nav-link {
+    border-radius: 50rem !important;
+}
+
+
+
+
+

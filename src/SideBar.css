@@ -5,77 +5,112 @@
 
 }
 
+@media (max-width: 768px) {
+    #sidebar {
+     margin-left: -260px!important;
+    }
+}
+
 #sidebar {
     min-width: 260px;
     max-width: 260px;
-
+    box-shadow: -1px -8px 8px 1px rgba(0, 0, 0, 0.5);
     height: 100vh;
     z-index: 999;
-    background: #7386D5;
+    background: rgba(0, 0, 0, 0.0);
     color: #fff;
     direction: ltr;
     margin-left: 0;
+    border: none;
 
     transition: margin-left .35s ease-in-out,left .35s ease-in-out,margin-right .35s ease-in-out,right .35s ease-in-out;
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Roboto Thin', sans-serif;
     background: #fafafa;
 }
 
 p {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Roboto Thin', sans-serif;
     font-size: 1.1em;
     font-weight: 300;
     line-height: 1.7em;
-    color: #999;
+    color: #FBF7F5;
 }
 
 a, a:hover, a:focus {
-    color: inherit;
+    color: #FBF7F5 !important;
     text-decoration: none;
     transition: all 0.3s;
 }
 
 #sidebar {
     /* don't forget to add all the previously mentioned styles here too */
-    background: #7386D5;
-    color: #fff;
-    transition: all 0.3s;
+    background: rgba(0, 0, 0, 0.0);
+    color: #FBF7F5;
+
+    transition: margin-left .35s ease-in-out,left .35s ease-in-out,margin-right .35s ease-in-out,right .35s ease-in-out;
 }
 
 #sidebar .sidebar-header {
-    padding: 20px;
-    background: #6d7fcc;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.0);
 }
 
 #sidebar ul.components {
     padding: 20px 0;
-    border-bottom: 1px solid #47748b;
+
 }
 
 #sidebar ul p {
-    color: #fff;
+    color: #FBF7F5;
     padding: 10px;
 }
 
 #sidebar ul li a {
     padding: 10px;
-    font-size: 1.1em;
+    font-size: .95em;
     display: block;
+    padding-left: 30px !important;
+    background: rgba(0, 0, 0, 0);
+    text-decoration: none!important;
+    font-weight: 400;
+    border-left: 3px solid transparent;
 }
 #sidebar ul li a:hover {
-    color: #7386D5;
-    background: #fff;
+    color: #FBF7F5!important;
+    background: rgb(0,52,81);
+    background: linear-gradient(124deg, rgba(0,52,81,1) 0%, rgba(32,70,92,1) 14%, rgba(115,138,149,1) 49%, rgba(160,171,175,1) 65%, rgba(235,227,219,1) 100%);
+    text-decoration: none!important;
 }
 
 #sidebar ul li.active > a, a[aria-expanded="true"] {
-    color: #fff;
-    background: #6d7fcc;
+    color: #FBF7F5;
+    background: rgb(0,52,81);
+    background: linear-gradient(124deg, rgba(0,52,81,1) 0%, rgba(32,70,92,1) 14%, rgba(115,138,149,1) 49%, rgba(160,171,175,1) 65%, rgba(235,227,219,1) 100%);
+    text-decoration: none!important;
 }
 ul ul a {
-    font-size: 0.9em !important;
-    padding-left: 30px !important;
-    background: #6d7fcc;
+
+}
+
+.icon-space {
+    margin-right: .75rem;
+}
+.hvr-grow {
+
+    vertical-align: middle;
+    transform: translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    transition-duration: 0.3s;
+    transition-property: transform;
+}
+
+.hvr-grow:hover,
+.hvr-grow:focus,
+.hvr-grow:active {
+    transform: scale(1.1);
 }

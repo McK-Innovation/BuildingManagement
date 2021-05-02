@@ -2,6 +2,12 @@ import {useEffect, useState} from "react";
 import SideBar from "./SideBar";
 import './Dashboard.css'
 import {Link} from "react-router-dom";
+import Pilled from "./PilledNav";
+import {UserPage} from "./UserPage";
+import logo from './images/mckenneys-logo.png'
+import NewUser from "./NewUser";
+import ManageUser from "./ManageUser";
+import ViewEdit from "./ManageUser";
 
 const Dashboard = ()=> {
 
@@ -41,12 +47,22 @@ const Dashboard = ()=> {
 
             <div className="main back">
 
-                   <div className="navbar navbar-dark bar font-weight-light ">
-                       <a className="navbar-brand mx-auto my-auto" href="#" >
-                           <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30"
-                                className="d-inline-block align-top" alt=""/>
-                           Welcome Back <span className= "font-weight-bold">{user.name}</span>!
-                       </a>
+                   <div className="navbar navbar-dark bar font-weight-light navbar-expand text-light text-center ">
+                       <div className="navbar navbar-collapse">
+
+                           <span className="mx-auto"> Welcome Back <span className= "font-weight-bold text-light">{user.name}</span>!</span>
+                       </div>
+                       <ul className="navbar-nav navbar-align">
+                           <li className="nav-item dropdown">
+                               <a className= "nav-link dropdown-toggle d-sm-inline-block" role="button" id="dropdownMenuLink" aria-haspopup="true" aria-expanded="false" href="#">
+                                   <i className="bi bi-person-square text-light"></i>
+                                   <span className="text-light"> {user.name}</span>
+                               </a>
+                               <div className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
+                                   <a className= "dropdown-item">Profile</a>
+                               </div>
+                           </li>
+                       </ul>
                    </div>
 
 
@@ -57,46 +73,30 @@ const Dashboard = ()=> {
 
                             <div className= "row text-left">
                                 <div className="col">
-                                    <h3 className= "text-light">Manage <span className= "font-weight-light">Dashboard</span></h3>
+                                    <h4 className= "text-light">Manage <span className= "font-weight-light">Dashboard</span></h4>
                                 </div>
                             </div>
 
 
                             <div className= "row py-4 text-center">
                                 <div className="col">
-                                    <h4> What do you want to manage?</h4>
-                                </div>
-                            </div>
-
-                            <div className="row py-2">
-                                <div className="col">
-                                    <div>
-
-                                            <div className="card text-white bg-dark mb-3 card-style" style={{maxWidth: "18rem"}}>
-                                                <div className="card-header"></div>
-                                                <div className="card-body">
-                                                    <h6 className="card-title">Manage Users</h6>
-                                                    <p className="card-text">Change user permissions, group membership, username and password</p>
-                                                </div>
+                                    <div class="p-10 pt-5 mainBack rounded shadow mb-5">
+                                        <div className="row pb-5">
+                                            <div className="col text-dark">
+                                                <Pilled/>
                                             </div>
+                                        </div>
 
-                                    </div>
-                                </div>
-
-                                <div className="col-lg-6 mx-auto">
-                                    <div>
-
-                                            <div className="card text-white bg-dark mb-3 card-style" style={{maxWidth: "18rem"}}>
-                                                <div className="card-header"></div>
-                                                <div className="card-body">
-                                                    <h6 className="card-title">Manage Group</h6>
-                                                    <p className="card-text">View group permissions and group settings</p>
-                                                </div>
+                                        <div className="row">
+                                            <div className="col">
+                                                <NewUser/>
                                             </div>
-
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
+
                         </div>
 
                     </div>
