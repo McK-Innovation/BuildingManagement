@@ -4,9 +4,9 @@ export async function getAllUsersInGroup(client) {
 
    let groupID = await getGroup(client)
 
-   console.log(groupID)
+   let id = await groupID.id
 
-   let all = await client.groups.listMembers({id: groupID.id})
+   let all = await client.groups.listMembers({id: id})
 
    return all;
 
@@ -24,7 +24,7 @@ export async function getGroup(client) {
 
       for (let val of users) {
          if (val.hasOwnProperty('username')) {
-            console.log(localStorage.getItem("username"))
+
             if (val.username === localStorage.getItem("username")) {
                console.log(val)
                let group = await client.users.listGroups({id: val.id})

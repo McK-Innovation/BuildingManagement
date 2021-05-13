@@ -10,6 +10,7 @@ import ManageUser from "./ManageUser";
 import ViewEdit from "./ManageUser";
 import Authorization from "./authContext";
 import {getAllUsersInGroup} from "./keycloakUtils";
+import KcAdminClient from "keycloak-admin";
 
 const Dashboard = (props)=> {
 
@@ -27,9 +28,6 @@ const Dashboard = (props)=> {
 
     }
     //will be used by useEffect to call the api for certain features of a user and store them here (if group == token.person.group) {}
-    async function storePeople() {
-
-    }
 
     //this is for loading the initial data, keycloak api here for the particular user that logs in
 
@@ -37,20 +35,37 @@ const Dashboard = (props)=> {
 
     const [arrayOfPeople , updatePeople] =useState([{FirstName: "sally", LastName: "hanson", id: 11111, }])
 
-    const [user, updateUser] = useState({})
 
+    let config = {
+
+        baseUrl: "https://buildingsensedemo.mckenneys.tech/auth",
+
+        realmName: "testAnalyticsRealm",
+    }
+
+    const kcAdminClient = new KcAdminClient(config)
 
 
     //const [client] = useState(props.client)
     useEffect(() => {
+        kcAdminClient.auth({
+            username: localStorage.getItem("username"),
+            password: localStorage.getItem("password"),
+            grantType: 'password',
+            clientId: 'react',
+        }).then((r) => {storePeople(kcAdminClient)})
+        //getAllUsersInGroup(cat).then((r) => {updatePeople(r); console.log(arrayOfPeople)})
+        async function storePeople(client) {
 
+            let arr = await getAllUsersInGroup(client)
+            updatePeople(arr)
 
-
-
-
+        }
 
     }, []);
 
+
+    useEffect(() => console.log(arrayOfPeople), [arrayOfPeople]);
 
 
     //trying to use tokens here might be better/ IE. store the token and then from it, get the username.
@@ -129,7 +144,7 @@ const Dashboard = (props)=> {
                                                        </Route>
 
                                                         <Route path = "/dashboard/edit-user">
-                                                            <ViewEdit people = {arrayOfPeople} client = {props.client}/>
+                                                            <ViewEdit people = {arrayOfPeople} client = {kcAdminClient}/>
                                                         </Route>
                                                         <Route path = "/dashboard/new-user" >
 

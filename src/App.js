@@ -40,7 +40,7 @@ function App() {
                 username: localStorage.getItem("username"),
                 password: localStorage.getItem("password"),
                 grantType: 'password',
-                clientId: 'admin-cli',
+                clientId: 'react',
             }).then((r) => {updatcli(cli); console.log(cli)})
 
         }
