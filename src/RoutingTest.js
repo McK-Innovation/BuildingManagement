@@ -67,6 +67,8 @@ try {
     console.log("done")
 
     await localStorage.setItem("username", username)
+//this is not great
+    await localStorage.setItem("password", password)
 
     let to= await client.getAccessToken()
 

@@ -36,8 +36,13 @@ function App() {
 
     useEffect(() => {
         if (user&& user!== '') {
-            cli.setAccessToken(user)
-            updatcli(cli)
+            cli.auth({
+                username: localStorage.getItem("username"),
+                password: localStorage.getItem("password"),
+                grantType: 'password',
+                clientId: 'admin-cli',
+            }).then((r) => {updatcli(cli); console.log(cli)})
+
         }
     }, []);
 
