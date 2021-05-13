@@ -44,10 +44,7 @@ const Dashboard = (props)=> {
     //const [client] = useState(props.client)
     useEffect(() => {
 
-            console.log(localStorage.getItem("username"));
-            console.log(props.client)
-            let arr = getAllUsersInGroup(props.client)
-            updatePeople(arr)
+
 
 
 
@@ -126,14 +123,14 @@ const Dashboard = (props)=> {
                                             <div className="col">
 
                                                     <Switch>
-                                                       <Route exact path = "dashboard/users">
+                                                       <Route path = "/dashboard/users">
                                                            <UserPage/>
                                                        </Route>
 
-                                                        <Route path = "dashboard/edit-user">
+                                                        <Route path = "/dashboard/edit-user">
                                                             <ViewEdit people = {arrayOfPeople} client = {props.client}/>
                                                         </Route>
-                                                        <Route  path = "dashboard/new-user" >
+                                                        <Route path = "/dashboard/new-user" >
 
                                                             <NewUser/>
 

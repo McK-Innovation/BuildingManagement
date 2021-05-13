@@ -22,13 +22,16 @@ const [clients, updateclient] = useState(props.client)
             <BrowserRouter>
 
                 <Switch>
-                    <Route exact path ='/'>
-                        <LoginPage client = {clients} update = {updateclient}/>
-                    </Route>
 
                     <Route path = '/dashboard'>
                         <Dashboard client = {clients}/>
                     </Route>
+
+                    <Route exact path ='/'>
+                        <LoginPage client = {clients} update = {updateclient}/>
+                    </Route>
+
+
 
                  </Switch>
 
