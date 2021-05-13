@@ -50,7 +50,6 @@ const Dashboard = (props)=> {
             updatePeople(arr)
 
 
-    let history = useHistory()
 
     }, []);
 
@@ -59,21 +58,7 @@ const Dashboard = (props)=> {
     //trying to use tokens here might be better/ IE. store the token and then from it, get the username.
 
 
-
-
     const [edit, updateEdit] = useState({})
-
-    //const [client] = useState(props.client)
-    useEffect(() => {
-
-            console.log(localStorage.getItem("username"));
-            console.log(props.client)
-            let arr = getAllUsersInGroup(props.client)
-            updatePeople(arr)
-
-
-
-    }, []);
 
 
 
@@ -141,14 +126,14 @@ const Dashboard = (props)=> {
                                             <div className="col">
 
                                                     <Switch>
-                                                       <Route path = "/users">
+                                                       <Route exact path = "dashboard/users">
                                                            <UserPage/>
                                                        </Route>
 
-                                                        <Route path = "/edit-user">
+                                                        <Route path = "dashboard/edit-user">
                                                             <ViewEdit people = {arrayOfPeople} client = {props.client}/>
                                                         </Route>
-                                                        <Route path = "/new-user" >
+                                                        <Route  path = "dashboard/new-user" >
 
                                                             <NewUser/>
 
