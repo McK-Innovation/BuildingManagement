@@ -5,8 +5,9 @@ import {Redirect} from "react-router-dom";
 import * as Yup from "yup";
 import {Field, Form, Formik} from "formik";
 
-const NewUser= ()=> {
+const NewUser= (props)=> {
     const [person, updatePerson] = useState({})
+   const [peeps, updatePeeps] = useState(props)
 
 
     const SignUpSchema = Yup.object().shape({
@@ -51,6 +52,9 @@ const NewUser= ()=> {
 
     }
 
+function submitH(first, username, email, group ) {
+
+    }
 
     return (
         <div className="container text-light">
@@ -67,6 +71,7 @@ const NewUser= ()=> {
                             onSubmit={(values) => {
                                 console.log(values);
                                 updatePerson(values);
+                                updatePeeps([...peeps, ])
                                 //async function to create the user and then assign to a "my" group
 
 

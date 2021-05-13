@@ -1,13 +1,19 @@
 import {useState} from "react";
+import {Redirect, useHistory} from "react-router-dom";
 
-const UserPage = () => {
+const UserPage = (props) => {
     const [input, inputChange] = useState("");
-    const [arrayOfInfo, updateArray] = useState([{name: "Tim Cooper", username: "timmycoop123"}, {name: "Elijah", username: "Elijah231"}]);
+    //const [arrayOfInfo, updateArray] = useState(props.people);
+    //const {updateEdit} = useState(props.person)
+    const history = useHistory();
 
     //useEffect(()=>{
 
     //},[arrayOfInfo])
-
+    function redir(input) {
+        history.push('/edit-user')
+        //updateEdit(input)
+    }
 
 
     return (
@@ -18,15 +24,15 @@ const UserPage = () => {
                 <div className="row mt-4">
                     <div className="col-12">
                         <div className="input-group mb-3 p-2">
-                            <div className="input-group-prepend">
+                            <div className="input-group-prepend ">
                                 <span className="input-group-text" id="basic-addon1">@</span>
                             </div>
-                            <input type="text"  value = {input} className="form-control p-4" placeholder="Username" aria-label="Username"
+                            <input type="text"  value = {input} className="form-control p-4 select-pre" placeholder="Username" aria-label="Username"
                                    aria-describedby="basic-addon1" onChange={(e)=>{inputChange(e.target.value)}}/>
                         </div>
                     </div>
                     <div className="col-10 offset-1">
-                        {arrayOfInfo
+                        {[{username: "het", name: "hyyy"}]
 
                             .filter(item => {
 
@@ -38,7 +44,7 @@ const UserPage = () => {
 
                             }).map((input, key) =>(
 
-                                <div className= "wrap m-4 p-2">
+                                <div className= "wrap m-4 p-2 border-0 "  key = {key} onClick= {()=>{redir(input)}}>
                                     <div className="row">
 
 

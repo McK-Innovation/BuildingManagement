@@ -5,9 +5,10 @@ import {Redirect} from "react-router-dom";
 import * as Yup from "yup";
 import {Field, Form, Formik} from "formik";
 
-const ViewEdit = ()=> {
-    const [person, updatePerson] = useState({firstname: "tim", lastname: "cooper", username: "timmycoop123", newpassword: '',  currentGroup: "MCK", email: "hello@heelo.com"});
+const ViewEdit = (props)=> {
 
+    const [person, updatePerson] = useState({firstname: "tim", lastname: "cooper", username: "timmycoop123", newpassword: '',  currentGroup: "MCK", email: "hello@heelo.com"});
+    //get user from context, then update if update is clicked and route to the users page
 
     const SignUpSchema = Yup.object().shape({
         email: Yup.string()

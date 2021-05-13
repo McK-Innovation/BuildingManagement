@@ -1,20 +1,31 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import SideBar from "./SideBar";
 import './Dashboard.css'
-import {Link} from "react-router-dom";
+import {BrowserRouter, Link, Redirect, Route, Switch, useHistory} from "react-router-dom";
 import Pilled from "./PilledNav";
 import {UserPage} from "./UserPage";
 import logo from './images/mckenneys-logo.png'
 import NewUser from "./NewUser";
 import ManageUser from "./ManageUser";
 import ViewEdit from "./ManageUser";
+import Authorization from "./authContext";
+import {getAllUsersInGroup} from "./keycloakUtils";
 
-const Dashboard = ()=> {
+const Dashboard = (props)=> {
 
     //props will be the token of the user that logged in. Api call to keycloak to get all information.
+    const {valid, updateValid} = useContext(Authorization)
+
+    //store the data here
 
 
+    let history = useHistory()
 
+    if(localStorage.getItem("validate") === "false") {
+        //console.log(valid)
+        history.push('/')
+
+    }
     //will be used by useEffect to call the api for certain features of a user and store them here (if group == token.person.group) {}
     async function storePeople() {
 
@@ -22,15 +33,32 @@ const Dashboard = ()=> {
 
     //this is for loading the initial data, keycloak api here for the particular user that logs in
 
-    useEffect(()=>{ //call the update function after api call
-
-        updateUser({name: "tim", lastName: "cooper", id: 11111, group: "MCK" })},[]) //Function: get group info, get user info
-
     //once the state updates, ill have data. Loaded some initial dummy data
 
     const [arrayOfPeople , updatePeople] =useState([{FirstName: "sally", LastName: "hanson", id: 11111, }])
 
     const [user, updateUser] = useState({})
+
+    const [edit, updateEdit] = useState({})
+
+    //const [client] = useState(props.client)
+    useEffect(() => {
+
+            console.log(localStorage.getItem("username"));
+            console.log(props.client)
+            let arr = getAllUsersInGroup(props.client)
+            updatePeople(arr)
+
+
+
+    }, []);
+
+
+
+    //trying to use tokens here might be better/ IE. store the token and then from it, get the username.
+    const name = localStorage.getItem("username")
+
+
 
     return (
 
@@ -50,13 +78,13 @@ const Dashboard = ()=> {
                    <div className="navbar navbar-dark bar font-weight-light navbar-expand text-light text-center ">
                        <div className="navbar navbar-collapse">
 
-                           <span className="mx-auto"> Welcome Back <span className= "font-weight-bold text-light">{user.name}</span>!</span>
+                           <span className="mx-auto"> Welcome Back <span className= "font-weight-bold text-light">{name}</span>!</span>
                        </div>
                        <ul className="navbar-nav navbar-align">
                            <li className="nav-item dropdown">
                                <a className= "nav-link dropdown-toggle d-sm-inline-block" role="button" id="dropdownMenuLink" aria-haspopup="true" aria-expanded="false" href="#">
                                    <i className="bi bi-person-square text-light"></i>
-                                   <span className="text-light"> {user.name}</span>
+                                   <span className="text-light"> {name}</span>
                                </a>
                                <div className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
                                    <a className= "dropdown-item">Profile</a>
@@ -80,7 +108,7 @@ const Dashboard = ()=> {
 
                             <div className= "row py-4 text-center">
                                 <div className="col">
-                                    <div class="p-10 pt-5 mainBack rounded shadow mb-5">
+                                    <div className="p-10 pt-5 mainBack rounded shadow mb-5">
                                         <div className="row pb-5">
                                             <div className="col text-dark">
                                                 <Pilled/>
@@ -89,7 +117,23 @@ const Dashboard = ()=> {
 
                                         <div className="row">
                                             <div className="col">
-                                                <NewUser/>
+
+                                                    <Switch>
+                                                       <Route path = "/users">
+                                                           <UserPage/>
+                                                       </Route>
+
+                                                        <Route path = "/edit-user">
+                                                            <ViewEdit people = {arrayOfPeople} client = {props.client}/>
+                                                        </Route>
+                                                        <Route path = "/new-user" >
+
+                                                            <NewUser/>
+
+                                                        </Route>
+                                                    </Switch>
+
+
                                             </div>
                                         </div>
                                     </div>

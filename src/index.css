@@ -37,7 +37,7 @@ code {
 
 input {
   background: rgba(0,0,0,.2)!important;
-  border-radius: 1em!important;
+  border-radius: 1em;
 }
 
 input:-webkit-autofill {
@@ -47,4 +47,8 @@ select {
   background: rgba(0,0,0,.2)!important;
   border-radius: 1em!important;
   color: white!important;
+}
+
+.select-pre {
+  border-radius: 0 1em 1em 0!important;
 }

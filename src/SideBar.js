@@ -1,12 +1,23 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import './SideBar.css'
+import {NavLink} from "react-router-dom";
+import clear from "./LoginPage";
+import Authorization from "./authContext";
 const SideBar = (props)=> {
 
-
+    //const {valid, updateValid} = useContext(Authorization)
 
     //once the state updates, ill have data. Loaded some initial dummy data
     //add icons
     const [open , updateOpen] = useState(props)
+
+    function clear() {
+
+        //updateValid(false)
+
+            localStorage.clear()
+    }
+
 
     return (
 
@@ -44,7 +55,7 @@ const SideBar = (props)=> {
 
                 <li className= "hvr-grow">
 
-                <a href="#">  <i className="bi bi-box-arrow-left icon-space"></i><span className="align-middle">Log Out</span></a>
+                <NavLink to = "/" onClick = {()=>(clear())}>  <i className="bi bi-box-arrow-left icon-space"></i><span className="align-middle">Log Out</span></NavLink>
             </li>
 
             </ul>

@@ -1,6 +1,8 @@
 import KcAdminClient from 'keycloak-admin';
+import authContext from "./authContext";
+import {useContext} from "react";
+import {parse, stringify} from 'flatted';
 
-const RoutingTest = ()=>{
 
 // or
 // const KcAdminClient = require('keycloak-admin').default;
@@ -19,7 +21,8 @@ const RoutingTest = ()=>{
     const kcAdminClient = new KcAdminClient(config);
 
 // Authorize with username / password
-    async function authTest() {
+  export async function authTest() {
+      console.log(kcAdminClient)
         await kcAdminClient.auth({
             username: 'zach',
             password: 'zach1234',
@@ -27,6 +30,7 @@ const RoutingTest = ()=>{
             clientId: 'react',
              // optional Time-based One-time Password if OTP is required in authentication flow
         });
+
 
        let users = await kcAdminClient.users.find()
         for(let val of users) {
@@ -40,12 +44,63 @@ const RoutingTest = ()=>{
         }
 
     }
-    authTest().then((r)=>(console.log("done")))
+
+
+    //authTest().then((r)=>(console.log("done")))
 
 // List all users
 
+async function autho(client, username, password, grant = "password", client_type = "react") {
 
-    return (<></>)
+console.log(client)
+try {
+    let credentials = {
+        username: username,
+        password: password,
+        grantType: grant,
+        clientId: client_type,
+        // optional Time-based One-time Password if OTP is required in authentication flow
+    }
+
+    await client.auth(credentials);
+
+    console.log("done")
+
+    await localStorage.setItem("username", username)
+
+    let to= await client.getAccessToken()
+
+    let re = client.refreshToken
+    console.log(re)
+
+    //let stringClient = JSON.stringify(client)
+
+    let flatClient = parse(stringify(client))
+    console.log(flatClient)
+
+
+    //localStorage.setItem("token", to)
+
+    await localStorage.setItem("token", re )
+
+    await localStorage.setItem("validate", "true")
+
+
+    return client
+}
+catch(er)
+{
+    return er
 }
 
-export default RoutingTest
+
+
+
+
+
+    }
+
+
+
+
+export {autho}
