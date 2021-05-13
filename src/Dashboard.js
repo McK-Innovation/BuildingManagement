@@ -39,6 +39,28 @@ const Dashboard = (props)=> {
 
     const [user, updateUser] = useState({})
 
+
+
+    //const [client] = useState(props.client)
+    useEffect(() => {
+
+            console.log(localStorage.getItem("username"));
+            console.log(props.client)
+            let arr = getAllUsersInGroup(props.client)
+            updatePeople(arr)
+
+
+    let history = useHistory()
+
+    }, []);
+
+
+
+    //trying to use tokens here might be better/ IE. store the token and then from it, get the username.
+
+
+
+
     const [edit, updateEdit] = useState({})
 
     //const [client] = useState(props.client)
