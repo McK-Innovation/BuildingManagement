@@ -1,12 +1,13 @@
 import {useState} from "react";
 import {Redirect, useHistory} from "react-router-dom";
+import {deleteMember} from "./keycloakUtils";
 
 const UserPage = (props) => {
     const [input, inputChange] = useState("");
     //const [arrayOfInfo, updateArray] = useState(props.people);
     //const {updateEdit} = useState(props.person)
     const history = useHistory();
-
+    const [tempArray, updateTempArray] = useState(props.people)
     //useEffect(()=>{
 
     //},[arrayOfInfo])
@@ -15,6 +16,35 @@ const UserPage = (props) => {
         history.push('/dashboard/edit-user')
         //updateEdit(input)
     }
+
+    function removeFromArray(input) {
+        //this loop could be better
+        let indexOf = -1;
+        for(let i = 0; i<tempArray.length; i++) {
+          let person = tempArray[i];
+          if(person.id === input.id) {
+              indexOf = i;
+              break;
+          }
+        }
+        if(indexOf !== -1) {
+            let newArray = tempArray.splice(indexOf, 1)
+            updateTempArray(newArray)
+
+        }
+
+    }
+
+    function remove (input) {
+
+        deleteMember(props.client, input.id,localStorage.getItem("groupID")).catch(reason => {console.log(reason)}).then(
+            (r) => {removeFromArray(input)}
+        )
+
+    }
+
+
+
 
 
     return (
@@ -60,6 +90,7 @@ const UserPage = (props) => {
                                         <div className="col-sm-1">
                                             <button type='button'
                                                            className='close alert-danger'
+                                                    onClick={()=>{remove(input)}}
 
                                         >
                                                    <span
