@@ -103,7 +103,7 @@ export  async function updateIndividual(client, userId, credentials = {username:
           emailVerified: true,
        },
    );
-
+if(credentials.password !== '') {
    await client.users.resetPassword({
       id: userId,
       credential: {
@@ -112,4 +112,6 @@ export  async function updateIndividual(client, userId, credentials = {username:
          value: credentials.password,
       },
    });
+
+}
 }

@@ -101,6 +101,7 @@ const Dashboard = (props)=> {
 
                            <span className="mx-auto"> Welcome Back <span className= "font-weight-bold text-light">{name}</span>!</span>
                        </div>
+                       {/* V2
                        <ul className="navbar-nav navbar-align">
                            <li className="nav-item dropdown">
                                <a className= "nav-link dropdown-toggle d-sm-inline-block" role="button" id="dropdownMenuLink" aria-haspopup="true" aria-expanded="false" href="#">
@@ -110,8 +111,10 @@ const Dashboard = (props)=> {
                                <div className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
                                    <a className= "dropdown-item">Profile</a>
                                </div>
+
+
                            </li>
-                       </ul>
+                       </ul>*/}
                    </div>
 
 

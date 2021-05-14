@@ -175,7 +175,7 @@ const NewUser= (props)=> {
                                                 <label htmlFor="inputPassword5">New Password</label>
                                                 <Field
                                                     name="password"
-                                                    placeholder="******"
+                                                    placeholder=""
                                                     type="password"
                                                     className="form-control"
 
@@ -187,7 +187,7 @@ const NewUser= (props)=> {
                                                 <label htmlFor="inputPassword6">Confirm Password</label>
                                                 <Field
                                                     name="newpassword"
-                                                    placeholder="******"
+                                                    placeholder=""
                                                     type="password"
                                                     className="form-control"
 

@@ -40,18 +40,22 @@ const SideBar = (props)=> {
                         <span className="text-light align-middle">Users</span></a>
                 </li>
 
-                <li className="hvr-grow">
+                {/* V2
+                    <li className="hvr-grow">
 
-                    <a href="#">  <i className="bi bi-people icon-space"></i><span className="align-middle">Groups</span></a>
-                </li>
+                        <a href="#"> <i className="bi bi-people icon-space"></i><span
+                            className="align-middle">Groups</span></a>
+                    </li>
 
 
-                <li className= "hvr-grow">
+                    <li className= "hvr-grow">
 
                     <a href="#"> <i className="bi bi-gear icon-space"></i><span className="align-middle">Settings</span></a>
-                </li>
+                    </li>
 
-                <hr/>
+                    <hr/>
+
+                */}
 
                 <li className= "hvr-grow">
 
