@@ -3,7 +3,8 @@ import {useKeycloak} from "@react-keycloak/web";
 import {useCallback, useState} from "react";
 import {Redirect} from "react-router-dom";
 import * as Yup from "yup";
-import {Field, Form, Formik} from "formik";
+import {ErrorMessage, Field, Form, Formik} from "formik";
+import {addUser} from "./keycloakUtils";
 
 const NewUser= (props)=> {
     const [person, updatePerson] = useState({})
@@ -23,37 +24,34 @@ const NewUser= (props)=> {
             .required("Needed"),
 
         newpassword: Yup.string()
-            .required("Needed"),
+            .required("Needed")
+            .oneOf([Yup.ref('password'), null], 'Passwords must match'),
 
         username: Yup.string()
             .required("Needed"),
 
 
-        currentGroup: Yup.string()
-            .required("Needed"),
-
     });
 
     const initialValues = {
 
-        email: '',
+        email: person.email,
 
         password: '' ,
 
-        firstname: '',
+        firstname: person.firstname,
 
-        lastname: '',
+        lastname: person.lastname,
 
         newpassword: '',
 
-        username: '' ,
+        username: person.username ,
 
-        currentGroup: '',
 
     }
 
-function submitH(first, username, email, group ) {
-
+    async function submitH(username, email, password, firstname, lastname ) {
+        await addUser(props.client, localStorage.getItem("groupID"), {username: username, email: email, password: password, firstname: firstname, lastname: lastname })
     }
 
     return (
@@ -70,9 +68,12 @@ function submitH(first, username, email, group ) {
                             validateOnBlur={true}
                             onSubmit={(values) => {
                                 console.log(values);
-                                updatePerson(values);
-                                updatePeeps([...peeps, ])
+                                //updatePerson(values);
+                               // updatePeeps([...peeps, ])
+
+                                submitH(values.username, values.email, values.password, values.firstname, values.lastname).catch((e)=>(alert(e))).then((r) => alert("done"))
                                 //async function to create the user and then assign to a "my" group
+                                //are you sure messages
 
 
                             }}
@@ -92,8 +93,8 @@ function submitH(first, username, email, group ) {
                                             </div>
                                             <div className="row mb-4">
                                                 <div className="col">
-                                                    <p className="small mb-0 text-muted ">{values.address ? values.address: "Username"}</p>
-                                                    <p className="small mb-0 text-muted ">{values.currentGroup? values.currentGroup: "Group"}</p>
+                                                    <p className="small mb-0 text-muted ">{values.email? values.email: "Email"}</p>
+                                                    <p className="small mb-0 text-muted ">{localStorage.getItem("groupName")}</p>
                                                 </div>
 
                                             </div>
@@ -110,6 +111,9 @@ function submitH(first, username, email, group ) {
                                                 className="form-control"
 
                                             />
+
+                                            <ErrorMessage
+                                                name = "firstname"/>
                                         </div>
                                         <div className="form-group col-md-6">
                                             <label htmlFor="lastname">Last Name</label>
@@ -120,6 +124,9 @@ function submitH(first, username, email, group ) {
                                                 className="form-control"
 
                                             />
+
+                                            <ErrorMessage
+                                                name = "lastname"/>
                                         </div>
                                     </div>
                                     <div className="form-group">
@@ -131,6 +138,8 @@ function submitH(first, username, email, group ) {
                                             className="form-control"
 
                                         />
+                                        <ErrorMessage
+                                            name = "email"/>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="inputAddress5">Username</label>
@@ -141,16 +150,19 @@ function submitH(first, username, email, group ) {
                                             className="form-control"
 
                                         />
+
+                                        <ErrorMessage
+                                            name = "username"/>
                                     </div>
                                     <div className="form-row">
                                         <div className="form-group col-md-6 offset-3">
                                             <label htmlFor="inputCompany5">Company</label>
                                             <Field
                                                 name="currentGroup"
-                                                placeholder={initialValues.currentGroup}
+                                                placeholder={localStorage.getItem("groupName")}
                                                 type="text"
                                                 className="form-control"
-
+                                                readOnly
                                             />
                                         </div>
 
@@ -168,6 +180,8 @@ function submitH(first, username, email, group ) {
                                                     className="form-control"
 
                                                 />
+                                                <ErrorMessage
+                                                    name = "password"/>
                                             </div>
                                             <div className="form-group">
                                                 <label htmlFor="inputPassword6">Confirm Password</label>
@@ -178,6 +192,8 @@ function submitH(first, username, email, group ) {
                                                     className="form-control"
 
                                                 />
+                                                <ErrorMessage
+                                                    name = "newpassword"/>
                                             </div>
                                         </div>
                                         <div className="col-md-6">
@@ -193,7 +209,7 @@ function submitH(first, username, email, group ) {
                                         </div>
                                     </div>
                                     <div className="btn-group m-4">
-                                        <button type="submit" className="btn btn-primary" disabled={errors||!touched}>Save Change</button>
+                                        <button type="submit" className="btn btn-primary" disabled={!touched}>Save Change</button>
 
                                         <button type="button" className="btn btn-secondary">Cancel</button>
                                     </div>

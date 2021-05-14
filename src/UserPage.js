@@ -11,7 +11,8 @@ const UserPage = (props) => {
 
     //},[arrayOfInfo])
     function redir(input) {
-        history.push('/edit-user')
+        props.updatePerson(input)
+        history.push('/dashboard/edit-user')
         //updateEdit(input)
     }
 
@@ -32,12 +33,12 @@ const UserPage = (props) => {
                         </div>
                     </div>
                     <div className="col-10 offset-1">
-                        {[{username: "het", name: "hyyy"}]
+                        {props.people
 
                             .filter(item => {
 
                                 if (!input) return true
-                                if (item.name.includes(input) || item.username.includes(input)) {
+                                if ((item.hasOwnProperty("firstName") && item.firstName.includes(input)) || (item.hasOwnProperty("username") && item.username.includes(input))) {
                                     return true
 
                                 }
@@ -53,7 +54,7 @@ const UserPage = (props) => {
                                         </div>
 
                                         <div className="col-sm-10">
-                                            <h6>Name:<span className="font-weight-bold">  {input.name}</span> / Username: <span className="font-weight-bold">  {input.username}</span></h6>
+                                            <h6>Name:<span className="font-weight-bold">  {input.firstName}</span> / Username: <span className="font-weight-bold">  {input.username}</span></h6>
                                         </div>
 
                                         <div className="col-sm-1">

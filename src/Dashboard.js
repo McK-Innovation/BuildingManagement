@@ -34,7 +34,8 @@ const Dashboard = (props)=> {
     //once the state updates, ill have data. Loaded some initial dummy data
 
     const [arrayOfPeople , updatePeople] =useState([{FirstName: "sally", LastName: "hanson", id: 11111, }])
-
+    const [person, updatePerson] = useState ('')
+    const [client, updateCLI] = useState(null)
 
     let config = {
 
@@ -53,7 +54,7 @@ const Dashboard = (props)=> {
             password: localStorage.getItem("password"),
             grantType: 'password',
             clientId: 'react',
-        }).then((r) => {storePeople(kcAdminClient)})
+        }).then((r) => {storePeople(kcAdminClient).then((r)=>updateCLI(kcAdminClient))})
         //getAllUsersInGroup(cat).then((r) => {updatePeople(r); console.log(arrayOfPeople)})
         async function storePeople(client) {
 
@@ -140,15 +141,15 @@ const Dashboard = (props)=> {
 
                                                     <Switch>
                                                        <Route path = "/dashboard/users">
-                                                           <UserPage/>
+                                                           <UserPage people = {arrayOfPeople} client = {client} updatePerson = {updatePerson}/>
                                                        </Route>
 
                                                         <Route path = "/dashboard/edit-user">
-                                                            <ViewEdit people = {arrayOfPeople} client = {kcAdminClient}/>
+                                                            <ViewEdit person = {person} client = {client}/>
                                                         </Route>
                                                         <Route path = "/dashboard/new-user" >
 
-                                                            <NewUser/>
+                                                            <NewUser client = {client}/>
 
                                                         </Route>
                                                     </Switch>

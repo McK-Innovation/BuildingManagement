@@ -3,11 +3,12 @@ import {useKeycloak} from "@react-keycloak/web";
 import {useCallback, useState} from "react";
 import {Redirect} from "react-router-dom";
 import * as Yup from "yup";
-import {Field, Form, Formik} from "formik";
+import {ErrorMessage, Field, Form, Formik} from "formik";
+import {addUser, updateIndividual} from "./keycloakUtils";
 
 const ViewEdit = (props)=> {
 
-    const [person, updatePerson] = useState({firstname: "tim", lastname: "cooper", username: "timmycoop123", newpassword: '',  currentGroup: "MCK", email: "hello@heelo.com"});
+    const [person, updatePerson] = useState(props.person);
     //get user from context, then update if update is clicked and route to the users page
 
     const SignUpSchema = Yup.object().shape({
@@ -23,15 +24,18 @@ const ViewEdit = (props)=> {
             .required("Needed"),
 
         newpassword: Yup.string()
-            .required("Needed"),
+            .required("Needed")
+            .oneOf([Yup.ref('password'), null], 'Passwords must match'),
 
         username: Yup.string()
             .required("Needed"),
 
-       currentGroup: Yup.string()
-            .required("Needed"),
 
     });
+
+    async function editUser(username, email, password, firstname, lastname ) {
+        await updateIndividual(props.client, props.person.id, {username: username, email: email, password: password, firstname: firstname, lastname: lastname })
+    }
 
    const initialValues = {
 
@@ -53,7 +57,7 @@ const ViewEdit = (props)=> {
 
 
     return (
-        <div className="container">
+        <div className="container text-light">
 
             <div className="row justify-content-center">
                 <div className="col-12 col-lg-10 col-xl-8 mx-auto">
@@ -67,6 +71,7 @@ const ViewEdit = (props)=> {
                             onSubmit={(values) => {
                                 console.log(values);
                                 updatePerson(values);
+                                editUser(values.username, values.email, values.password, values.firstname, values.lastname).catch((e)=>(console.log(e))).then((r) => console.log("done"))
                                 //async function to create the user and then assign to a "my" group
 
 
@@ -86,8 +91,8 @@ const ViewEdit = (props)=> {
                                             </div>
                                             <div className="row mb-4">
                                                 <div className="col">
-                                                    <p className="small mb-0 text-muted ">{values.address ? values.address: "Username"}</p>
-                                                    <p className="small mb-0 text-muted ">{values.currentGroup? values.currentGroup: "Group"}</p>
+                                                    <p className="small mb-0 text-muted ">{values.email ? values.email: "Email"}</p>
+                                                    <p className="small mb-0 text-muted ">{localStorage.getItem("groupName")}</p>
                                                 </div>
 
                                             </div>
@@ -97,7 +102,7 @@ const ViewEdit = (props)=> {
                                     <hr className="my-4"/>
                                     <div className="form-row">
                                         <div className="form-group col-md-6">
-                                            <label htmlFor="firstname">Lastname</label>
+                                            <label htmlFor="firstname">First Name</label>
                                             <Field
                                                 name="firstname"
                                                 placeholder={initialValues.firstname}
@@ -105,9 +110,12 @@ const ViewEdit = (props)=> {
                                                 className="form-control"
 
                                             />
+
+                                            <ErrorMessage
+                                            name = "firstname"/>
                                         </div>
                                         <div className="form-group col-md-6">
-                                            <label htmlFor="lastname">Lastname</label>
+                                            <label htmlFor="lastname">Last Name</label>
                                             <Field
                                                 name="lastname"
                                                 placeholder={initialValues.lastname}
@@ -115,6 +123,9 @@ const ViewEdit = (props)=> {
                                                 className="form-control"
 
                                             />
+
+                                            <ErrorMessage
+                                                name = "lastname"/>
                                         </div>
                                     </div>
                                     <div className="form-group">
@@ -126,6 +137,9 @@ const ViewEdit = (props)=> {
                                             className="form-control"
 
                                         />
+
+                                        <ErrorMessage
+                                            name = "email"/>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="inputAddress5">Username</label>
@@ -136,15 +150,19 @@ const ViewEdit = (props)=> {
                                             className="form-control"
 
                                         />
+
+                                        <ErrorMessage
+                                            name = "username"/>
                                     </div>
                                     <div className="form-row">
                                         <div className="form-group col-md-6 offset-3">
                                             <label htmlFor="inputCompany5">Company</label>
                                             <Field
                                                 name="currentGroup"
-                                                placeholder={initialValues.currentGroup}
+                                                placeholder={localStorage.getItem("groupName")}
                                                 type="text"
                                                 className="form-control"
+                                                readOnly
 
                                             />
                                         </div>
@@ -158,29 +176,35 @@ const ViewEdit = (props)=> {
                                                 <label htmlFor="inputPassword5">New Password</label>
                                                 <Field
                                                     name="password"
-                                                    placeholder="******"
+                                                    placeholder=""
                                                     type="password"
                                                     className="form-control"
 
                                                 />
+
+                                                <ErrorMessage
+                                                    name = "password"/>
                                             </div>
                                             <div className="form-group">
                                                 <label htmlFor="inputPassword6">Confirm Password</label>
                                                 <Field
                                                     name="newpassword"
-                                                    placeholder="******"
+                                                    placeholder=""
                                                     type="password"
                                                     className="form-control"
 
                                                 />
+
+                                                <ErrorMessage
+                                                    name = "newpassword"/>
                                             </div>
                                         </div>
                                         <div className="col-md-6">
                                             <p className="mb-2">Password requirements</p>
-                                            <p className="small text-muted mb-2">To create a new password, you have to
+                                            <p className="small mb-2">To create a new password, you have to
                                                 meet all
                                                 of the following requirements:</p>
-                                            <ul className="small text-muted pl-4 mb-0">
+                                            <ul className="small pl-4 mb-0 text-light">
                                                 <li>Minimum 6 character</li>
                                                 <li>At least one special character</li>
                                                 <li>At least one number</li>
@@ -188,9 +212,11 @@ const ViewEdit = (props)=> {
                                         </div>
                                     </div>
                                     <div className="btn-group m-4">
-                                        <button type="submit" className="btn btn-primary" disabled={errors||touched}>Save Change</button>
+                                        <button type="submit" className="btn btn-primary" disabled={!touched}>Save Change</button>
 
                                         <button type="button" className="btn btn-secondary">Cancel</button>
+
+                                        {console.log(errors,touched)}
                                     </div>
                                 </Form>
                             )

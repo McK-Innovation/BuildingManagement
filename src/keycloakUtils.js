@@ -30,6 +30,10 @@ export async function getGroup(client) {
                let group = await client.users.listGroups({id: val.id})
                if (group) {
                   console.log(group)
+
+                  localStorage.setItem("groupName", group[0].name)
+                  localStorage.setItem("groupID", group[0].id)
+
                   return {id: group[0].id, name: group[0].name}//store this maybe
                }
             }
@@ -51,8 +55,8 @@ export async function deleteMember (client, userID, groupID){
    await client.users.delFromGroup({id: userID, groupId: groupID});
 }
 
-export async function addUser (client, groupID, credentials = {username: '', email: '', password: '' }) {
-
+export async function addUser (client, groupID, credentials = {username: '', email: '', password: '', firstname: '', lastname: ''}) {
+   console.log(client)
    let user =  await client.users.create({
       username: credentials.username,
       email: credentials.email,
@@ -73,8 +77,8 @@ export async function addUser (client, groupID, credentials = {username: '', ema
    await client.users.update(
        {id: user.id},
        {
-          firstName: 'william',
-          lastName: 'chang',
+          firstName: credentials.firstname,
+          lastName: credentials.lastname,
           requiredActions: [RequiredActionAlias.UPDATE_PASSWORD],
           emailVerified: true,
        },
@@ -84,4 +88,28 @@ export async function addUser (client, groupID, credentials = {username: '', ema
 
    await client.users.addToGroup({id: user.id, groupId: groupID});
 
+}
+
+export  async function updateIndividual(client, userId, credentials = {username: '', email: '', password: '', firstname: '', lastname: ''}) {
+
+   console.log(client)
+   await client.users.update(
+       {id: userId},
+       {
+          firstName: credentials.firstname,
+          lastName: credentials.lastname,
+          email: credentials.email,
+          requiredActions: [RequiredActionAlias.UPDATE_PASSWORD],
+          emailVerified: true,
+       },
+   );
+
+   await client.users.resetPassword({
+      id: userId,
+      credential: {
+         temporary: false,
+         type: 'password',
+         value: credentials.password,
+      },
+   });
 }
