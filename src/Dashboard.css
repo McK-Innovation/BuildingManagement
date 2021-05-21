@@ -41,13 +41,39 @@ body {
     background: rgba(53, 47, 47, .7)!important;
 }
 
-.show>.dropdown-menu {
-    display: block;
-    position: absolute;
-}
-
-.dropdown-menu { position:relative !important }
 
 .p-10 {
     padding: 6em;
+}
+
+.dropdownmod {
+background-color: transparent;
+}
+
+.dropdownmod-header {
+padding: 10px;
+cursor: pointer;
+align-items: center;
+}
+
+.dropdownmod-item {
+    background-color: white;
+    color: black;
+}
+
+.dropdownmod-body {
+    padding: 5px;
+    display: none;
+    margin-top: -10px;
+    z-index: 10;
+    position: absolute;
+    height: 100%;
+    width: 80px;
+    color: black;
+    text-align: center;
+}
+
+.dropdownmod-body.open {
+    display: block;
+
 }

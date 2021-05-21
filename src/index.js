@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Dashboard from "./Dashboard";
-import 'bootstrap/dist/css/bootstrap.min.css'
-import 'jquery/dist/jquery.min.js';
+import bootstrap from "bootstrap";
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import RoutingTest from "./RoutingTest";
+
 
 ReactDOM.render(
     <App/>

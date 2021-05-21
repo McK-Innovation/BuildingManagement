@@ -80,6 +80,10 @@ const Dashboard = (props)=> {
     const name = localStorage.getItem("username")
 
 
+    const [dropdown, updateDropdown] = useState(false)
+
+
+
 
     return (
 
@@ -99,22 +103,25 @@ const Dashboard = (props)=> {
                    <div className="navbar navbar-dark bar font-weight-light navbar-expand text-light text-center ">
                        <div className="navbar navbar-collapse">
 
+
                            <span className="mx-auto"> Welcome Back <span className= "font-weight-bold text-light">{name}</span>!</span>
                        </div>
-                       {/* V2
+                       {
                        <ul className="navbar-nav navbar-align">
-                           <li className="nav-item dropdown">
-                               <a className= "nav-link dropdown-toggle d-sm-inline-block" role="button" id="dropdownMenuLink" aria-haspopup="true" aria-expanded="false" href="#">
+                           <div className='dropdownmod'>
+                               <div className='dropdownmod-header' onClick={() => {updateDropdown(!dropdown)}}>
+                                   {name}
                                    <i className="bi bi-person-square text-light"></i>
-                                   <span className="text-light"> {name}</span>
-                               </a>
-                               <div className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
-                                   <a className= "dropdown-item">Profile</a>
                                </div>
+                               <div className={`dropdownmod-body ${dropdown && 'open'}`}>
+                                       <div className="dropdownmod-item">
+                                           Profile
+                                       </div>
 
+                               </div>
+                           </div>
 
-                           </li>
-                       </ul>*/}
+                       </ul>}
                    </div>
 
 

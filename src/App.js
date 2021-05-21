@@ -33,9 +33,10 @@ function App() {
         //console.log(old)
     }
 
+//this will keep send an authenticated client whenever there is a refresh. Also, redirect to login if local storage is cleared
 
     useEffect(() => {
-        if (user&& user!== '') {
+        if (user && user!== '' && localStorage.getItem("username") != null) {
             cli.auth({
                 username: localStorage.getItem("username"),
                 password: localStorage.getItem("password"),
@@ -44,6 +45,7 @@ function App() {
             }).then((r) => {updatcli(cli); console.log(cli)})
 
         }
+
     }, []);
 
 
