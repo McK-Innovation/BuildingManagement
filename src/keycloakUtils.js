@@ -10,8 +10,9 @@ export async function getAllUsersInGroup(client) {
 
    return all;
 
-
 }
+
+
 
 export async function getGroup(client) {
    console.log(client)

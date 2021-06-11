@@ -12,6 +12,7 @@ import Authorization from "./authContext";
 import {getAllUsersInGroup} from "./keycloakUtils";
 import KcAdminClient from "keycloak-admin";
 
+
 const Dashboard = (props)=> {
 
     //props will be the token of the user that logged in. Api call to keycloak to get all information.

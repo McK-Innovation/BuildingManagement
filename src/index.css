@@ -53,3 +53,7 @@ select {
 .select-pre {
   border-radius: 0 1em 1em 0!important;
 }
+
+html, body {
+  height: 100%;
+}

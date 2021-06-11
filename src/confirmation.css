@@ -1,0 +1,12 @@
+.cover {
+    width: 100vw;
+    position: relative;
+    margin-left: -50vw;
+    left: 50%;
+    backdrop-filter: blur(10px);
+
+}
+
+.shift {
+    z-index: 20;
+}

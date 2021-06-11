@@ -2,6 +2,7 @@ import KcAdminClient from 'keycloak-admin';
 import authContext from "./authContext";
 import {useContext} from "react";
 import {parse, stringify} from 'flatted';
+import {login} from './KeycloakHelper'
 
 
 // or
@@ -44,6 +45,11 @@ import {parse, stringify} from 'flatted';
         }
 
     }
+export async function secondAuthTest() {
+
+      login();
+
+}
 
 
     //authTest().then((r)=>(console.log("done")))
