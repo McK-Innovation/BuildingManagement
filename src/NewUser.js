@@ -1,6 +1,6 @@
 import {useLocation} from "react-router";
 import {useKeycloak} from "@react-keycloak/web";
-import {useCallback, useState} from "react";
+import {useCallback, useRef, useState} from "react";
 import {Redirect} from "react-router-dom";
 import * as Yup from "yup";
 import {ErrorMessage, Field, Form, Formik} from "formik";
@@ -12,6 +12,7 @@ const NewUser= (props)=> {
    const [peeps, updatePeeps] = useState(props)
     const [show, setShow] = useState(false)
     const [confirm, updateConfirm] =useState(false)
+    let val = useRef({})
 
 
     const SignUpSchema = Yup.object().shape({
@@ -54,12 +55,17 @@ const NewUser= (props)=> {
     }
 
     async function submitH(username, email, password, firstname, lastname ) {
+
         await addUser(props.client, localStorage.getItem("groupID"), {username: username, email: email, password: password, firstname: firstname, lastname: lastname })
     }
 
+    // async function tester(values) {
+    //     console.log(values)
+    // }
+
     return (
         <div className="container text-light">
-            {show ? (<Confirmation update = {updateConfirm}/> ) : null}
+            {show ? (<Confirmation caller = { ()=>{let values = val.current; submitH(values.username, values.email, values.password, values.firstname, values.lastname).catch((e) => (alert(e))).then((r) => alert("Added a new user")) }} update = {updateConfirm} open = {setShow}/> ) : null}
             <div className="row justify-content-center">
                 <div className="col-12 col-lg-10 col-xl-8 mx-auto">
 
@@ -72,24 +78,26 @@ const NewUser= (props)=> {
                             validateOnBlur={true}
                             onSubmit={(values) => {
                                 console.log(values);
-                                setShow(true)
-                                if(confirm) {
+                                val.current = values
+                                setShow(true);
 
 
-                                    //updatePerson(values);
-                                    // updatePeeps([...peeps, ])
-
-                                    console.log("added")
-                                    submitH(values.username, values.email, values.password, values.firstname, values.lastname).catch((e) => (alert(e))).then((r) => alert("Added a new user"))
-                                    setShow(false)
-
-                                }
-
-                                else {
-
-                                    console.log("nothing done")
-                                    //setShow(false)
-                                }
+                                // if(confirm) {
+                                //
+                                //
+                                //
+                                //
+                                //     console.log("added")
+                                //     submitH(values.username, values.email, values.password, values.firstname, values.lastname).catch((e) => (alert(e))).then((r) => alert("Added a new user"))
+                                //     setShow(false)
+                                //
+                                // }
+                                //
+                                // else {
+                                //
+                                //     console.log("nothing done")
+                                //     setShow(false)
+                                // }
                                 //async function to create the user and then assign to a "my" group
                                 //are you sure messages
 

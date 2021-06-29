@@ -1,12 +1,31 @@
 .cover {
     width: 100vw;
-    position: relative;
+    position: fixed;
     margin-left: -50vw;
-    left: 50%;
+    left: -1%;
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
+    z-index: 9999;
+    height: 100vh;
+    top: -1%;
 
 }
 
 .shift {
-    z-index: 20;
+    z-index: 25;
+}
+
+.cardo {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+    max-width: 50%;
+    left: 25%;
+    top: 25%;
 }

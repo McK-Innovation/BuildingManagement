@@ -11,10 +11,10 @@ import LoginTester from "./LoginTester";
 
 
 ReactDOM.render(
-    //<App/>
+    <App/>
     //<Dashboard/>
     //<RoutingTest/>
-    <LoginTester/>
+    //<LoginTester/>
   ,
   document.getElementById('root')
 );

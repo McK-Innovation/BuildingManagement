@@ -4,8 +4,35 @@ import {RequiredActionAlias} from "keycloak-admin/lib/defs/requiredActionProvide
 
 
 let realmName = 'testAnalyticsRealm'
+let clientType = 'react'
 
 let baseUrl = 'https://buildingsensedemo.mckenneys.tech/auth' //will change in the future
+
+//checks the expiration date and if the token is expired, gets the refresh token and sets a new access token with it
+export function checkExpiration() {
+
+    let expirationTime = localStorage.getItem("expire")
+    let timeOfLogin = localStorage.getItem("timeNow")
+    let timeNow = Date.now() / 1000;
+
+    console.log(expirationTime)
+    console.log(timeOfLogin)
+    console.log(timeNow)
+
+    if(expirationTime <= Math.abs(timeNow - timeOfLogin)) {
+        return "Session Expired, Please login again"
+    }
+    else return "Still Authenticated :)"
+
+    //let token = await makeRequest("POST",  "", body, '/realms/testAnalyticsRealm/protocol/openid-connect/token',"login")
+
+
+    //setToken(token)
+
+    //return token
+
+
+}
 
 export function getToken() {
 
@@ -88,6 +115,11 @@ export async function makeRequest(method, headers = "", body, url, type = "") {
 
     if (type === "login") {
         let tok = response.access_token;
+        let expire =  response.expires_in;
+        localStorage.setItem("expire", expire)
+
+
+        //let time =
 
         return tok
     }
@@ -118,6 +150,12 @@ export async function login (request) {
 
 
     setToken(token)
+    let loginTime = Date.now() / 1000 //in seconds
+    loginTime = loginTime.toString()
+    localStorage.setItem("timeNow", loginTime)
+
+
+
 
     return token
 
