@@ -1,18 +1,22 @@
-import react, {useState} from "react"
+import react, {useRef, useState} from "react"
 import {string} from "prop-types";
 import {RequiredActionAlias} from "keycloak-admin/lib/defs/requiredActionProviderRepresentation";
+import {useHistory} from "react-router-dom";
 
 
 let realmName = 'testAnalyticsRealm'
 let clientType = 'react'
 
 let baseUrl = 'https://buildingsensedemo.mckenneys.tech/auth' //will change in the future
+//let history = useHistory()
+//let username = useRef("")
+//let groupRef = useRef({})
 
 //checks the expiration date and if the token is expired, gets the refresh token and sets a new access token with it
-export function checkExpiration() {
+export async function checkExpiration() {
 
-    let expirationTime = localStorage.getItem("expire")
-    let timeOfLogin = localStorage.getItem("timeNow")
+    let expirationTime = await localStorage.getItem("expire")
+    let timeOfLogin = await localStorage.getItem("timeNow")
     let timeNow = Date.now() / 1000;
 
     console.log(expirationTime)
@@ -20,9 +24,11 @@ export function checkExpiration() {
     console.log(timeNow)
 
     if(expirationTime <= Math.abs(timeNow - timeOfLogin)) {
-        return "Session Expired, Please login again"
+        alert("Session Expired, Please login again")
+        localStorage.clear()
+        return Math.abs(timeNow - timeOfLogin)
     }
-    else return "Still Authenticated :)"
+
 
     //let token = await makeRequest("POST",  "", body, '/realms/testAnalyticsRealm/protocol/openid-connect/token',"login")
 
@@ -139,32 +145,35 @@ export async function login (request) {
 //             password: "zach1234",
 //             client_id: "react",
 //             grant_type: "password",}
+    let err = {};
     let body = {
-            username: "zach",
-            password: "zach1234",
+            username: request.username,
+            password: request.password,
             client_id: "react",
             grant_type: "password",
     }
 
-    let token = await makeRequest("POST",  "", body, '/realms/testAnalyticsRealm/protocol/openid-connect/token',"login")
+        let token = await makeRequest("POST", "", body, '/realms/testAnalyticsRealm/protocol/openid-connect/token', "login")
 
 
-    setToken(token)
-    let loginTime = Date.now() / 1000 //in seconds
-    loginTime = loginTime.toString()
-    localStorage.setItem("timeNow", loginTime)
+        setToken(token)
+        localStorage.setItem("username", request.username)
+        //username.current = request.username;
+
+        let loginTime = Date.now() / 1000 //in seconds
+        loginTime = loginTime.toString()
+        localStorage.setItem("timeNow", loginTime)
 
 
 
-
-    return token
+   return token
 
 }
 
 export async function getUser() {
-    //let tok = await getToken()
-    let tok2 = await login();
-    setToken(tok2)
+    let tok2 = await getToken()
+    //let tok2 = await login();
+    //setToken(tok2)
 
     let users = await makeRequest("GET", tok2, {}, '/admin/realms/testAnalyticsRealm/users')
     console.log(users)
@@ -172,7 +181,8 @@ export async function getUser() {
 }
 export async function getAllUsersInGroup () {
 
-localStorage.setItem("username", "zach")
+//localStorage.setItem("username", "zach")
+
    let users =  await getUser()
     //needs username
     try {
@@ -182,12 +192,17 @@ localStorage.setItem("username", "zach")
                 if (val.username === localStorage.getItem("username")) {
                     console.log(val)
 
+                    localStorage.setItem("name", val.firstName)
+
                     let group = await makeRequest("GET", localStorage.getItem("token"), {}, '/admin/realms/testAnalyticsRealm/users/' + val.id + '/groups')
                     if (group) {
                         console.log(group)
+                        //groupRef.current = group
 
                         localStorage.setItem("groupName", group[0].name)
-                        localStorage.setItem("groupID", group[0].id)
+                        //localStorage.setItem("groupID", group[0].id)
+
+
 
                         console.log("found")
 
@@ -224,18 +239,20 @@ export async function deleteMember (userID){
     console.log("done")
 }
 
-export async function addUser (credentials = {username: '', email: '', password: '', firstname: '', lastname: ''}) {
+export async function addUser (credentials = {username: '', email: '', password: '', firstName: '', lastName: ''}) {
 
 
 
     let group = localStorage.getItem("groupName")
 
+    //let group = groupRef.current[0].name
+
     let body = {
 
         "username": credentials.username,
         "enabled": true,
-        "firstname": credentials.firstname,
-        "lastname": credentials.lastname,
+        "firstName": credentials.firstName,
+        "lastName": credentials.lastName,
         "email": credentials.email,
         "credentials": [
         {
@@ -259,10 +276,11 @@ export async function addUser (credentials = {username: '', email: '', password:
 }
 
 
-export  async function updateIndividual(userId, credentials = {username: '', email: '', password: '', firstname: '', lastname: ''}, ) {
+export  async function updateIndividual(userId, credentials = {username: '', email: '', password: '', firstName: '', lastName: ''}, ) {
     let body = {
 
     }
+
     for(let creds in credentials) {
         if(credentials[creds] !== '') {
             body[creds] = credentials[creds]
@@ -272,6 +290,9 @@ export  async function updateIndividual(userId, credentials = {username: '', ema
     await makeRequest("PUT",getToken(),body, "/admin/realms/testAnalyticsRealm/users/" + userId, "Add" )
 
 }
+
+
+
 
 
 

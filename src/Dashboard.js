@@ -1,4 +1,4 @@
-import {useContext, useEffect, useState} from "react";
+import {useContext, useEffect, useRef, useState} from "react";
 import SideBar from "./SideBar";
 import './Dashboard.css'
 import {BrowserRouter, Link, Redirect, Route, Switch, useHistory} from "react-router-dom";
@@ -9,8 +9,10 @@ import NewUser from "./NewUser";
 import ManageUser from "./ManageUser";
 import ViewEdit from "./ManageUser";
 import Authorization from "./authContext";
-import {getAllUsersInGroup} from "./keycloakUtils";
+//import {getAllUsersInGroup} from "./keycloakUtils";
+import {getAllUsersInGroup} from "./KeycloakHelper"
 import KcAdminClient from "keycloak-admin";
+import {checkExpiration} from "./KeycloakHelper";
 
 
 const Dashboard = (props)=> {
@@ -23,11 +25,6 @@ const Dashboard = (props)=> {
 
     let history = useHistory()
 
-    if(localStorage.getItem("validate") === "false") {
-        //console.log(valid)
-        history.push('/')
-
-    }
     //will be used by useEffect to call the api for certain features of a user and store them here (if group == token.person.group) {}
 
     //this is for loading the initial data, keycloak api here for the particular user that logs in
@@ -38,31 +35,38 @@ const Dashboard = (props)=> {
     const [person, updatePerson] = useState ('')
     const [client, updateCLI] = useState(null)
 
-    let config = {
-
-        baseUrl: "https://buildingsensedemo.mckenneys.tech/auth",
-
-        realmName: "testAnalyticsRealm",
-    }
-
-    const kcAdminClient = new KcAdminClient(config)
-
+    // let config = {
+    //
+    //     baseUrl: "https://buildingsensedemo.mckenneys.tech/auth",
+    //
+    //     realmName: "testAnalyticsRealm",
+    // }
+    //
+    // const kcAdminClient = new KcAdminClient(config)
+    let isSubscribed = useRef(true)
 
     //const [client] = useState(props.client)
     useEffect(() => {
-        kcAdminClient.auth({
-            username: localStorage.getItem("username"),
-            password: localStorage.getItem("password"),
-            grantType: 'password',
-            clientId: 'react',
-        }).then((r) => {storePeople(kcAdminClient).then((r)=>updateCLI(kcAdminClient))})
-        //getAllUsersInGroup(cat).then((r) => {updatePeople(r); console.log(arrayOfPeople)})
-        async function storePeople(client) {
 
-            let arr = await getAllUsersInGroup(client)
+        console.log("checking")
+        checkExpiration().then((r) => {if(r !== undefined) history.push("/"); else storePeople().catch(err=>{alert("Communication Error: Check console for details"); console.log(err)})})
+        //getAllUsersInGroup(cat).then((r) => {updatePeople(r); console.log(arrayOfPeople)})
+
+        async function storePeople() {
+            let arr = await getAllUsersInGroup()
             updatePeople(arr)
 
         }
+
+        if(localStorage.getItem("token") === undefined) {
+            console.log("broken")
+
+            console.log(localStorage.getItem("token"))
+            history.push('/')
+
+        }
+
+        return () => {isSubscribed.current = false}
 
     }, []);
 
@@ -78,7 +82,7 @@ const Dashboard = (props)=> {
 
 
     //trying to use tokens here might be better/ IE. store the token and then from it, get the username.
-    const name = localStorage.getItem("username")
+    const name = localStorage.getItem("name")
 
 
     const [dropdown, updateDropdown] = useState(false)

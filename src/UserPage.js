@@ -1,6 +1,7 @@
 import {useRef, useState} from "react";
 import {Redirect, useHistory} from "react-router-dom";
-import {deleteMember} from "./keycloakUtils";
+//import {deleteMember} from "./keycloakUtils";
+import {deleteMember} from "./KeycloakHelper"
 import {Confirmation} from "./Confirmation";
 
 const UserPage = (props) => {
@@ -60,7 +61,7 @@ const UserPage = (props) => {
     return (
         <div>
             <div className="container">
-                {show && <Confirmation caller = {()=>{deleteMember(props.client,input.id,localStorage.getItem("groupID")).catch(reason => {console.log(reason)}).then(
+                {show && <Confirmation caller = {()=>{let input = person.current; deleteMember(input.id).catch(reason => {console.log(reason)}).then(
                     (r) => {removeFromArray(input)}
                 )}} open = {setShow}/>}
 
@@ -76,7 +77,7 @@ const UserPage = (props) => {
                         </div>
                     </div>
                     <div className="col-10 offset-1">
-                        {props.people
+                        {props.people && props.people
 
                             .filter(item => {
 

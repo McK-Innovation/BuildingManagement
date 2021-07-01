@@ -4,7 +4,8 @@ import {useCallback, useRef, useState} from "react";
 import {Redirect} from "react-router-dom";
 import * as Yup from "yup";
 import {ErrorMessage, Field, Form, Formik} from "formik";
-import {addUser} from "./keycloakUtils";
+
+import {addUser} from "./KeycloakHelper"
 import {Confirmation} from "./Confirmation";
 
 const NewUser= (props)=> {
@@ -56,7 +57,7 @@ const NewUser= (props)=> {
 
     async function submitH(username, email, password, firstname, lastname ) {
 
-        await addUser(props.client, localStorage.getItem("groupID"), {username: username, email: email, password: password, firstname: firstname, lastname: lastname })
+        await addUser({username: username, email: email, password: password, firstName: firstname, lastName: lastname })
     }
 
     // async function tester(values) {
@@ -201,7 +202,7 @@ const NewUser= (props)=> {
                                                 <label htmlFor="inputPassword5">New Password</label>
                                                 <Field
                                                     name="password"
-                                                    placeholder=""
+
                                                     type="password"
                                                     className="form-control"
 
@@ -213,7 +214,7 @@ const NewUser= (props)=> {
                                                 <label htmlFor="inputPassword6">Confirm Password</label>
                                                 <Field
                                                     name="newpassword"
-                                                    placeholder=""
+
                                                     type="password"
                                                     className="form-control"
 

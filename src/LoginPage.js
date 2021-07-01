@@ -8,6 +8,7 @@ import {Formik, ErrorMessage, Form, Field} from "formik";
 import {getAllUsersInGroup, getGroup} from './keycloakUtils'
 import Authorization from "./authContext"
 import {autho} from "./RoutingTest";
+import {login} from "./KeycloakHelper"
 
 
 
@@ -19,18 +20,11 @@ const LoginPage = (props)=> {
 const [failed, updateFailed] = useState(null)
 const {valid, updateValid} = useContext(Authorization)
 const [client, updateClient] = useState(props)
+
 //this is crazy
     console.log(client)
 
-
-
-
-
-
     let history = useHistory()
-
-
-
 
     const initialValues = {
         username: "",
@@ -49,44 +43,55 @@ const [client, updateClient] = useState(props)
 
     async function submitHandler(username, password){
 
+        // if(await localStorage.getItem("token") === undefined || await localStorage.getItem("token") === null || await localStorage.getItem("token") === '') {
+        //
+        //     //let cli2 = await autho(client.client, username, password)
+        //     await login({username: username, password: password})
+        //     console.log("tried to auth")
+        //     //console.log(localStorage.getItem("username"))
+        //
+        //     // if (cli2.hasOwnProperty("accessToken")) {
+        //     //     //updateValid(true)
+        //     //
+        //     //     updateClient(await cli2)
+        //     //     console.log(cli2, "sucess")
+        //     //localStorage.setItem("validate", "true")
+        //     //
+        //     //
+        //     // } else {
+        //     //     console.log(cli2, "fail")
+        //     //     updateFailed(cli2.toString())
+        //     // }
+        //
+        //
+        //      if (await localStorage.getItem("token") !== undefined) {
+        //
+        //         //updateClient(await cli2)
+        //         console.log("pushed")
+        //         history.push("/dashboard")
+        //     }
+        //
+        //
+        //     //console.log(valid)
+        //
+        //
+        // }
+        // else{
+        //     //probably wont happen
+        //     console.log(await localStorage.getItem("token"),"something is here, push")
+        //     history.push("/dashboard")
+        // }
 
-        if(localStorage.getItem("token") === undefined || localStorage.getItem("token") === null || localStorage.getItem("token") === '') {
-
-            let cli2 = await autho(client.client, username, password)
-            console.log("tried to auth")
-            console.log(localStorage.getItem("username"))
-
-            if (cli2.hasOwnProperty("accessToken")) {
-                //updateValid(true)
-
-                updateClient(await cli2)
-                console.log(cli2, "sucess")
-                localStorage.setItem("validate", "true")
-
-
-            } else {
-                console.log(cli2, "fail")
-                updateFailed(cli2.toString())
-            }
-
-
-            if (localStorage.getItem("validate") === "true") {
-
-                //updateClient(await cli2)
-                console.log("pushed")
-                history.push("/dashboard")
-            }
-
-
-            //console.log(valid)
-
-
-        }
-        else{
-
-            console.log(localStorage.getItem("token"),"something is here, push")
+        let res = await login({username: username, password: password})
+        if(res) {
+            console.log("success")
             history.push("/dashboard")
         }
+        else {
+
+            updateFailed("There's a problem with your credentials or the network: Try again")
+        }
+
 
     }
 
@@ -106,7 +111,7 @@ const [client, updateClient] = useState(props)
                                 validateOnBlur={true}
                                 onSubmit={(values) => {
                                     console.log(values);
-                                    submitHandler(values.username, values.password)
+                                    submitHandler(values.username, values.password).catch(err=>{updateFailed(err)})
 
                                 }}
                             >

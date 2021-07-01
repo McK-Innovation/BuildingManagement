@@ -4,7 +4,9 @@ import {useCallback, useRef, useState} from "react";
 import {Redirect} from "react-router-dom";
 import * as Yup from "yup";
 import {ErrorMessage, Field, Form, Formik} from "formik";
-import {addUser, updateIndividual} from "./keycloakUtils";
+//import {addUser, updateIndividual} from "./keycloakUtils";
+
+import {updateIndividual} from "./KeycloakHelper"
 import {Confirmation} from "./Confirmation";
 
 const ViewEdit = (props)=> {
@@ -19,16 +21,15 @@ const ViewEdit = (props)=> {
         email: Yup.string()
             .required("Email Required"),
 
-        password: Yup.string()
-            .required("Password Required"),
+        password: Yup.string(),
 
         firstname: Yup.string()
             .required("Needed"),
+
         lastname: Yup.string()
             .required("Needed"),
 
         newpassword: Yup.string()
-            .required("Needed")
             .oneOf([Yup.ref('password'), null], 'Passwords must match'),
 
         username: Yup.string()
@@ -38,7 +39,7 @@ const ViewEdit = (props)=> {
     });
 
     async function editUser(username, email, password, firstname, lastname ) {
-        await updateIndividual(props.client, props.person.id, {username: username, email: email, password: password, firstname: firstname, lastname: lastname })
+        await updateIndividual(props.person.id, {username: username, email: email, password: password, firstName: firstname, lastName: lastname })
     }
 
    const initialValues = {
@@ -47,9 +48,9 @@ const ViewEdit = (props)=> {
 
        password: '' ,
 
-       firstname: person.firstname,
+       firstname: person.firstName,
 
-       lastname: person.lastname,
+       lastname: person.lastName,
 
        newpassword: '',
 
@@ -78,6 +79,7 @@ const ViewEdit = (props)=> {
                                 console.log(values);
                                 val.current = values;
                                 updatePerson(values);
+                                setShow(true)
                                 //editUser(values.username, values.email, values.password, values.firstname, values.lastname).catch((e)=>(console.log(e))).then((r) => console.log("done"))
                                 //async function to create the user and then assign to a "my" group
 
@@ -183,7 +185,6 @@ const ViewEdit = (props)=> {
                                                 <label htmlFor="inputPassword5">New Password</label>
                                                 <Field
                                                     name="password"
-                                                    placeholder=""
                                                     type="password"
                                                     className="form-control"
 
@@ -196,7 +197,6 @@ const ViewEdit = (props)=> {
                                                 <label htmlFor="inputPassword6">Confirm Password</label>
                                                 <Field
                                                     name="newpassword"
-                                                    placeholder=""
                                                     type="password"
                                                     className="form-control"
 

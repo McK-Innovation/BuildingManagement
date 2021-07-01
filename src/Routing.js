@@ -10,7 +10,7 @@ import KcAdminClient from "keycloak-admin";
 
 export const Routing = (props)=> {
 
-const [clients, updateclient] = useState(props.client)
+//const [clients, updateclient] = useState(props.client)
 
 
     if(!localStorage.getItem("token")){
@@ -22,13 +22,16 @@ const [clients, updateclient] = useState(props.client)
             <BrowserRouter>
 
                 <Switch>
-
+                    {//client = {clients}
+                         }
                     <Route path = '/dashboard'>
-                        <Dashboard client = {clients}/>
+                        <Dashboard />
                     </Route>
 
                     <Route exact path ='/'>
-                        <LoginPage client = {clients} update = {updateclient}/>
+                        {//client = {clients} update = {updateclient}
+                             }
+                        <LoginPage />
                     </Route>
 
 
