@@ -1,15 +1,19 @@
 import {useLocation} from "react-router";
 import {useKeycloak} from "@react-keycloak/web";
-import {useCallback, useState} from "react";
+import {useCallback, useRef, useState} from "react";
 import {Redirect} from "react-router-dom";
 import * as Yup from "yup";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {addUser, updateIndividual} from "./keycloakUtils";
+import {Confirmation} from "./Confirmation";
 
 const ViewEdit = (props)=> {
 
     const [person, updatePerson] = useState(props.person);
     //get user from context, then update if update is clicked and route to the users page
+
+    let val = useRef({})
+    const [show, setShow] = useState(false)
 
     const SignUpSchema = Yup.object().shape({
         email: Yup.string()
@@ -59,6 +63,8 @@ const ViewEdit = (props)=> {
     return (
         <div className="container text-light">
 
+            {show && <Confirmation caller = {() => {let values = val.current; editUser(values.username, values.email, values.password, values.firstname, values.lastname).catch((e)=>(console.log(e))).then((r) => console.log("done"))}} open = {setShow}/>}
+
             <div className="row justify-content-center">
                 <div className="col-12 col-lg-10 col-xl-8 mx-auto">
 
@@ -70,8 +76,9 @@ const ViewEdit = (props)=> {
                             validateOnBlur={true}
                             onSubmit={(values) => {
                                 console.log(values);
+                                val.current = values;
                                 updatePerson(values);
-                                editUser(values.username, values.email, values.password, values.firstname, values.lastname).catch((e)=>(console.log(e))).then((r) => console.log("done"))
+                                //editUser(values.username, values.email, values.password, values.firstname, values.lastname).catch((e)=>(console.log(e))).then((r) => console.log("done"))
                                 //async function to create the user and then assign to a "my" group
 
 

@@ -1,6 +1,7 @@
-import {useState} from "react";
+import {useRef, useState} from "react";
 import {Redirect, useHistory} from "react-router-dom";
 import {deleteMember} from "./keycloakUtils";
+import {Confirmation} from "./Confirmation";
 
 const UserPage = (props) => {
     const [input, inputChange] = useState("");
@@ -8,6 +9,9 @@ const UserPage = (props) => {
     //const {updateEdit} = useState(props.person)
     const history = useHistory();
     const [tempArray, updateTempArray] = useState(props.people)
+    const [show, setShow] = useState(false)
+
+    let person = useRef();
     //useEffect(()=>{
 
     //},[arrayOfInfo])
@@ -37,19 +41,28 @@ const UserPage = (props) => {
 
     function remove (input) {
 
-        deleteMember(props.client, input.id,localStorage.getItem("groupID")).catch(reason => {console.log(reason)}).then(
-            (r) => {removeFromArray(input)}
-        )
+        setShow(true);
+
+        person.current = input;
+
+        console.log("click")
+
+        // deleteMember(props.client, input.id,localStorage.getItem("groupID")).catch(reason => {console.log(reason)}).then(
+        //     (r) => {removeFromArray(input)}
+        // )
+
+
 
     }
-
-
 
 
 
     return (
         <div>
             <div className="container">
+                {show && <Confirmation caller = {()=>{deleteMember(props.client,input.id,localStorage.getItem("groupID")).catch(reason => {console.log(reason)}).then(
+                    (r) => {removeFromArray(input)}
+                )}} open = {setShow}/>}
 
 
                 <div className="row mt-4">
@@ -75,7 +88,7 @@ const UserPage = (props) => {
 
                             }).map((input, key) =>(
 
-                                <div className= "wrap m-4 p-2 border-0 "  key = {key} onClick= {()=>{redir(input)}}>
+                                <div className= "wrap m-4 p-2 border-0 "  key = {key}>
                                     <div className="row">
 
 
@@ -83,7 +96,7 @@ const UserPage = (props) => {
                                             <i className="bi bi-person-lines-fill"></i>
                                         </div>
 
-                                        <div className="col-sm-10">
+                                        <div className="col-sm-10"  onClick= {()=>{redir(input)}}>
                                             <h6>Name:<span className="font-weight-bold">  {input.firstName}</span> / Username: <span className="font-weight-bold">  {input.username}</span></h6>
                                         </div>
 
