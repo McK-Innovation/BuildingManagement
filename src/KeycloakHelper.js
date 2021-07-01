@@ -7,7 +7,7 @@ import {useHistory} from "react-router-dom";
 let realmName = 'testAnalyticsRealm'
 let clientType = 'react'
 
-let baseUrl = 'https://buildingsensedemo.mckenneys.tech/auth' //will change in the future
+let baseUrl = 'https://localhost:8443/auth' //will change in the future
 //let history = useHistory()
 //let username = useRef("")
 //let groupRef = useRef({})
