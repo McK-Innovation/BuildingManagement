@@ -7,14 +7,14 @@ import bootstrap from "bootstrap";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import RoutingTest from "./RoutingTest";
-import LoginTester from "./LoginTester";
+
 
 
 ReactDOM.render(
     <App/>
     //<Dashboard/>
     //<RoutingTest/>
-    //<LoginTester/>
+
   ,
   document.getElementById('root')
 );

@@ -4,10 +4,10 @@ import {RequiredActionAlias} from "keycloak-admin/lib/defs/requiredActionProvide
 import {useHistory} from "react-router-dom";
 
 
-let realmName = 'testAnalyticsRealm'
+let realmName = 'master'
 let clientType = 'react'
 
-let baseUrl = 'https://localhost:8443/auth' //will change in the future
+let baseUrl = 'https://auth.mckenneys.tech/auth' //will change in the future
 //let history = useHistory()
 //let username = useRef("")
 //let groupRef = useRef({})
@@ -153,7 +153,7 @@ export async function login (request) {
             grant_type: "password",
     }
 
-        let token = await makeRequest("POST", "", body, '/realms/testAnalyticsRealm/protocol/openid-connect/token', "login")
+        let token = await makeRequest("POST", "", body, '/realms/master/protocol/openid-connect/token', "login")
 
 
         setToken(token)
@@ -175,7 +175,7 @@ export async function getUser() {
     //let tok2 = await login();
     //setToken(tok2)
 
-    let users = await makeRequest("GET", tok2, {}, '/admin/realms/testAnalyticsRealm/users')
+    let users = await makeRequest("GET", tok2, {}, '/admin/realms/master/users')
     console.log(users)
     return users
 }
@@ -188,13 +188,15 @@ export async function getAllUsersInGroup () {
     try {
         for (let val of users) {
             if (val.hasOwnProperty('username')) {
+                console.log(localStorage.getItem("username"))
+                console.log(val)
 
-                if (val.username === localStorage.getItem("username")) {
+                if (val.username === localStorage.getItem("username").toLowerCase()) {
                     console.log(val)
 
                     localStorage.setItem("name", val.firstName)
 
-                    let group = await makeRequest("GET", localStorage.getItem("token"), {}, '/admin/realms/testAnalyticsRealm/users/' + val.id + '/groups')
+                    let group = await makeRequest("GET", localStorage.getItem("token"), {}, '/admin/realms/master/users/' + val.id + '/groups')
                     if (group) {
                         console.log(group)
                         //groupRef.current = group
@@ -210,7 +212,7 @@ export async function getAllUsersInGroup () {
 
                         let id = group[0].id
 
-                        let members =  await makeRequest("GET", getToken(), {}, '/admin/realms/testAnalyticsRealm/groups/' + id + '/members'  )
+                        let members =  await makeRequest("GET", getToken(), {}, '/admin/realms/master/groups/' + id + '/members'  )
 
 
                         //return {id: group[0].id, name: group[0].name}//store this maybe
@@ -235,7 +237,7 @@ catch(error)
 export async function deleteMember (userID){
 
     //await client.users.delFromGroup({id: userID, groupId: groupID});
-    await makeRequest("DELETE", getToken(),{},'/admin/realms/testAnalyticsRealm/users/' + userID)
+    await makeRequest("DELETE", getToken(),{},'/admin/realms/master/users/' + userID)
     console.log("done")
 }
 
@@ -268,7 +270,7 @@ export async function addUser (credentials = {username: '', email: '', password:
 
     }
 
-    let resp = await makeRequest("POST", getToken(), body, '/admin/realms/testAnalyticsRealm/users', "Add")
+    let resp = await makeRequest("POST", getToken(), body, '/admin/realms/master/users', "Add")
 
     console.log(resp)
     console.log("done")
@@ -287,7 +289,7 @@ export  async function updateIndividual(userId, credentials = {username: '', ema
         }
     }
 
-    await makeRequest("PUT",getToken(),body, "/admin/realms/testAnalyticsRealm/users/" + userId, "Add" )
+    await makeRequest("PUT",getToken(),body, "/admin/realms/master/users/" + userId, "Add" )
 
 }
 
