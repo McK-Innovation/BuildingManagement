@@ -10,8 +10,8 @@
     }
 }
 .nav-pills .nav-link.active{
-    color: lavender!important;
-    background-color: #003451!important;
+    color: lavender !important;
+    background-color: #003451 !important;
 }
 
 .nav-pills .nav-link {
@@ -27,5 +27,8 @@
 
 
 
-
+.disabled {
+    color: #555!important;
+    background: rgba(53, 47, 47, 0)!important;
+}
 

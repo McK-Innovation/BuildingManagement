@@ -3,6 +3,7 @@ import './SideBar.css'
 import {NavLink} from "react-router-dom";
 import clear from "./LoginPage";
 import Authorization from "./authContext";
+import {logout} from "./KeycloakHelper";
 const SideBar = (props)=> {
 
     //const {valid, updateValid} = useContext(Authorization)
@@ -11,11 +12,9 @@ const SideBar = (props)=> {
     //add icons
     const [open , updateOpen] = useState(props)
 
-    function clear() {
-
-        //updateValid(false)
-
-            localStorage.clear()
+    const clear = async () => {
+        localStorage.clear()
+        await logout()
     }
 
 
@@ -28,7 +27,7 @@ const SideBar = (props)=> {
             </div>
 
             <div className="sidebar-header">
-                <h3><span className= "font-weight-bold">Building</span>Key</h3>
+                <h3><span className= "font-weight-bold">building</span>Key</h3>
                 <strong>BK</strong>
             </div>
 

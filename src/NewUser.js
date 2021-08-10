@@ -21,7 +21,11 @@ const NewUser= (props)=> {
             .required("Email Required"),
 
         password: Yup.string()
-            .required("Password Required"),
+            .required("Password Required")
+            .matches(
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+                "Must Contain at least 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
+            ),
 
         firstname: Yup.string()
             .required("Needed"),
@@ -52,6 +56,8 @@ const NewUser= (props)=> {
 
         username: '' ,
 
+        permissionLevel: ''
+
 
     }
 
@@ -68,7 +74,7 @@ const NewUser= (props)=> {
         <div className="container text-light">
             {show ? (<Confirmation caller = { ()=>{let values = val.current; submitH(values.username, values.email, values.password, values.firstname, values.lastname).catch((e) => (alert(e))).then((r) => alert("Added a new user")) }} update = {updateConfirm} open = {setShow}/> ) : null}
             <div className="row justify-content-center">
-                <div className="col-12 col-lg-10 col-xl-8 mx-auto">
+                <div className="col-12 col-lg-10 col-xl-8 mx-auto overflow-auto">
 
                     <div className="my-4">
 
@@ -193,6 +199,22 @@ const NewUser= (props)=> {
                                             />
                                         </div>
 
+                                        <div className="form-group col-md-6 offset-3">
+                                            <label htmlFor="inputCompany5">Permission Level</label>
+                                            <Field
+                                                name="permissionLevel"
+                                                placeholder='Permissions'
+                                                as = 'select'
+                                                className="form-control"
+                                            >
+                                                <option>Admin</option>
+                                                <option>Supervisor</option>
+                                                <option>Engineer</option>
+                                                <option>View-Only</option>
+
+                                            </Field>
+                                        </div>
+
                                     </div>
                                     <hr className="my-4"/>
                                     <div className="row mb-4">
@@ -228,10 +250,11 @@ const NewUser= (props)=> {
                                             <p className="small">To create a new password, you have to
                                                 meet all
                                                 of the following requirements:</p>
-                                            <ul className="small  pl-4 mb-0">
-                                                <li>Minimum 6 character</li>
+                                            <ul className="small pl-4 mb-0 text-light">
+                                                <li>Minimum 8 character</li>
                                                 <li>At least one special character</li>
                                                 <li>At least one number</li>
+                                                <li>At least one Uppercase character</li>
                                             </ul>
                                         </div>
                                     </div>

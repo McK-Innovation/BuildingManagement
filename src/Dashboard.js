@@ -55,7 +55,6 @@ const Dashboard = (props)=> {
         async function storePeople() {
             let arr = await getAllUsersInGroup()
             updatePeople(arr)
-
         }
 
         if(localStorage.getItem("token") === undefined) {
@@ -68,7 +67,7 @@ const Dashboard = (props)=> {
 
         return () => {isSubscribed.current = false}
 
-    }, []);
+    }, [person]);
 
 
     useEffect(() => console.log(arrayOfPeople), [arrayOfPeople]);
@@ -111,22 +110,22 @@ const Dashboard = (props)=> {
 
                            <span className="mx-auto"> Welcome Back <span className= "font-weight-bold text-light">{name}</span>!</span>
                        </div>
-                       {
-                       <ul className="navbar-nav navbar-align">
-                           <div className='dropdownmod'>
-                               <div className='dropdownmod-header' onClick={() => {updateDropdown(!dropdown)}}>
-                                   {name}
-                                   <i className="bi bi-person-square text-light"></i>
-                               </div>
-                               <div className={`dropdownmod-body ${dropdown && 'open'}`}>
-                                       <div className="dropdownmod-item">
-                                           Profile
-                                       </div>
+                       {/*{*/}
+                       {/*<ul className="navbar-nav navbar-align">*/}
+                       {/*    <div className='dropdownmod'>*/}
+                       {/*        <div className='dropdownmod-header' onClick={() => {updateDropdown(!dropdown)}}>*/}
+                       {/*            {name}*/}
+                       {/*            <i className="bi bi-person-square text-light mr-1"></i>*/}
+                       {/*        </div>*/}
+                       {/*        <div className={`dropdownmod-body ${dropdown && 'open'}`}>*/}
+                       {/*                <div className="dropdownmod-item">*/}
+                       {/*                    Profile*/}
+                       {/*                </div>*/}
 
-                               </div>
-                           </div>
+                       {/*        </div>*/}
+                       {/*    </div>*/}
 
-                       </ul>}
+                       {/*</ul>}*/}
                    </div>
 
 
@@ -154,10 +153,11 @@ const Dashboard = (props)=> {
                                         <div className="row">
                                             <div className="col">
 
-                                                    <Switch>
-                                                       <Route path = "/dashboard/users">
-                                                           <UserPage people = {arrayOfPeople} client = {client} updatePerson = {updatePerson}/>
-                                                       </Route>
+
+                                                <Switch>
+                                                        <Route exact path = "/dashboard">
+                                                            <UserPage people = {arrayOfPeople} client = {client} updatePerson = {updatePerson}  />
+                                                        </Route>
 
                                                         <Route path = "/dashboard/edit-user">
                                                             <ViewEdit person = {person} client = {client}/>
@@ -167,7 +167,7 @@ const Dashboard = (props)=> {
                                                             <NewUser client = {client}/>
 
                                                         </Route>
-                                                    </Switch>
+                                                </Switch>
 
 
                                             </div>

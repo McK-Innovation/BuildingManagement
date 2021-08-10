@@ -1,6 +1,6 @@
 import {useLocation} from "react-router";
 import {useKeycloak} from "@react-keycloak/web";
-import {useCallback, useContext, useState} from "react";
+import {useCallback, useContext, useEffect, useState} from "react";
 import {Redirect, useHistory} from "react-router-dom";
 import "./LoginPage.css";
 import * as Yup from "yup";
@@ -40,6 +40,12 @@ const [client, updateClient] = useState(props)
             .required("Password Required"),
 
     });
+
+    useEffect(()=> {
+        if (localStorage.getItem('username')) {
+            history.push('/dashboard')
+        }
+    },[])
 
     async function submitHandler(username, password){
 

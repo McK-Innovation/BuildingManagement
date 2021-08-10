@@ -21,7 +21,11 @@ const ViewEdit = (props)=> {
         email: Yup.string()
             .required("Email Required"),
 
-        password: Yup.string(),
+        password: Yup.string()
+            .matches(
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+                "Must Contain at least 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
+            ),
 
         firstname: Yup.string()
             .required("Needed"),
@@ -38,8 +42,8 @@ const ViewEdit = (props)=> {
 
     });
 
-    async function editUser(username, email, password, firstname, lastname ) {
-        await updateIndividual(props.person.id, {username: username, email: email, password: password, firstName: firstname, lastName: lastname })
+    async function editUser(username, email, password, firstname, lastname, permissionLevel ) {
+        await updateIndividual(props.person.id, {username: username, email: email, password: password, firstName: firstname, lastName: lastname, permissionLevel: permissionLevel  })
     }
 
    const initialValues = {
@@ -58,16 +62,18 @@ const ViewEdit = (props)=> {
 
        currentGroup: person.currentGroup,
 
+       permissionLevel: ''
+
    }
 
 
     return (
         <div className="container text-light">
 
-            {show && <Confirmation caller = {() => {let values = val.current; editUser(values.username, values.email, values.password, values.firstname, values.lastname).catch((e)=>(console.log(e))).then((r) => console.log("done"))}} open = {setShow}/>}
+            {show && <Confirmation caller = {() => {let values = val.current; editUser(values.username, values.email, values.password, values.firstname, values.lastname, values.permissionLevel).catch((e)=>(console.log(e))).then((r) => console.log("done"))}} open = {setShow}/>}
 
             <div className="row justify-content-center">
-                <div className="col-12 col-lg-10 col-xl-8 mx-auto">
+                <div className="col-12 col-lg-10 col-xl-8 mx-auto overflow-auto">
 
                     <div className="my-4">
 
@@ -176,6 +182,23 @@ const ViewEdit = (props)=> {
                                             />
                                         </div>
 
+                                        <div className="form-group col-md-6 offset-3">
+                                            <label htmlFor="inputCompany5">Permission Level</label>
+                                            <Field
+                                                name="permissionLevel"
+                                                placeholder='Permissions'
+                                                as = 'select'
+                                                className="form-control"
+                                                >
+                                                <option>Admin</option>
+                                                <option>Supervisor</option>
+                                                <option>Engineer</option>
+                                                <option>View-Only</option>
+
+                                            </Field>
+                                        </div>
+
+
                                     </div>
                                     <hr className="my-4"/>
                                     <div className="row mb-4">
@@ -212,9 +235,10 @@ const ViewEdit = (props)=> {
                                                 meet all
                                                 of the following requirements:</p>
                                             <ul className="small pl-4 mb-0 text-light">
-                                                <li>Minimum 6 character</li>
+                                                <li>Minimum 8 character</li>
                                                 <li>At least one special character</li>
                                                 <li>At least one number</li>
+                                                <li>At least one Uppercase character</li>
                                             </ul>
                                         </div>
                                     </div>
