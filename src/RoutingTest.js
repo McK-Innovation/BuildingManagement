@@ -11,7 +11,7 @@ import {login} from './KeycloakHelper'
 // To configure the client, pass an object to override any of these  options:
 // {
 //   baseUrl: 'http://127.0.0.1:8080/auth',
-//   realmName: 'master',
+//   realmName: 'McKenneys',
 //   requestConfig: {
 //     /* Axios request config options https://github.com/axios/axios#request-config */
 //   },

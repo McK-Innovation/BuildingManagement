@@ -4,7 +4,7 @@ import {RequiredActionAlias} from "keycloak-admin/lib/defs/requiredActionProvide
 import {useHistory} from "react-router-dom";
 
 
-let realmName = 'master'
+let realmName = 'McKenneys'
 let clientType = 'react'
 
 let baseUrl = 'https://auth.mckenneys.tech/auth' //will change in the future
@@ -157,7 +157,7 @@ export async function login (request) {
             grant_type: "password",
     }
 
-        let token = await makeRequest("POST", "", body, '/realms/master/protocol/openid-connect/token', "login")
+        let token = await makeRequest("POST", "", body, '/realms/McKenneys/protocol/openid-connect/token', "login")
 
 
         setToken(token)
@@ -175,18 +175,18 @@ export async function login (request) {
 }
 
 export async function isUserAdmin() {
-    let user = await makeRequest("GET", getToken(), {}, '//admin/realms/master/users?username=' + localStorage.getItem("username"))
+    let user = await makeRequest("GET", getToken(), {}, '//admin/realms/McKenneys/users?username=' + localStorage.getItem("username"))
     if(user.permissionLevel.toLowerCase() !== 'admin') {
         return false
     }
 }
 export async function getAllUsersInGroup () {
     try {
-        let user = await makeRequest("GET", getToken(), {}, '//admin/realms/master/users?username=' + localStorage.getItem("username"))
+        let user = await makeRequest("GET", getToken(), {}, '//admin/realms/McKenneys/users?username=' + localStorage.getItem("username"))
 
         localStorage.setItem("userId", user.id)
 
-        let group = await makeRequest("GET", localStorage.getItem("token"), {}, '/admin/realms/master/users/' + user.id + '/groups')
+        let group = await makeRequest("GET", localStorage.getItem("token"), {}, '/admin/realms/McKenneys/users/' + user.id + '/groups')
 
         if (group) {
             console.log(group)
@@ -201,7 +201,7 @@ export async function getAllUsersInGroup () {
 
             let id = group[0].id
 
-            let members = await makeRequest("GET", getToken(), {}, '/admin/realms/master/groups/' + id + '/members')
+            let members = await makeRequest("GET", getToken(), {}, '/admin/realms/McKenneys/groups/' + id + '/members')
 
             //return {id: group[0].id, name: group[0].name}//store this maybe
             return members;
@@ -225,7 +225,7 @@ export async function getAllUsersInGroup () {
 //
 //                     localStorage.setItem("name", val.firstName)
 //
-//                     let group = await makeRequest("GET", localStorage.getItem("token"), {}, '/admin/realms/master/users/' + val.id + '/groups')
+//                     let group = await makeRequest("GET", localStorage.getItem("token"), {}, '/admin/realms/McKenneys/users/' + val.id + '/groups')
 //                     if (group) {
 //                         console.log(group)
 //                         //groupRef.current = group
@@ -241,7 +241,7 @@ export async function getAllUsersInGroup () {
 //
 //                         let id = group[0].id
 //
-//                         let members =  await makeRequest("GET", getToken(), {}, '/admin/realms/master/groups/' + id + '/members'  )
+//                         let members =  await makeRequest("GET", getToken(), {}, '/admin/realms/McKenneys/groups/' + id + '/members'  )
 //
 //
 //                         //return {id: group[0].id, name: group[0].name}//store this maybe
@@ -266,7 +266,7 @@ export async function getAllUsersInGroup () {
 export async function deleteMember (userID){
 
     //await client.users.delFromGroup({id: userID, groupId: groupID});
-    await makeRequest("DELETE", getToken(),{},'/admin/realms/master/users/' + userID)
+    await makeRequest("DELETE", getToken(),{},'/admin/realms/McKenneys/users/' + userID)
     console.log("done")
 }
 
@@ -306,8 +306,8 @@ export async function addUser (credentials = {username: '', email: '', password:
         }
     }
 
-    let resp = await makeRequest("POST", getToken(), body, '/admin/realms/master/users', "Add")
-    await makeRequest("PUT", getToken(), groupPermission, "/admin/realms/master/users/" + userId, "Edit")
+    let resp = await makeRequest("POST", getToken(), body, '/admin/realms/McKenneys/users', "Add")
+    await makeRequest("PUT", getToken(), groupPermission, "/admin/realms/McKenneys/users/" + userId, "Edit")
 
     console.log(resp)
     console.log("done")
@@ -329,19 +329,19 @@ export  async function updateIndividual(userId, credentials = {username: '', ema
                     "permissionLevel": credentials[creds]
                 }
             }
-            await makeRequest("PUT", getToken(), permission, "/admin/realms/master/users/" + userId, "Edit")
+            await makeRequest("PUT", getToken(), permission, "/admin/realms/McKenneys/users/" + userId, "Edit")
 
         }
     }
 
 
-    await makeRequest("PUT", getToken(), body, "/admin/realms/master/users/" + userId, "Add")
+    await makeRequest("PUT", getToken(), body, "/admin/realms/McKenneys/users/" + userId, "Add")
 
 }
 
 export const logout = async () => {
     let body = {client_id: 'react', refresh_token: localStorage.getItem('refresh')}
-    await makeRequest('PUT', getToken(), body, '/realms/master/protocol/openid-connect/logout')
+    await makeRequest('PUT', getToken(), body, '/realms/McKenneys/protocol/openid-connect/logout')
 }
 
 
