@@ -12,8 +12,6 @@ export async function getAllUsersInGroup(client) {
 
 }
 
-
-
 export async function getGroup(client) {
    console.log(client)
    try {

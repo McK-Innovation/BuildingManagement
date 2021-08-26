@@ -23,8 +23,8 @@ const NewUser= (props)=> {
         password: Yup.string()
             .required("Password Required")
             .matches(
-                /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-                "Must Contain at least 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{12,})/,
+                "Must Contain at least 12 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
             ),
 
         firstname: Yup.string()
@@ -72,7 +72,7 @@ const NewUser= (props)=> {
 
     return (
         <div className="container text-light">
-            {show ? (<Confirmation caller = { ()=>{let values = val.current; submitH(values.username, values.email, values.password, values.firstname, values.lastname).catch((e) => (alert(e))).then((r) => alert("Added a new user")) }} update = {updateConfirm} open = {setShow}/> ) : null}
+            {show ? (<Confirmation caller = { ()=>{let values = val.current; submitH(values.username, values.email, values.password, values.firstname, values.lastname).catch((e) => (alert(e))).then((r) => alert(r)) }} update = {updateConfirm} open = {setShow}/> ) : null}
             <div className="row justify-content-center">
                 <div className="col-12 col-lg-10 col-xl-8 mx-auto overflow-auto">
 
@@ -251,7 +251,7 @@ const NewUser= (props)=> {
                                                 meet all
                                                 of the following requirements:</p>
                                             <ul className="small pl-4 mb-0 text-light">
-                                                <li>Minimum 8 character</li>
+                                                <li>Minimum 12 character</li>
                                                 <li>At least one special character</li>
                                                 <li>At least one number</li>
                                                 <li>At least one Uppercase character</li>

@@ -1,7 +1,7 @@
-import {useContext, useEffect, useRef, useState} from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import SideBar from "./SideBar";
 import './Dashboard.css'
-import {BrowserRouter, Link, Redirect, Route, Switch, useHistory} from "react-router-dom";
+import {BrowserRouter, HashRouter, Link, Redirect, Route, Switch, useHistory} from "react-router-dom";
 import Pilled from "./PilledNav";
 import {UserPage} from "./UserPage";
 import logo from './images/mckenneys-logo.png'
@@ -10,18 +10,16 @@ import ManageUser from "./ManageUser";
 import ViewEdit from "./ManageUser";
 import Authorization from "./authContext";
 //import {getAllUsersInGroup} from "./keycloakUtils";
-import {getAllUsersInGroup} from "./KeycloakHelper"
+import {getAllUsersInGroup, logout} from "./KeycloakHelper"
 import KcAdminClient from "keycloak-admin";
 import {checkExpiration} from "./KeycloakHelper";
+import IdleTimer from "react-idle-timer";
 
 
-const Dashboard = (props)=> {
+const Dashboard = ()=> {
 
     //props will be the token of the user that logged in. Api call to keycloak to get all information.
-    const {valid, updateValid} = useContext(Authorization)
-
     //store the data here
-
 
     let history = useHistory()
 
@@ -34,70 +32,76 @@ const Dashboard = (props)=> {
     const [arrayOfPeople , updatePeople] =useState([{FirstName: "sally", LastName: "hanson", id: 11111, }])
     const [person, updatePerson] = useState ('')
     const [client, updateCLI] = useState(null)
-
-    // let config = {
-    //
-    //     baseUrl: "https://buildingsensedemo.mckenneys.tech/auth",
-    //
-    //     realmName: "testAnalyticsRealm",
-    // }
-    //
-    // const kcAdminClient = new KcAdminClient(config)
+    const [dashboard, updateDashboard] = useState('')
     let isSubscribed = useRef(true)
+    let idleNode = useRef({})
 
-    //const [client] = useState(props.client)
+
+    if(!localStorage.getItem("token")){
+        console.log("nothing here")
+    }
+    const onIdle = async () => {
+        if (idleNode.current.getRemainingTime() === 1000 * 60)
+            alert("This page will log out in 1 minute if no action is taken")
+        if (idleNode.current.getRemainingTime() === 0) {
+            alert("No action taken, Logging out")
+            await logout()
+            history.push("/")
+        }
+    }
+
+    const onActive = () => {
+
+    }
+
+    const onAction = () => {
+
+    }
     useEffect(() => {
-
-        console.log("checking")
-        checkExpiration().then((r) => {if(r !== undefined) history.push("/"); else storePeople().catch(err=>{alert("Communication Error: Check console for details"); console.log(err)})})
-        //getAllUsersInGroup(cat).then((r) => {updatePeople(r); console.log(arrayOfPeople)})
+        checkExpiration().then((r) => {if(r !== undefined) history.push("/"); else storePeople().then((r) => {
+            if(r && r.hasOwnProperty("error")) {
+                alert(r.error)
+            }
+        }).catch(err=>{alert("Communication Error: Check console for details"); console.log(err)})})
 
         async function storePeople() {
             let arr = await getAllUsersInGroup()
+            if(arr && arr.hasOwnProperty("error")){
+                return arr
+            }
+            console.log(arr)
+
             updatePeople(arr)
         }
 
         if(localStorage.getItem("token") === undefined) {
-            console.log("broken")
-
-            console.log(localStorage.getItem("token"))
             history.push('/')
-
         }
-
+        console.log(person)
+        console.log(dashboard)
         return () => {isSubscribed.current = false}
 
-    }, [person]);
+    }, [person,dashboard]);
 
 
     useEffect(() => console.log(arrayOfPeople), [arrayOfPeople]);
-
-
-    //trying to use tokens here might be better/ IE. store the token and then from it, get the username.
-
-
-    const [edit, updateEdit] = useState({})
-
-
-
     //trying to use tokens here might be better/ IE. store the token and then from it, get the username.
     const name = localStorage.getItem("name")
 
-
-    const [dropdown, updateDropdown] = useState(false)
-
-
-
-
     return (
-
-
-
+        <>
+        <IdleTimer
+            ref={ref => {
+                idleNode.current = ref;
+            }}
+            element={document}
+            onActive={onActive}
+            onIdle={onIdle}
+            onAction={onAction}
+            debounce={250}
+            timeout={1000 * 60 * 5}
+        />
         <div className="wrapper">
-
-
-
-
             <SideBar className = 'sidebar'>
 
             </SideBar>
@@ -128,8 +132,6 @@ const Dashboard = (props)=> {
                        {/*</ul>}*/}
                    </div>
 
-
-
                     <div className= "content p-5">
 
                         <div className="container-fluid p-0">
@@ -146,7 +148,7 @@ const Dashboard = (props)=> {
                                     <div className="p-10 pt-5 mainBack rounded shadow mb-5">
                                         <div className="row pb-5">
                                             <div className="col text-dark">
-                                                <Pilled/>
+                                                <Pilled person = {person}/>
                                             </div>
                                         </div>
 
@@ -156,11 +158,11 @@ const Dashboard = (props)=> {
 
                                                 <Switch>
                                                         <Route exact path = "/dashboard">
-                                                            <UserPage people = {arrayOfPeople} client = {client} updatePerson = {updatePerson}  />
+                                                            <UserPage people = {arrayOfPeople} updatePerson = {updatePerson}  />
                                                         </Route>
 
                                                         <Route path = "/dashboard/edit-user">
-                                                            <ViewEdit person = {person} client = {client}/>
+                                                            <ViewEdit person = {person} updateDashboard = {updateDashboard}/>
                                                         </Route>
                                                         <Route path = "/dashboard/new-user" >
 
@@ -168,7 +170,6 @@ const Dashboard = (props)=> {
 
                                                         </Route>
                                                 </Switch>
-
 
                                             </div>
                                         </div>
@@ -183,7 +184,7 @@ const Dashboard = (props)=> {
                 </div>
             </div>
 
-
+</>
         )
 }
 

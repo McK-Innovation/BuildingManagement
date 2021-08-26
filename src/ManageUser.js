@@ -1,7 +1,7 @@
 import {useLocation} from "react-router";
 import {useKeycloak} from "@react-keycloak/web";
 import {useCallback, useRef, useState} from "react";
-import {Redirect} from "react-router-dom";
+import {Redirect, useHistory} from "react-router-dom";
 import * as Yup from "yup";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 //import {addUser, updateIndividual} from "./keycloakUtils";
@@ -10,8 +10,11 @@ import {updateIndividual} from "./KeycloakHelper"
 import {Confirmation} from "./Confirmation";
 
 const ViewEdit = (props)=> {
-
+    let history = useHistory()
     const [person, updatePerson] = useState(props.person);
+    console.log(props.person)
+    console.log(person)
+
     //get user from context, then update if update is clicked and route to the users page
 
     let val = useRef({})
@@ -23,8 +26,8 @@ const ViewEdit = (props)=> {
 
         password: Yup.string()
             .matches(
-                /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-                "Must Contain at least 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{12,})/,
+                "Must Contain at least 12 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
             ),
 
         firstname: Yup.string()
@@ -43,6 +46,7 @@ const ViewEdit = (props)=> {
     });
 
     async function editUser(username, email, password, firstname, lastname, permissionLevel ) {
+        console.log(props.person.id)
         await updateIndividual(props.person.id, {username: username, email: email, password: password, firstName: firstname, lastName: lastname, permissionLevel: permissionLevel  })
     }
 
@@ -70,7 +74,18 @@ const ViewEdit = (props)=> {
     return (
         <div className="container text-light">
 
-            {show && <Confirmation caller = {() => {let values = val.current; editUser(values.username, values.email, values.password, values.firstname, values.lastname, values.permissionLevel).catch((e)=>(console.log(e))).then((r) => console.log("done"))}} open = {setShow}/>}
+            {show && <Confirmation caller = {() => {
+                let values = val.current;
+                editUser(values.username, values.email, values.password, values.firstname, values.lastname, values.permissionLevel)
+                    .catch((e)=>(console.log(e)))
+                    .then((r) => {
+                        props.updateDashboard(values)
+                        if(r) {
+                            alert(r)
+                        }
+                    })
+            }} open = {setShow}/>
+            }
 
             <div className="row justify-content-center">
                 <div className="col-12 col-lg-10 col-xl-8 mx-auto overflow-auto">
@@ -82,9 +97,8 @@ const ViewEdit = (props)=> {
                             validationSchema={SignUpSchema}
                             validateOnBlur={true}
                             onSubmit={(values) => {
-                                console.log(values);
                                 val.current = values;
-                                updatePerson(values);
+                                // updatePerson(values);
                                 setShow(true)
                                 //editUser(values.username, values.email, values.password, values.firstname, values.lastname).catch((e)=>(console.log(e))).then((r) => console.log("done"))
                                 //async function to create the user and then assign to a "my" group
@@ -235,7 +249,7 @@ const ViewEdit = (props)=> {
                                                 meet all
                                                 of the following requirements:</p>
                                             <ul className="small pl-4 mb-0 text-light">
-                                                <li>Minimum 8 character</li>
+                                                <li>Minimum 12 characters</li>
                                                 <li>At least one special character</li>
                                                 <li>At least one number</li>
                                                 <li>At least one Uppercase character</li>
@@ -245,7 +259,7 @@ const ViewEdit = (props)=> {
                                     <div className="btn-group m-4">
                                         <button type="submit" className="btn btn-primary" disabled={!touched}>Save Change</button>
 
-                                        <button type="button" className="btn btn-secondary">Cancel</button>
+                                        <button type="button" className="btn btn-secondary" onClick={()=>{history.push("/dashboard")}}>Cancel</button>
 
                                         {console.log(errors,touched)}
                                     </div>

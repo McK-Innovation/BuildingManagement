@@ -17,6 +17,7 @@ const UserPage = (props) => {
 
     //},[arrayOfInfo])
     function redir(input) {
+        console.log(input)
         props.updatePerson(input)
         history.push('/dashboard/edit-user')
         //updateEdit(input)
@@ -91,7 +92,6 @@ const UserPage = (props) => {
 
                                 <div className= "wrap m-4 p-2 border-0 "  key = {key}>
                                     <div className="row">
-
 
                                         <div className= "col-sm-1">
                                             <i className="bi bi-person-lines-fill"></i>

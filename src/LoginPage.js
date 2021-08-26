@@ -87,15 +87,13 @@ const [client, updateClient] = useState(props)
         //     console.log(await localStorage.getItem("token"),"something is here, push")
         //     history.push("/dashboard")
         // }
-
         let res = await login({username: username, password: password})
-        if(res) {
+        if(res.tok) {
             console.log("success")
             history.push("/dashboard")
         }
         else {
-
-            updateFailed("There's a problem with your credentials or the network: Try again")
+            updateFailed(res.error)
         }
 
 
@@ -116,16 +114,15 @@ const [client, updateClient] = useState(props)
                                 validationSchema={SignUpSchema}
                                 validateOnBlur={true}
                                 onSubmit={(values) => {
-                                    console.log(values);
                                     submitHandler(values.username, values.password).catch(err=>{updateFailed(err)})
 
                                 }}
                             >
 
-                                {({values, errors, touched,isValid}) => (
+                                {({values, errors, touched,isValid, handleSubmit}) => (
 
-
-                                    <Form>
+                                    <Form
+                                    onSubmit = {(e)=> {e.preventDefault(); handleSubmit()}}>
                                         <div className="form-group">
                                             <Field
                                                 name = "username"

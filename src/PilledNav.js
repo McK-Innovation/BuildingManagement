@@ -1,7 +1,7 @@
 import './PilledNav.css';
 import {NavLink} from "react-router-dom";
 
-const Pilled = () => {
+const Pilled = ({person}) => {
 
     return (<>
         <ul id="myTab" role="tablist"
@@ -12,7 +12,13 @@ const Pilled = () => {
             </li>
             <li className="nav-item flex-sm-fill">
                 <NavLink id="EditUser" data-toggle="tab" exact to={"#"} role="tab" activeClassName = 'disabled' aria-controls="profile"
-                   aria-selected="false" className="nav-link border-0 text-uppercase font-weight-bold disabled" isActive = {false} >Edit</NavLink>
+                   aria-selected="false" className="nav-link border-0 text-uppercase font-weight-bold disabled" isActive = {()=> {
+                       if(!person){
+                           return false
+                       }
+                   }} >
+                    Edit
+                </NavLink>
             </li>
             <li className="nav-item flex-sm-fill">
                 <NavLink id="CreateNew" data-toggle="tab" exact to={"/dashboard/new-user"} activeClassName = "active" role="tab" aria-controls="profile"
