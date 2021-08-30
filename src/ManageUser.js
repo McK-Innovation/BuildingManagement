@@ -66,8 +66,11 @@ const ViewEdit = (props)=> {
 
        currentGroup: person.currentGroup,
 
-       permissionLevel: ''
+       permissionLevel: person.hasOwnProperty("attributes")? person.attributes.permissionLevel : ''
 
+   }
+   const renew = () => {
+        return <option selected>{initialValues.permissionLevel}</option>
    }
 
 
@@ -204,10 +207,12 @@ const ViewEdit = (props)=> {
                                                 as = 'select'
                                                 className="form-control"
                                                 >
+                                                <option disabled selected value> -- select an option -- </option>
                                                 <option>Admin</option>
                                                 <option>Supervisor</option>
                                                 <option>Engineer</option>
                                                 <option>View-Only</option>
+                                                {renew}
 
                                             </Field>
                                         </div>

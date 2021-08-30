@@ -158,7 +158,7 @@ const Dashboard = ()=> {
 
                                                 <Switch>
                                                         <Route exact path = "/dashboard">
-                                                            <UserPage people = {arrayOfPeople} updatePerson = {updatePerson}  />
+                                                            <UserPage people = {arrayOfPeople} updatePerson = {updatePerson} updateDashboard = {updateDashboard}   />
                                                         </Route>
 
                                                         <Route path = "/dashboard/edit-user">

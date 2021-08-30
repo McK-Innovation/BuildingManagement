@@ -12,6 +12,7 @@ const UserPage = (props) => {
     const [tempArray, updateTempArray] = useState(props.people)
     const [show, setShow] = useState(false)
 
+
     let person = useRef();
     //useEffect(()=>{
 
@@ -38,6 +39,8 @@ const UserPage = (props) => {
             updateTempArray(newArray)
 
         }
+        props.updateDashboard(input)
+
 
     }
 
@@ -62,7 +65,7 @@ const UserPage = (props) => {
     return (
         <div>
             <div className="container">
-                {show && <Confirmation caller = {()=>{let input = person.current; deleteMember(input.id).catch(reason => {console.log(reason)}).then(
+                {show && <Confirmation caller = {()=>{let input = person.current; deleteMember(person.current.id).catch(reason => {console.log(reason)}).then(
                     (r) => {removeFromArray(input)}
                 )}} open = {setShow}/>}
 

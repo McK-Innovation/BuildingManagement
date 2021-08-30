@@ -301,7 +301,7 @@ export async function addUser (credentials = {username: '', email: '', password:
         "groups": [group]
 
     }
-
+    console.log(credentials.permissionLevel)
     let groupPermission = {
         "attributes": {
             "groups": localStorage.getItem("groupName"),
@@ -318,40 +318,34 @@ export async function addUser (credentials = {username: '', email: '', password:
     // let resp = await makeRequest("POST", getToken(), body, '/admin/realms/McKenneys/users', "Add")
 
     //finds the added user
-    let getRes = await fetch('api/getUser', {method: 'POST', body: JSON.stringify({token, username, refresh}), headers: {'Content-Type': 'application/json'}})
+    let getRes = await fetch('api/getUserRevised', {method: 'POST', body: JSON.stringify({token, username, refresh}), headers: {'Content-Type': 'application/json'}})
     getRes = await getRes.json()
     if(getRes.hasOwnProperty("error")){
         return getRes
     }
     if(getRes.hasOwnProperty("newResponse")) {
         setToken(getRes.refreshTok)
+        getRes = getRes.newResponse
     }
-
-    else {
-        if(getRes.hasOwnProperty("newResponse")) {
-            setToken(getRes.refreshTok)
-            let getRes = getRes.newResponse
-
-            userId = getRes.id
-            //edits the permission of found user
-            let editRes = await fetch('api/updateUserPermission', {
-                method: 'POST',
-                body: JSON.stringify({token, userId, groupPermission, refresh}),
-                headers: {'Content-Type': 'application/json'}
-            })
-            // let editRes = await makeRequest("PUT", getToken(), groupPermission, "/admin/realms/McKenneys/users/" + userId, "Edit")
-            editRes = await editRes.json()
-            if (editRes.hasOwnProperty("error")) {
-                return editRes
-            }
-            if (editRes.hasOwnProperty("newResponse")) {
-                setToken(editRes.refreshTok)
-                console.log("token reset")
-                return "Added User"
-            } else {
-                return "Added User"
-            }
-        }
+    userId = getRes.id
+    //edits the permission of found user
+    let editRes = await fetch('api/updateUserPermission', {
+        method: 'POST',
+        body: JSON.stringify({token, userId, groupPermission, refresh}),
+        headers: {'Content-Type': 'application/json'}
+    })
+    console.log("updated permission")
+    // let editRes = await makeRequest("PUT", getToken(), groupPermission, "/admin/realms/McKenneys/users/" + userId, "Edit")
+    editRes = await editRes.json()
+    if (editRes.hasOwnProperty("error")) {
+        return editRes
+    }
+    if (editRes.hasOwnProperty("newResponse")) {
+        setToken(editRes.refreshTok)
+        console.log("token reset")
+        return "Added User"
+    } else {
+        return "Added User"
     }
 
 }
@@ -364,8 +358,11 @@ export  async function updateIndividual(userId, credentials = {username: '', ema
     for (let creds in credentials) {
         if (credentials[creds] !== '' && creds !== 'permissionLevel') {
             body[creds] = credentials[creds]
+
         }
+        console.log(creds)
         if (creds === 'permissionLevel' && credentials[creds] !== '') {
+        console.log(creds)
             let groupPermission = {
                 "attributes": {
                     "groups": localStorage.getItem("groupName"),
@@ -380,10 +377,14 @@ export  async function updateIndividual(userId, credentials = {username: '', ema
                 setToken(editRes.refreshTok)
                 return editRes.newResponse
             }
+            else {
+                return editRes
+            }
 
             // await makeRequest("PUT", getToken(), groupPermission, "/admin/realms/McKenneys/users/" + userId, "Edit")
 
         }
+        console.log(creds)
     }
 
     let update = await fetch('api/updateUser', {method: 'POST', body: JSON.stringify({token, userId, body, refresh }), headers: {'Content-Type': 'application/json'}})

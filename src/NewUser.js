@@ -1,14 +1,14 @@
 import {useLocation} from "react-router";
 import {useKeycloak} from "@react-keycloak/web";
 import {useCallback, useRef, useState} from "react";
-import {Redirect} from "react-router-dom";
+import {Redirect, useHistory} from "react-router-dom";
 import * as Yup from "yup";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 
 import {addUser} from "./KeycloakHelper"
 import {Confirmation} from "./Confirmation";
-
 const NewUser= (props)=> {
+    let history = useHistory()
     const [show, setShow] = useState(false)
     let val = useRef({})
 
@@ -58,9 +58,9 @@ const NewUser= (props)=> {
 
     }
 
-    async function submitH(username, email, password, firstname, lastname ) {
+    async function submitH(username, email, password, firstname, lastname, permissionLevel) {
 
-        await addUser({username: username, email: email, password: password, firstName: firstname, lastName: lastname })
+        await addUser({username: username, email: email, password: password, firstName: firstname, lastName: lastname, permissionLevel: permissionLevel })
     }
 
     // async function tester(values) {
@@ -69,7 +69,7 @@ const NewUser= (props)=> {
 
     return (
         <div className="container text-light">
-            {show ? (<Confirmation caller = { ()=>{let values = val.current; submitH(values.username, values.email, values.password, values.firstname, values.lastname).catch((e) => (alert(e))).then((r) =>
+            {show ? (<Confirmation caller = { ()=>{let values = val.current; submitH(values.username, values.email, values.password, values.firstname, values.lastname, values.permissionLevel).catch((e) => (alert(e))).then((r) =>
             { if(r !== undefined)
                 {
                     alert(r)
@@ -212,6 +212,7 @@ const NewUser= (props)=> {
                                                 as = 'select'
                                                 className="form-control"
                                             >
+                                                <option disabled selected value> -- select an option -- </option>
                                                 <option>Admin</option>
                                                 <option>Supervisor</option>
                                                 <option>Engineer</option>
@@ -266,7 +267,7 @@ const NewUser= (props)=> {
                                     <div className="btn-group m-4">
                                         <button type="submit" className="btn btn-primary" disabled={!touched}>Save Change</button>
 
-                                        <button type="button" className="btn btn-secondary">Cancel</button>
+                                        <button type="button" className="btn btn-secondary" onClick={()=>{history.push("/dashboard")}} >Cancel</button>
                                     </div>
                                 </Form>
                             )
