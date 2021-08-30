@@ -9,10 +9,7 @@ import {addUser} from "./KeycloakHelper"
 import {Confirmation} from "./Confirmation";
 
 const NewUser= (props)=> {
-    const [person, updatePerson] = useState({})
-   const [peeps, updatePeeps] = useState(props)
     const [show, setShow] = useState(false)
-    const [confirm, updateConfirm] =useState(false)
     let val = useRef({})
 
 
@@ -72,7 +69,16 @@ const NewUser= (props)=> {
 
     return (
         <div className="container text-light">
-            {show ? (<Confirmation caller = { ()=>{let values = val.current; submitH(values.username, values.email, values.password, values.firstname, values.lastname).catch((e) => (alert(e))).then((r) => alert(r)) }} update = {updateConfirm} open = {setShow}/> ) : null}
+            {show ? (<Confirmation caller = { ()=>{let values = val.current; submitH(values.username, values.email, values.password, values.firstname, values.lastname).catch((e) => (alert(e))).then((r) =>
+            { if(r !== undefined)
+                {
+                    alert(r)
+                }
+              else {
+                  alert("Successfully added a user")
+                    props.updateDashboard(values)}
+                })
+            }} open = {setShow}/> ) : null}
             <div className="row justify-content-center">
                 <div className="col-12 col-lg-10 col-xl-8 mx-auto overflow-auto">
 
@@ -87,7 +93,6 @@ const NewUser= (props)=> {
                                 console.log(values);
                                 val.current = values
                                 setShow(true);
-
 
                                 // if(confirm) {
                                 //

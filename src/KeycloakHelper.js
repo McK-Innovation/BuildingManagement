@@ -151,17 +151,21 @@ export async function getAllUsersInGroup () {
     let token = getToken()
     let username = localStorage.getItem("username")
     try {
-        let res = await fetch('api/getUser', {method: 'POST', body: JSON.stringify({token, username, refresh}), headers: {'Content-Type': 'application/json'}})
+        let res = await fetch('api/getUserRevised', {method: 'POST', body: JSON.stringify({token, username, refresh}), headers: {'Content-Type': 'application/json'}})
         // let user = await makeRequest("GET", getToken(), {}, '//admin/realms/McKenneys/users?username=' + localStorage.getItem("username"))
         res = await res.json()
 
         if(res.hasOwnProperty("error")){
             return res
         }
-        // returns an array if successful
-        res = res[0]
         localStorage.setItem("userId", res.id)
-        localStorage.setItem("name", res.firstName)
+        if(res.hasOwnProperty("firstName")){
+            localStorage.setItem("name", res.firstName)
+        }
+        else
+        {
+            localStorage.setItem("name",res.username)
+        }
         // localStorage.setItem("userId", user.id)
 
         let userId = res.id
@@ -186,7 +190,7 @@ export async function getAllUsersInGroup () {
                 //start the second part of the function. Above works
                 let groupId = groupRes[0].id
 
-                let memberRes = await fetch('api/getMembers', {method: 'POST', body: JSON.stringify({token, groupId, refresh }), headers: {'Content-Type': 'application/json'}})
+                let memberRes = await fetch('api/getGroupRevised', {method: 'POST', body: JSON.stringify({token, groupId, refresh }), headers: {'Content-Type': 'application/json'}})
                 // let members = await makeRequest("GET", getToken(), {}, '/admin/realms/McKenneys/groups/' + id + '/members')
                 memberRes = await memberRes.json()
 

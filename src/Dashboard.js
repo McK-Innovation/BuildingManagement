@@ -166,7 +166,7 @@ const Dashboard = ()=> {
                                                         </Route>
                                                         <Route path = "/dashboard/new-user" >
 
-                                                            <NewUser client = {client}/>
+                                                            <NewUser updateDashboard = {updateDashboard} />
 
                                                         </Route>
                                                 </Switch>

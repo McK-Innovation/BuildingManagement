@@ -2,12 +2,12 @@
     width: 100vw;
     position: fixed;
     margin-left: -50vw;
-    left: -1%;
+    left: -1em;
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     z-index: 9999;
     height: 100vh;
-    top: -1%;
+    top: -1em;
 
 }
 

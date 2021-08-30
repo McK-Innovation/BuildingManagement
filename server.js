@@ -115,7 +115,7 @@ async function login (request) {
     let body = {
         username: request.username,
         password: request.password,
-        client_id: "react",
+        client_id: "admin-cli",
         grant_type: "password",
     }
     try {
@@ -135,6 +135,30 @@ async function getUser(request) {
     catch(error)
     {return error}
 }
+
+async function getUserRevised(request) {
+    try {
+    let users = await makeRequest("GET", request.token, {}, '/admin/realms/McKenneys/users', "", request.refresh)
+    let person = null;
+    for(let user of users) {
+        if(user.username.toLowerCase() == request.username.toLowerCase()) {
+            person = user
+        }
+    }
+    return person
+    }
+    catch(error)
+    {return error}
+}
+async function getGroupRevised(request) {
+    try {
+    let group = await makeRequest("GET", request.token, {}, '/admin/realms/McKenneys/users', "", request.refresh)
+    return group
+    }
+    catch(error)
+    {return error}
+}
+
 
 async function getGroup(request) {
     try {
@@ -263,6 +287,16 @@ app.post('/api/logout',async (req,res) => {
 
 app.post('/api/getGroup',async (req,res) => {
     let result = await getGroup(req.body)
+    console.log(result)
+    res.json(result)
+});
+app.post('/api/getGroupRevised',async (req,res) => {
+    let result = await getGroupRevised(req.body)
+    console.log(result)
+    res.json(result)
+});
+app.post('/api/getUserRevised',async (req,res) => {
+    let result = await getUserRevised(req.body)
     console.log(result)
     res.json(result)
 });
