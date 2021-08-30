@@ -1,9 +1,10 @@
 const express = require('express');
+const path = require('path');
 const app = express();
 app.use(express.json());
 const cors = require('cors');
 const {string} = require("prop-types");
-const port = process.env.PORT || 3001;
+const port = process.env.PORT;
 const fetch = require('node-fetch');
 const { request } = require('express');
 
@@ -11,12 +12,22 @@ const { request } = require('express');
 
 let baseUrl = 'https://auth.mckenneys.tech/auth' //will change in the future (env variable)
 
-app.use(
+/*app.use(
     cors({
-        origin: 'http://localhost:3000',
+        origin: 'http://localhost',
         credentials: true,
     })
-);
+);*/
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.get('/ping', (req, res) => {
+    return res.send('pong')
+})
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'))
+})
+
 async function makeRequest(method, headers = "", body, url, type = "", refresh = "") {
     let myHeaders;
     myHeaders =  new fetch.Headers();
