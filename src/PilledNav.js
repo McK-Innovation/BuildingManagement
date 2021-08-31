@@ -11,16 +11,6 @@ const Pilled = ({person}) => {
                    className="nav-link border-0 text-uppercase font-weight-bold " >Users</NavLink>
             </li>
             <li className="nav-item flex-sm-fill">
-                <NavLink id="EditUser" data-toggle="tab" exact to={"#"} role="tab" activeClassName = 'disabled' aria-controls="profile"
-                   aria-selected="false" className="nav-link border-0 text-uppercase font-weight-bold disabled" isActive = {()=> {
-                       if(!person){
-                           return false
-                       }
-                   }} >
-                    Edit
-                </NavLink>
-            </li>
-            <li className="nav-item flex-sm-fill">
                 <NavLink id="CreateNew" data-toggle="tab" exact to={"/dashboard/new-user"} activeClassName = "active" role="tab" aria-controls="profile"
                          aria-selected="false" className="nav-link border-0 text-uppercase font-weight-bold">New</NavLink>
             </li>
