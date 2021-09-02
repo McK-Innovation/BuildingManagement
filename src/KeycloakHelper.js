@@ -294,7 +294,7 @@ export async function addUser (credentials = {username: '', email: '', password:
         {
             "type": "password",
             "value": credentials.password,
-            "temporary": false
+            "temporary": true
         }
 
     ],

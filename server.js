@@ -117,7 +117,6 @@ async function makeRequest(method, headers = "", body, url, type = "", refresh =
     }
 
     catch (error) {
-        console.log("error")
         return error
     }
 }

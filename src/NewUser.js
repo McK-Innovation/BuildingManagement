@@ -216,7 +216,7 @@ const NewUser= (props)=> {
                                                 <option>Admin</option>
                                                 <option>Supervisor</option>
                                                 <option>Engineer</option>
-                                                <option>View-Only</option>
+                                                <option>ViewOnly</option>
 
                                             </Field>
                                         </div>
