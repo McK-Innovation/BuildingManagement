@@ -27,7 +27,7 @@ const SideBar = (props)=> {
             </div>
 
             <div className="sidebar-header">
-                <h3><span className= "font-weight-bold">building</span>Key</h3>
+                <h3><span className= "font-weight-bold">building</span>Connect</h3>
                 <strong>BK</strong>
             </div>
 
