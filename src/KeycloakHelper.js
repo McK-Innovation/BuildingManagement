@@ -360,9 +360,9 @@ export  async function updateIndividual(userId, credentials = {username: '', ema
             body[creds] = credentials[creds]
 
         }
+
         console.log(creds)
         if (creds === 'permissionLevel' && credentials[creds] !== '') {
-        console.log(creds)
             let groupPermission = {
                 "attributes": {
                     "groups": localStorage.getItem("groupName"),
@@ -371,24 +371,38 @@ export  async function updateIndividual(userId, credentials = {username: '', ema
             }
             let editRes = await fetch('api/updateUserPermission', {method: 'POST', body: JSON.stringify({token, userId, groupPermission, refresh }), headers: {'Content-Type': 'application/json'}})
             if(editRes.hasOwnProperty("error")) {
+                console.log(editRes)
                 return editRes
             }
             if(editRes.hasOwnProperty("newResponse")) {
                 setToken(editRes.refreshTok)
                 return editRes.newResponse
             }
-            else {
-                return editRes
-            }
+
 
             // await makeRequest("PUT", getToken(), groupPermission, "/admin/realms/McKenneys/users/" + userId, "Edit")
 
         }
         console.log(creds)
     }
+    console.log(body)
 
-    let update = await fetch('api/updateUser', {method: 'POST', body: JSON.stringify({token, userId, body, refresh }), headers: {'Content-Type': 'application/json'}})
+    const {password, ...other} = body
+    console.log(password)
+    console.log(other)
+    if(password && password !== '') {
+        let update = await fetch('api/updatePass', {method: 'POST', body: JSON.stringify({token, userId, password, refresh }), headers: {'Content-Type': 'application/json'}})
+        if(update.hasOwnProperty("error")) {
+            return update
+        }
+        if(update.hasOwnProperty("newResponse")) {
+            setToken(update.refreshTok)
+            return update.newResponse
+        }
+    }
+    let update = await fetch('api/updateUser', {method: 'POST', body: JSON.stringify({token, userId, other, refresh }), headers: {'Content-Type': 'application/json'}})
     // await makeRequest("PUT", getToken(), body, "/admin/realms/McKenneys/users/" + userId, "Add")
+
     update = await update.json()
     // error handling
     if(update.hasOwnProperty("error")) {

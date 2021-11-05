@@ -9,7 +9,7 @@ import {getAllUsersInGroup, getGroup} from './keycloakUtils'
 import Authorization from "./authContext"
 import {autho} from "./RoutingTest";
 import {login} from "./KeycloakHelper"
-
+import connect from "./connectLogo.png"
 
 
 
@@ -103,7 +103,9 @@ const [client, updateClient] = useState(props)
 
     return (
         <div className="container d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
-            <div className="w-100" style={{ maxWidth: "400px" }}>
+            <img className= "mr-4 " src = {connect} alt = "image of mckenneys logo" style = {{maxWidth: "600px", maxHeight: "400px"}}/>
+            <div className="w-100 mr-1" style={{ maxWidth: "350px", minWidth: "350px" }}>
+
                 <div className= "card rounded cardShadow">
                     <div className="card-body card-back">
                         <h2 className="text-center mb-5">Sign In</h2>
@@ -131,7 +133,7 @@ const [client, updateClient] = useState(props)
                                                 className = "form-control"
 
                                             />
-                                            <ErrorMessage name = "username"/>
+                                            <ErrorMessage name = "username" classname = 'text-danger'/>
                                         </div>
 
                                         <div className="form-group mb-4">
@@ -145,15 +147,10 @@ const [client, updateClient] = useState(props)
                                             <ErrorMessage name = "password"/>
                                         </div>
 
-                                        <button type = "submit" className= "btn-outline-primary w-100 btn-round" disabled={!isValid || (Object.keys(touched).length === 0 && touched.constructor === Object)}>
+                                        <button type = "submit" className= "btn-outline-primary w-100 btn-round mt-2" disabled={!isValid || (Object.keys(touched).length === 0 && touched.constructor === Object)}>
                                             Log In
                                         </button>
-                                        <div className= "W-100 text-center mt-2">
-                                            <div className= "W-100 text-center mt-2">
-                                                <img src = "https://pbs.twimg.com/profile_images/1135686411968032774/wG0CkGI5_400x400.png" alt = "image of mckenneys logo"
-                                                     style = {{maxWidth: "100px", maxHeight: "100px"}}/>
-                                            </div>
-                                        </div>
+
                                     </Form>
 
 

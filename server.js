@@ -232,6 +232,16 @@ async function updateUser(request) {
         return error
     }
 }
+async function updatePass(request) {
+    try {
+        let body = { type: "password", temporary: false, value: request.password }
+        let update =  await makeRequest("PUT", request.token, body, "/admin/realms/McKenneys/users/" + request.userId + '/reset-password', "Add", request.refresh)
+        return update
+    }
+    catch(error) {
+        return error
+    }
+}
 async function logout(request) {
     try {
     let logout =  await makeRequest('PUT', request.token, request.body, '/realms/McKenneys/protocol/openid-connect/logout',"", request.refresh)
@@ -307,6 +317,12 @@ app.post('/api/getGroupRevised',async (req,res) => {
 });
 app.post('/api/getUserRevised',async (req,res) => {
     let result = await getUserRevised(req.body)
+    console.log(result)
+    res.json(result)
+});
+
+app.post('/api/updatePass',async (req,res) => {
+    let result = await updatePass(req.body)
     console.log(result)
     res.json(result)
 });
