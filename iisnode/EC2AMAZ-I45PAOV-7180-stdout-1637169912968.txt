@@ -1,0 +1,2993 @@
+Listening on port \\.\pipe\faa923ef-f370-4a83-998e-952ff963e2b0
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+405
+{ error: 'Status 405: Method Not Allowed' }
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+5
+4
+{
+  access_token: 'eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJkS1hQb2JQamgwWXUtQ2d6ckJsS1BXUmllVlJkU0VHak93WTlOUXBKUGFzIn0.eyJleHAiOjE2MzcxNzE3MjAsImlhdCI6MTYzNzE2OTkyMCwianRpIjoiODRlODM3OTEtNzBmNC00OTRjLWI3MzEtMjFiOWMxYzdlN2RlIiwiaXNzIjoiaHR0cHM6Ly9hdXRoLm1ja2VubmV5cy50ZWNoL2F1dGgvcmVhbG1zL01jS2VubmV5cyIsInN1YiI6ImY1MDIxNmJiLTkyN2YtNDEwZC04MTZmLWVmYTAyMTA4NTg3OCIsInR5cCI6IkJlYXJlciIsImF6cCI6ImFkbWluLWNsaSIsInNlc3Npb25fc3RhdGUiOiJmZTVlMDIzNi03ZjViLTRmOGUtODg1Ni1jNmM3MDY4Yjg2YTkiLCJhY3IiOiIxIiwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJncm91cGFkbWluIn0.EIwBa9bR1U6WZA9ajbxmlk6P-XS9EuYiA5y-eUpPIGNCG8blSHMvZC-9y5pon8kBbpM4VYzY6GHTLqfQxKCoslUvU7d1SqVShyhvGVOa7xvFdl6uSfUAOoP6zNW4ddjRH1vIL-yNwyb9DmqiACV2LEw1iMC7o1hEAYptxRV9A2PiH_l-t1pWqEIUfPg1tWs6-Fh_jRfRSjm9GkdR0v_r0VOyl5Psxswkea_lqVFcGnzu3CHOyWMf4feFTCB9fC_hawy-F_bcuk_3zZbcSY4Ofdvg6ojb9OdzNwbZIijo9vdQiIgZM9BdQEk6uQbS57Mw4xevQP1YxSgtGmt4pj-MiQ',
+  expires_in: 1800,
+  refresh_expires_in: 60,
+  refresh_token: 'eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJjNWM3MzJkMC1iMDE1LTRjYjEtODFmZi0zZjU3YzUwYmEwZTcifQ.eyJleHAiOjE2MzcxNjk5ODAsImlhdCI6MTYzNzE2OTkyMCwianRpIjoiNjE5ZTNjNDctZWUwMC00NDhmLWFkNzktMzQzYmJlZDE1YmI4IiwiaXNzIjoiaHR0cHM6Ly9hdXRoLm1ja2VubmV5cy50ZWNoL2F1dGgvcmVhbG1zL01jS2VubmV5cyIsImF1ZCI6Imh0dHBzOi8vYXV0aC5tY2tlbm5leXMudGVjaC9hdXRoL3JlYWxtcy9NY0tlbm5leXMiLCJzdWIiOiJmNTAyMTZiYi05MjdmLTQxMGQtODE2Zi1lZmEwMjEwODU4NzgiLCJ0eXAiOiJSZWZyZXNoIiwiYXpwIjoiYWRtaW4tY2xpIiwic2Vzc2lvbl9zdGF0ZSI6ImZlNWUwMjM2LTdmNWItNGY4ZS04ODU2LWM2YzcwNjhiODZhOSIsInNjb3BlIjoicHJvZmlsZSBlbWFpbCJ9.xSS6q6nQttJKnZv_CyVtroXw3JR8f30hF8Li8VhWJrc',
+  token_type: 'Bearer',
+  'not-before-policy': 0,
+  session_state: 'fe5e0236-7f5b-4f8e-8856-c6c7068b86a9',
+  scope: 'profile email'
+}
+{
+  tok: 'eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJkS1hQb2JQamgwWXUtQ2d6ckJsS1BXUmllVlJkU0VHak93WTlOUXBKUGFzIn0.eyJleHAiOjE2MzcxNzE3MjAsImlhdCI6MTYzNzE2OTkyMCwianRpIjoiODRlODM3OTEtNzBmNC00OTRjLWI3MzEtMjFiOWMxYzdlN2RlIiwiaXNzIjoiaHR0cHM6Ly9hdXRoLm1ja2VubmV5cy50ZWNoL2F1dGgvcmVhbG1zL01jS2VubmV5cyIsInN1YiI6ImY1MDIxNmJiLTkyN2YtNDEwZC04MTZmLWVmYTAyMTA4NTg3OCIsInR5cCI6IkJlYXJlciIsImF6cCI6ImFkbWluLWNsaSIsInNlc3Npb25fc3RhdGUiOiJmZTVlMDIzNi03ZjViLTRmOGUtODg1Ni1jNmM3MDY4Yjg2YTkiLCJhY3IiOiIxIiwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJncm91cGFkbWluIn0.EIwBa9bR1U6WZA9ajbxmlk6P-XS9EuYiA5y-eUpPIGNCG8blSHMvZC-9y5pon8kBbpM4VYzY6GHTLqfQxKCoslUvU7d1SqVShyhvGVOa7xvFdl6uSfUAOoP6zNW4ddjRH1vIL-yNwyb9DmqiACV2LEw1iMC7o1hEAYptxRV9A2PiH_l-t1pWqEIUfPg1tWs6-Fh_jRfRSjm9GkdR0v_r0VOyl5Psxswkea_lqVFcGnzu3CHOyWMf4feFTCB9fC_hawy-F_bcuk_3zZbcSY4Ofdvg6ojb9OdzNwbZIijo9vdQiIgZM9BdQEk6uQbS57Mw4xevQP1YxSgtGmt4pj-MiQ',
+  expire: 1800,
+  refresh: 'eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJjNWM3MzJkMC1iMDE1LTRjYjEtODFmZi0zZjU3YzUwYmEwZTcifQ.eyJleHAiOjE2MzcxNjk5ODAsImlhdCI6MTYzNzE2OTkyMCwianRpIjoiNjE5ZTNjNDctZWUwMC00NDhmLWFkNzktMzQzYmJlZDE1YmI4IiwiaXNzIjoiaHR0cHM6Ly9hdXRoLm1ja2VubmV5cy50ZWNoL2F1dGgvcmVhbG1zL01jS2VubmV5cyIsImF1ZCI6Imh0dHBzOi8vYXV0aC5tY2tlbm5leXMudGVjaC9hdXRoL3JlYWxtcy9NY0tlbm5leXMiLCJzdWIiOiJmNTAyMTZiYi05MjdmLTQxMGQtODE2Zi1lZmEwMjEwODU4NzgiLCJ0eXAiOiJSZWZyZXNoIiwiYXpwIjoiYWRtaW4tY2xpIiwic2Vzc2lvbl9zdGF0ZSI6ImZlNWUwMjM2LTdmNWItNGY4ZS04ODU2LWM2YzcwNjhiODZhOSIsInNjb3BlIjoicHJvZmlsZSBlbWFpbCJ9.xSS6q6nQttJKnZv_CyVtroXw3JR8f30hF8Li8VhWJrc'
+}
+404
+5
+[
+  {
+    id: '2c43125f-06c7-4237-9249-fe3c0ccc6aa1',
+    createdTimestamp: 1637169727144,
+    username: 'ahhh',
+    enabled: true,
+    totp: false,
+    emailVerified: false,
+    firstName: 'ahhh',
+    lastName: 'ahhh',
+    email: 'ahhh@gmail.com',
+    attributes: { groups: [Array], permissionLevel: [Array] },
+    disableableCredentialTypes: [],
+    requiredActions: [ 'UPDATE_PASSWORD' ],
+    notBefore: 0,
+    access: {
+      manageGroupMembership: true,
+      view: true,
+      mapRoles: true,
+      impersonate: false,
+      manage: true
+    }
+  },
+  {
+    id: 'dafe89c5-aa4d-4572-a602-f237cbd8752b',
+    createdTimestamp: 1637166480735,
+    username: 'blaj',
+    enabled: true,
+    totp: false,
+    emailVerified: false,
+    firstName: 'blah',
+    lastName: 'blah',
+    email: 'lb@gmail.com',
+    attributes: { groups: [Array], permissionLevel: [Array] },
+    disableableCredentialTypes: [],
+    requiredActions: [ 'UPDATE_PASSWORD' ],
+    notBefore: 0,
+    access: {
+      manageGroupMembership: true,
+      view: true,
+      mapRoles: true,
+      impersonate: false,
+      manage: true
+    }
+  },
+  {
+    id: 'f50216bb-927f-410d-816f-efa021085878',
+    createdTimestamp: 1629139142965,
+    username: 'groupadmin',
+    enabled: true,
+    totp: false,
+    emailVerified: false,
+    attributes: { group: [Array] },
+    disableableCredentialTypes: [],
+    requiredActions: [],
+    notBefore: 0,
+    access: {
+      manageGroupMembership: true,
+      view: true,
+      mapRoles: true,
+      impersonate: false,
+      manage: true
+    }
+  },
+  {
+    id: '1591468b-1e3f-412d-8f65-0eb20a5a5aba',
+    createdTimestamp: 1633101119221,
+    username: 'helloworld1',
+    enabled: true,
+    totp: false,
+    emailVerified: false,
+    firstName: 'Hello',
+    lastName: 'Worlds',
+    email: 'helloworld1@mckenneys.com',
+    attributes: { groups: [Array], permissionLevel: [Array] },
+    disableableCredentialTypes: [],
+    requiredActions: [ 'UPDATE_PASSWORD' ],
+    notBefore: 0,
+    access: {
+      manageGroupMembership: true,
+      view: true,
+      mapRoles: true,
+      impersonate: false,
+      manage: true
+    }
+  },
+  {
+    id: 'da4ad336-29db-4e61-8a4e-17cb0c570a45',
+    createdTimestamp: 1637165117624,
+    username: 'hiiii',
+    enabled: true,
+    totp: false,
+    emailVerified: false,
+    firstName: 'hiii',
+    lastName: 'hiiiiii',
+    email: 'hiiii@gmail.com',
+    attributes: { groups: [Array], permissionLevel: [Array] },
+    disableableCredentialTypes: [],
+    requiredActions: [ 'UPDATE_PASSWORD' ],
+    notBefore: 0,
+    access: {
+      manageGroupMembership: true,
+      view: true,
+      mapRoles: true,
+      impersonate: false,
+      manage: true
+    }
+  },
+  {
+    id: 'fe758ff0-4816-4ec3-a0b8-f5e26b82c0d9',
+    createdTimestamp: 1633363843646,
+    username: 'natbe',
+    enabled: true,
+    totp: false,
+    emailVerified: false,
+    firstName: 'Nate',
+    lastName: 'B',
+    email: 'b@b.com',
+    attributes: { groups: [Array], permissionLevel: [Array] },
+    disableableCredentialTypes: [],
+    requiredActions: [],
+    notBefore: 0,
+    access: {
+      manageGroupMembership: true,
+      view: true,
+      mapRoles: true,
+      impersonate: false,
+      manage: true
+    }
+  },
+  {
+    id: '07edfbb4-a0dd-4e68-b02f-f1bac01440a1',
+    createdTimestamp: 1629137480691,
+    username: 'user1',
+    enabled: true,
+    totp: false,
+    emailVerified: false,
+    firstName: 'testing',
+    lastName: 'tester',
+    email: 'hi@gmail.com',
+    attributes: { groups: [Array], permissionLevel: [Array] },
+    disableableCredentialTypes: [],
+    requiredActions: [],
+    notBefore: 0,
+    access: {
+      manageGroupMembership: true,
+      view: true,
+      mapRoles: true,
+      impersonate: false,
+      manage: true
+    }
+  },
+  {
+    id: 'fb7a01e1-3a14-49ba-89cf-40c46f822cbd',
+    createdTimestamp: 1629137505567,
+    username: 'user2',
+    enabled: true,
+    totp: false,
+    emailVerified: false,
+    firstName: 'Second',
+    lastName: 'UserH',
+    email: 'user@users.com',
+    disableableCredentialTypes: [],
+    requiredActions: [],
+    notBefore: 0,
+    access: {
+      manageGroupMembership: true,
+      view: true,
+      mapRoles: true,
+      impersonate: false,
+      manage: true
+    }
+  }
+]
+error
+{
+  id: 'f50216bb-927f-410d-816f-efa021085878',
+  createdTimestamp: 1629139142965,
+  username: 'groupadmin',
+  enabled: true,
+  totp: false,
+  emailVerified: false,
+  attributes: { group: [ 'building1' ] },
+  disableableCredentialTypes: [],
+  requiredActions: [],
+  notBefore: 0,
+  access: {
+    manageGroupMembership: true,
+    view: true,
+    mapRoles: true,
+    impersonate: false,
+    manage: true
+  }
+}
+f50216bb-927f-410d-816f-efa021085878
+4
+5
+[
+  {
+    id: 'd9753c5c-605a-4b4a-bb18-467365213338',
+    name: 'group 1',
+    path: '/group 1'
+  }
+]
+error
+[
+  {
+    id: 'd9753c5c-605a-4b4a-bb18-467365213338',
+    name: 'group 1',
+    path: '/group 1'
+  }
+]
+404
+5
+[
+  {
+    id: '2c43125f-06c7-4237-9249-fe3c0ccc6aa1',
+    createdTimestamp: 1637169727144,
+    username: 'ahhh',
+    enabled: true,
+    totp: false,
+    emailVerified: false,
+    firstName: 'ahhh',
+    lastName: 'ahhh',
+    email: 'ahhh@gmail.com',
+    attributes: { groups: [Array], permissionLevel: [Array] },
+    disableableCredentialTypes: [],
+    requiredActions: [ 'UPDATE_PASSWORD' ],
+    notBefore: 0,
+    access: {
+      manageGroupMembership: true,
+      view: true,
+      mapRoles: true,
+      impersonate: false,
+      manage: true
+    }
+  },
+  {
+    id: 'dafe89c5-aa4d-4572-a602-f237cbd8752b',
+    createdTimestamp: 1637166480735,
+    username: 'blaj',
+    enabled: true,
+    totp: false,
+    emailVerified: false,
+    firstName: 'blah',
+    lastName: 'blah',
+    email: 'lb@gmail.com',
+    attributes: { groups: [Array], permissionLevel: [Array] },
+    disableableCredentialTypes: [],
+    requiredActions: [ 'UPDATE_PASSWORD' ],
+    notBefore: 0,
+    access: {
+      manageGroupMembership: true,
+      view: true,
+      mapRoles: true,
+      impersonate: false,
+      manage: true
+    }
+  },
+  {
+    id: 'f50216bb-927f-410d-816f-efa021085878',
+    createdTimestamp: 1629139142965,
+    username: 'groupadmin',
+    enabled: true,
+    totp: false,
+    emailVerified: false,
+    attributes: { group: [Array] },
+    disableableCredentialTypes: [],
+    requiredActions: [],
+    notBefore: 0,
+    access: {
+      manageGroupMembership: true,
+      view: true,
+      mapRoles: true,
+      impersonate: false,
+      manage: true
+    }
+  },
+  {
+    id: '1591468b-1e3f-412d-8f65-0eb20a5a5aba',
+    createdTimestamp: 1633101119221,
+    username: 'helloworld1',
+    enabled: true,
+    totp: false,
+    emailVerified: false,
+    firstName: 'Hello',
+    lastName: 'Worlds',
+    email: 'helloworld1@mckenneys.com',
+    attributes: { groups: [Array], permissionLevel: [Array] },
+    disableableCredentialTypes: [],
+    requiredActions: [ 'UPDATE_PASSWORD' ],
+    notBefore: 0,
+    access: {
+      manageGroupMembership: true,
+      view: true,
+      mapRoles: true,
+      impersonate: false,
+      manage: true
+    }
+  },
+  {
+    id: 'da4ad336-29db-4e61-8a4e-17cb0c570a45',
+    createdTimestamp: 1637165117624,
+    username: 'hiiii',
+    enabled: true,
+    totp: false,
+    emailVerified: false,
+    firstName: 'hiii',
+    lastName: 'hiiiiii',
+    email: 'hiiii@gmail.com',
+    attributes: { groups: [Array], permissionLevel: [Array] },
+    disableableCredentialTypes: [],
+    requiredActions: [ 'UPDATE_PASSWORD' ],
+    notBefore: 0,
+    access: {
+      manageGroupMembership: true,
+      view: true,
+      mapRoles: true,
+      impersonate: false,
+      manage: true
+    }
+  },
+  {
+    id: 'fe758ff0-4816-4ec3-a0b8-f5e26b82c0d9',
+    createdTimestamp: 1633363843646,
+    username: 'natbe',
+    enabled: true,
+    totp: false,
+    emailVerified: false,
+    firstName: 'Nate',
+    lastName: 'B',
+    email: 'b@b.com',
+    attributes: { groups: [Array], permissionLevel: [Array] },
+    disableableCredentialTypes: [],
+    requiredActions: [],
+    notBefore: 0,
+    access: {
+      manageGroupMembership: true,
+      view: true,
+      mapRoles: true,
+      impersonate: false,
+      manage: true
+    }
+  },
+  {
+    id: '07edfbb4-a0dd-4e68-b02f-f1bac01440a1',
+    createdTimestamp: 1629137480691,
+    username: 'user1',
+    enabled: true,
+    totp: false,
+    emailVerified: false,
+    firstName: 'testing',
+    lastName: 'tester',
+    email: 'hi@gmail.com',
+    attributes: { groups: [Array], permissionLevel: [Array] },
+    disableableCredentialTypes: [],
+    requiredActions: [],
+    notBefore: 0,
+    access: {
+      manageGroupMembership: true,
+      view: true,
+      mapRoles: true,
+      impersonate: false,
+      manage: true
+    }
+  },
+  {
+    id: 'fb7a01e1-3a14-49ba-89cf-40c46f822cbd',
+    createdTimestamp: 1629137505567,
+    username: 'user2',
+    enabled: true,
+    totp: false,
+    emailVerified: false,
+    firstName: 'Second',
+    lastName: 'UserH',
+    email: 'user@users.com',
+    disableableCredentialTypes: [],
+    requiredActions: [],
+    notBefore: 0,
+    access: {
+      manageGroupMembership: true,
+      view: true,
+      mapRoles: true,
+      impersonate: false,
+      manage: true
+    }
+  }
+]
+error
+[
+  {
+    id: '2c43125f-06c7-4237-9249-fe3c0ccc6aa1',
+    createdTimestamp: 1637169727144,
+    username: 'ahhh',
+    enabled: true,
+    totp: false,
+    emailVerified: false,
+    firstName: 'ahhh',
+    lastName: 'ahhh',
+    email: 'ahhh@gmail.com',
+    attributes: { groups: [Array], permissionLevel: [Array] },
+    disableableCredentialTypes: [],
+    requiredActions: [ 'UPDATE_PASSWORD' ],
+    notBefore: 0,
+    access: {
+      manageGroupMembership: true,
+      view: true,
+      mapRoles: true,
+      impersonate: false,
+      manage: true
+    }
+  },
+  {
+    id: 'dafe89c5-aa4d-4572-a602-f237cbd8752b',
+    createdTimestamp: 1637166480735,
+    username: 'blaj',
+    enabled: true,
+    totp: false,
+    emailVerified: false,
+    firstName: 'blah',
+    lastName: 'blah',
+    email: 'lb@gmail.com',
+    attributes: { groups: [Array], permissionLevel: [Array] },
+    disableableCredentialTypes: [],
+    requiredActions: [ 'UPDATE_PASSWORD' ],
+    notBefore: 0,
+    access: {
+      manageGroupMembership: true,
+      view: true,
+      mapRoles: true,
+      impersonate: false,
+      manage: true
+    }
+  },
+  {
+    id: 'f50216bb-927f-410d-816f-efa021085878',
+    createdTimestamp: 1629139142965,
+    username: 'groupadmin',
+    enabled: true,
+    totp: false,
+    emailVerified: false,
+    attributes: { group: [Array] },
+    disableableCredentialTypes: [],
+    requiredActions: [],
+    notBefore: 0,
+    access: {
+      manageGroupMembership: true,
+      view: true,
+      mapRoles: true,
+      impersonate: false,
+      manage: true
+    }
+  },
+  {
+    id: '1591468b-1e3f-412d-8f65-0eb20a5a5aba',
+    createdTimestamp: 1633101119221,
+    username: 'helloworld1',
+    enabled: true,
+    totp: false,
+    emailVerified: false,
+    firstName: 'Hello',
+    lastName: 'Worlds',
+    email: 'helloworld1@mckenneys.com',
+    attributes: { groups: [Array], permissionLevel: [Array] },
+    disableableCredentialTypes: [],
+    requiredActions: [ 'UPDATE_PASSWORD' ],
+    notBefore: 0,
+    access: {
+      manageGroupMembership: true,
+      view: true,
+      mapRoles: true,
+      impersonate: false,
+      manage: true
+    }
+  },
+  {
+    id: 'da4ad336-29db-4e61-8a4e-17cb0c570a45',
+    createdTimestamp: 1637165117624,
+    username: 'hiiii',
+    enabled: true,
+    totp: false,
+    emailVerified: false,
+    firstName: 'hiii',
+    lastName: 'hiiiiii',
+    email: 'hiiii@gmail.com',
+    attributes: { groups: [Array], permissionLevel: [Array] },
+    disableableCredentialTypes: [],
+    requiredActions: [ 'UPDATE_PASSWORD' ],
+    notBefore: 0,
+    access: {
+      manageGroupMembership: true,
+      view: true,
+      mapRoles: true,
+      impersonate: false,
+      manage: true
+    }
+  },
+  {
+    id: 'fe758ff0-4816-4ec3-a0b8-f5e26b82c0d9',
+    createdTimestamp: 1633363843646,
+    username: 'natbe',
+    enabled: true,
+    totp: false,
+    emailVerified: false,
+    firstName: 'Nate',
+    lastName: 'B',
+    email: 'b@b.com',
+    attributes: { groups: [Array], permissionLevel: [Array] },
+    disableableCredentialTypes: [],
+    requiredActions: [],
+    notBefore: 0,
+    access: {
+      manageGroupMembership: true,
+      view: true,
+      mapRoles: true,
+      impersonate: false,
+      manage: true
+    }
+  },
+  {
+    id: '07edfbb4-a0dd-4e68-b02f-f1bac01440a1',
+    createdTimestamp: 1629137480691,
+    username: 'user1',
+    enabled: true,
+    totp: false,
+    emailVerified: false,
+    firstName: 'testing',
+    lastName: 'tester',
+    email: 'hi@gmail.com',
+    attributes: { groups: [Array], permissionLevel: [Array] },
+    disableableCredentialTypes: [],
+    requiredActions: [],
+    notBefore: 0,
+    access: {
+      manageGroupMembership: true,
+      view: true,
+      mapRoles: true,
+      impersonate: false,
+      manage: true
+    }
+  },
+  {
+    id: 'fb7a01e1-3a14-49ba-89cf-40c46f822cbd',
+    createdTimestamp: 1629137505567,
+    username: 'user2',
+    enabled: true,
+    totp: false,
+    emailVerified: false,
+    firstName: 'Second',
+    lastName: 'UserH',
+    email: 'user@users.com',
+    disableableCredentialTypes: [],
+    requiredActions: [],
+    notBefore: 0,
+    access: {
+      manageGroupMembership: true,
+      view: true,
+      mapRoles: true,
+      impersonate: false,
+      manage: true
+    }
+  }
+]
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
+4
+404
