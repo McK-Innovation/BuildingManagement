@@ -4,6 +4,7 @@ import {NavLink} from "react-router-dom";
 import clear from "./LoginPage";
 import Authorization from "./authContext";
 import {logout} from "./KeycloakHelper";
+import guide from '../src/images/UserGuide.pdf'
 const SideBar = (props)=> {
 
     //const {valid, updateValid} = useContext(Authorization)
@@ -33,9 +34,9 @@ const SideBar = (props)=> {
             <ul className="list-unstyled components">
 
                 <li className="hvr-grow">
-                    <a href="#" data-toggle="collapse" aria-expanded="false">
+                    <a href={guide} target="_blank" rel="noreferrer">
                         <i className="bi bi-person-badge icon-space"></i>
-                        <span className="text-light align-middle">Users</span></a>
+                        <span className="text-light align-middle"></span>User Guide</a>
                 </li>
 
                 {/* V2
