@@ -4,7 +4,7 @@ const app = express();
 app.use(express.json());
 const cors = require('cors');
 const {string} = require("prop-types");
-const port = 3002;
+const port = process.env.PORT;
 const fetch = require('node-fetch');
 const { request } = require('express');
 

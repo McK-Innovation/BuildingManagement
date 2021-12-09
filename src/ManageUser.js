@@ -207,7 +207,7 @@ const ViewEdit = (props)=> {
                                                 as = 'select'
                                                 className="form-control"
                                                 >
-                                                <option disabled selected value> -- select an option -- </option>
+                                                <option></option>
                                                 <option>Admin</option>
                                                 <option>Supervisor</option>
                                                 <option>Engineer</option>
