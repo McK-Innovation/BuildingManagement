@@ -101,85 +101,52 @@ const Dashboard = ()=> {
             debounce={250}
             timeout={1000 * 60 * 5}
         />
-        <div className="wrapper">
-            <SideBar className = 'sidebar'>
+            <SideBar></SideBar>
+        <div className="wrapper" >
+            {/* <SideBar className = 'sidebar'>
 
-            </SideBar>
+</SideBar> */}
 
             <div className="main back">
-
-                   <div className="navbar navbar-dark bar font-weight-light navbar-expand text-light text-center ">
+                    {/* <div className="navbar navbar-dark bar font-weight-light navbar-expand text-light text-center ">
                        <div className="navbar navbar-collapse">
-
-
                            <span className="mx-auto"> Welcome Back <span className= "font-weight-bold text-light">{name}</span>!</span>
                        </div>
-                       {/*{*/}
-                       {/*<ul className="navbar-nav navbar-align">*/}
-                       {/*    <div className='dropdownmod'>*/}
-                       {/*        <div className='dropdownmod-header' onClick={() => {updateDropdown(!dropdown)}}>*/}
-                       {/*            {name}*/}
-                       {/*            <i className="bi bi-person-square text-light mr-1"></i>*/}
-                       {/*        </div>*/}
-                       {/*        <div className={`dropdownmod-body ${dropdown && 'open'}`}>*/}
-                       {/*                <div className="dropdownmod-item">*/}
-                       {/*                    Profile*/}
-                       {/*                </div>*/}
-
-                       {/*        </div>*/}
-                       {/*    </div>*/}
-
-                       {/*</ul>}*/}
-                   </div>
-
+                    </div> */}
                     <div className= "content p-5">
-
                         <div className="container-fluid p-0">
-
-                            <div className= "row text-left">
+                            {/* <div className= "row text-left">
                                 <div className="col">
                                     <h4 className= "text-light">Manage <span className= "font-weight-light">Dashboard</span></h4>
                                 </div>
-                            </div>
-
-
+                            </div> */}
                             <div className= "row py-4 text-center">
                                 <div className="col">
                                     <div className="p-10 pt-5 mainBack rounded shadow mb-5">
                                         <div className="row pb-5">
-                                            <div className="col text-dark">
+                                            {/* <div className="col text-dark">
                                                 <Pilled person = {person}/>
-                                            </div>
+                                            </div> */}
                                         </div>
-
                                         <div className="row">
                                             <div className="col">
-
-
                                                 <Switch>
                                                         <Route exact path = "/dashboard">
                                                             <UserPage people = {arrayOfPeople} updatePerson = {updatePerson} updateDashboard = {updateDashboard}   />
                                                         </Route>
-
                                                         <Route path = "/dashboard/edit-user">
                                                             <ViewEdit person = {person} updateDashboard = {updateDashboard}/>
                                                         </Route>
                                                         <Route path = "/dashboard/new-user" >
-
                                                             <NewUser updateDashboard = {updateDashboard} />
-
                                                         </Route>
                                                 </Switch>
-
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
-
                     </div>
                 </div>
             </div>
