@@ -6,7 +6,7 @@ import Authorization from "./authContext";
 import {logout} from "./KeycloakHelper";
 import guide from '../src/images/UserGuide.pdf'
 import logo from '../src/images/mckenneys-logo.png'
-import connect from "./connectLogo.png"
+import connect from "../src/images/connectLogo2.png"
 const SideBar = (props)=> {
 
     //const {valid, updateValid} = useContext(Authorization)
@@ -24,7 +24,7 @@ const SideBar = (props)=> {
     return (
         <div className = "nav-container">
             <nav>   
-            <img id="logo" src = {connect} alt = "image of mckenneys logo" style = {{maxWidth: "600px", maxHeight: "400px"}}/>
+            <img id="logo" src = {connect} alt = "image of mckenneys logo" style = {{maxWidth: "400px", maxHeight: "200px"}}/>
                 <ul>
                     <li className='actions'>
                         <NavLink className='actions' data-toggle="tab" exact to={"/dashboard"} activeClassName = "active" aria-controls="home" role='tab' aria-selected="true">Manage Users</NavLink>
