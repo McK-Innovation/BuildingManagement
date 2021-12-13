@@ -5,6 +5,7 @@ import clear from "./LoginPage";
 import Authorization from "./authContext";
 import {logout} from "./KeycloakHelper";
 import guide from '../src/images/UserGuide.pdf'
+import logo from '../src/images/mckenneys-logo.png'
 const SideBar = (props)=> {
 
     //const {valid, updateValid} = useContext(Authorization)
@@ -20,49 +21,27 @@ const SideBar = (props)=> {
 
 
     return (
-
-        <nav id="sidebar">
-
-            <div id="dismiss">
-                <i className="fas fa-arrow-left"></i>
-            </div>
-
-            <div className="sidebar-header">
-                <h4><span className= "font-weight-bold">building</span>CONNECT</h4>
-            </div>
-
-            <ul className="list-unstyled components">
-
-                <li className="hvr-grow">
-                    <a href={guide} target="_blank" rel="noreferrer">
-                        <i className="bi bi-person-badge icon-space"></i>
-                        <span className="text-light align-middle"></span>User Guide</a>
-                </li>
-
-                {/* V2
-                    <li className="hvr-grow">
-
-                        <a href="#"> <i className="bi bi-people icon-space"></i><span
-                            className="align-middle">Groups</span></a>
+        <div className = "nav-container">
+            <nav>   
+                <h1 id="logo">buildingCONNECT</h1>
+                <ul>
+                    <li className='actions'>
+                        <NavLink className='actions' data-toggle="tab" exact to={"/dashboard"} activeClassName = "active" aria-controls="home" role='tab' aria-selected="true">Manage Users</NavLink>
                     </li>
-
-
-                    <li className= "hvr-grow">
-
-                    <a href="#"> <i className="bi bi-gear icon-space"></i><span className="align-middle">Settings</span></a>
+                    <li className='actions'>
+                        <NavLink className='actions' data-toggle="tab" exact to={"/dashboard/new-user"} activeClassName = "active" role="tab" aria-controls="profile" aria-selected="false">Add User</NavLink>
                     </li>
+                </ul>
+                <ul className="endNav">
+                    <li><a href={guide} target="_blank" rel="noreferrer" style={{textDecoration:'none', color:'white', listStyleType: "none", paddingRight:'1em'}}>UserGuide.pdf</a></li>
+                    <li><NavLink style={{ textDecoration: 'none', color: "white", background: '#c41230', padding: '.5em', borderRadius: '25px', listStyleType: "none"}} to = "/" onClick = {()=>(clear())}><i className="bi bi-box-arrow-left icon-space"></i></NavLink></li>
+                </ul>
+            </nav>
+        </div>
+        
 
-                    <hr/>
-
-                */}
-
-                <li className= "hvr-grow">
-
-                <NavLink to = "/" onClick = {()=>(clear())}>  <i className="bi bi-box-arrow-left icon-space"></i><span className="align-middle">Log Out</span></NavLink>
-            </li>
-
-            </ul>
-        </nav>
+                // <NavLink to = "/" onClick = {()=>(clear())}>  <i className="bi bi-box-arrow-left icon-space"></i><span className="align-middle">Log Out</span></NavLink>
+            
 
     )
 }

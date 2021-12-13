@@ -3,8 +3,8 @@
     display: flex;
     width: 100%;
     align-items: stretch;
-    background: rgb(185,188,196);
-    background: linear-gradient(328deg, rgba(185,188,196,1) 9%, rgba(0,52,81,1) 78%);
+    /* background: rgb(185,188,196); */
+    background: #0277BE;
 }
 
 .bar {
@@ -38,7 +38,7 @@ body {
 
 
 .mainBack {
-    background: rgba(53, 47, 47, .7)!important;
+    background: rgba(41, 41, 41, 0.7)!important;
 }
 
 
