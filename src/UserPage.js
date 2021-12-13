@@ -115,7 +115,7 @@ const UserPage = (props) => {
                                                        style = {{color:"whitesmoke", fontWeight: "bolder"}}
                                                    >
 
-                                                       <i className="bi bi-x-circle text-danger"></i>
+                                                       <i className="bi bi-x-circle-fill text-danger"></i>
                                                    </span>
 
                                         </button>

@@ -111,20 +111,20 @@ const ViewEdit = (props)=> {
                         >
                             {({values, errors, touched}) => (
                                 <Form>
-                                    <div className="row mt-5 align-items-center text-light border border-secondary rounded">
+                                    <div className="row align-items-center text-light border border-secondary rounded" style={{height:'20em'}}>
                                         <div className="col">
 
                                             <div className="row align-items-center">
                                                 <div className="col-md-12">
-                                                    <h1 className="m-2">{values.firstname ?values.firstname : "First Name"} {values.lastname ? values.lastname : "Last Name"}</h1>
-                                                    <p className="small mb-3"><span
-                                                        className="badge badge-light ">{values.username? values.username : "Username"}</span></p>
+                                                    <h1 className="m-2 display-4">{values.firstname ?values.firstname : "First Name"} {values.lastname ? values.lastname : "Last Name"}</h1>
+                                                    <p className="mb-3 display-4 mt-3"><span
+                                                        className="badge badge-light">{values.username? values.username : "Username"}</span></p>
                                                 </div>
                                             </div>
                                             <div className="row mb-4">
                                                 <div className="col">
-                                                    <p className="small mb-0 text-muted ">{values.email ? values.email: "Email"}</p>
-                                                    <p className="small mb-0 text-muted ">{localStorage.getItem("groupName")}</p>
+                                                    <p className="mb-0 text-muted h1 mt-3">{values.email ? values.email: "Email"}</p>
+                                                    <p className="mb-0 text-muted h1 mt-3">{localStorage.getItem("groupName")}</p>
                                                 </div>
 
                                             </div>
@@ -262,9 +262,9 @@ const ViewEdit = (props)=> {
                                         </div>
                                     </div>
                                     <div className="btn-group m-4">
-                                        <button type="submit" className="btn btn-primary" disabled={!touched}>Save Change</button>
+                                        <button type="submit" className="btn btn-primary" style={{marginRight:'1em'}} disabled={!touched}>Save Change</button>
 
-                                        <button type="button" className="btn btn-secondary" onClick={()=>{history.push("/dashboard")}}>Cancel</button>
+                                        <button type="button" className="btn btn-secondary" style={{marginLeft:'1em'}} onClick={()=>{history.push("/dashboard")}}>Cancel</button>
 
                                         {console.log(errors,touched)}
                                     </div>

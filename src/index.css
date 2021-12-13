@@ -24,15 +24,16 @@ code {
 .wrap {
   border-radius: 1em;
   box-shadow: 2px 2px 7px 1px rgba(20,30,40,.2);
-  background-color: #434343;
+  background-color: #ebebeb;
   transition: .2s;
-  color: whitesmoke!important;
+  color: black!important;
 
 
 }
 
 .wrap:hover{
   background-color: #90C0ED;
+  cursor: pointer;
 }
 
 input {
