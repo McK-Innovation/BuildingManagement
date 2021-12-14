@@ -4,11 +4,32 @@ const app = express();
 app.use(express.json());
 const cors = require('cors');
 const {string} = require("prop-types");
-const port = process.env.PORT;
+const port = process.env.PORT || 8080;
 const fetch = require('node-fetch');
 const { request } = require('express');
-
+const session = require('express-session')
+const Keycloak = require('keycloak-connect')
+const memoryStore = new session.MemoryStore();
 //Api Setup + helper functions
+
+// let kcConfig = {
+//     ​clientId: 'react',
+//     ​bearerOnly: true,
+//     ​serverUrl: 'http://localhost:8080/auth',
+//     ​realm: 'myrealm',
+//     ​realmPublicKey: 'MIIBIjANB...'
+// ​};
+
+const key = {
+    url: 'https://auth.mckenneys.tech/',
+    realm: 'McKenneys',
+    clientId: 'react',
+    sslRequired: "external",
+    publicClient: true,
+    confidentialPort: 0,
+}
+
+var keycloak = new Keycloak({store: memoryStore}, key)
 
 let baseUrl = 'https://auth.mckenneys.tech/auth' //will change in the future (env variable)
 
@@ -18,13 +39,14 @@ let baseUrl = 'https://auth.mckenneys.tech/auth' //will change in the future (en
         credentials: true,
     })
 );*/
+app.use(keycloak.middleware());
 app.use(express.static(path.join(__dirname, 'build')));
 
 app.get('/ping', (req, res) => {
     return res.send('pong')
 })
 
-app.get('/', (req, res) => {
+app.get('/', keycloak.checkSso(), (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'))
 })
 
