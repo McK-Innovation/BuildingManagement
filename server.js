@@ -39,6 +39,13 @@ let baseUrl = 'https://auth.mckenneys.tech/auth' //will change in the future (en
         credentials: true,
     })
 );*/
+app.use(session({
+    secret: 'some secret',
+    resave: false,
+    saveUninitialized: true,
+    store: memoryStore
+  }));
+
 app.use(keycloak.middleware());
 app.use(express.static(path.join(__dirname, 'build')));
 
