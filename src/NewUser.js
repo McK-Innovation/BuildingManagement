@@ -76,7 +76,9 @@ const NewUser= (props)=> {
                 }
               else {
                   alert("Successfully added a user")
-                    props.updateDashboard(values)}
+                    props.updateDashboard(values)
+                    history.push('/dashboard');
+                }
                 })
             }} open = {setShow}/> ) : null}
             <div className="row justify-content-center">
@@ -119,20 +121,20 @@ const NewUser= (props)=> {
                             {({values, errors, touched}) => (
 
                                 <Form>
-                                    <div className="row align-items-center border border-secondary rounded" style={{height:'20em'}}>
+                                    <div className="row mt-4 align-items-center border border-secondary rounded">
                                         <div className="col">
 
                                             <div className="row align-items-center">
                                                 <div className="col-md-12">
-                                                    <h1 className="m-2 display-4">{values.firstname ?values.firstname : "First Name"} {values.lastname ? values.lastname : "Last Name"}</h1>
-                                                    <p className="mb-3 display-4 mt-3"><span
+                                                    <h1 className="m-2">{values.firstname ?values.firstname : "First Name"} {values.lastname ? values.lastname : "Last Name"}</h1>
+                                                    <p className="small mb-3"><span
                                                         className="badge badge-light">{values.username? values.username : "Username"}</span></p>
                                                 </div>
                                             </div>
                                             <div className="row mb-4">
                                                 <div className="col">
-                                                    <p className="mb-0 text-muted h1 mt-3">{values.email? values.email: "Email"}</p>
-                                                    <p className="mb-0 text-muted h1 mt-3">{localStorage.getItem("groupName")}</p>
+                                                    <p className="small mb-0 text-muted ">{values.email? values.email: "Email"}</p>
+                                                    <p className="small mb-0 text-muted ">{localStorage.getItem("groupName")}</p>
                                                 </div>
 
                                             </div>
