@@ -34,8 +34,8 @@ const SideBar = (props)=> {
                     </li>
                 </ul>
                 <ul className="endNav">
-                    <li><a href={guide} target="_blank" rel="noreferrer" style={{textDecoration:'none', color:'white', listStyleType: "none", paddingRight:'1em'}}>UserGuide.pdf</a></li>
-                    <li><NavLink style={{ textDecoration: 'none', color: "white", background: '#c41230', padding: '.5em', borderRadius: '25px', listStyleType: "none"}} to = "/" onClick = {()=>(clear())}><i className="bi bi-box-arrow-left icon-space"></i></NavLink></li>
+                    <li><a href={guide} target="_blank" rel="noreferrer" style={{textDecoration:'none', color:'white', listStyleType: "none", marginRight:'2em', border:'2px solid white', padding:'.5em', fontSize:'1.5em'}}>User Guide</a></li>
+                    <li><NavLink style={{ textDecoration: 'none', color: "white", background: '#c41230', padding: '.5em', borderRadius: '25px', listStyleType: "none", fontSize:'1.2em'}} to = "/" onClick = {()=>(clear())}><i className="bi bi-box-arrow-left icon-space"></i>  Logout</NavLink></li>
                 </ul>
             </nav>
         </div>

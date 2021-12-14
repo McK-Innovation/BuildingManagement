@@ -76,7 +76,9 @@ const NewUser= (props)=> {
                 }
               else {
                   alert("Successfully added a user")
-                    props.updateDashboard(values)}
+                    props.updateDashboard(values)
+                    history.push('/dashboard');
+                }
                 })
             }} open = {setShow}/> ) : null}
             <div className="row justify-content-center">
@@ -119,7 +121,7 @@ const NewUser= (props)=> {
                             {({values, errors, touched}) => (
 
                                 <Form>
-                                    <div className="row align-items-center border border-secondary rounded" style={{height:'20em'}}>
+                                    <div className="row mt-4 align-items-center border border-secondary rounded" style={{height:'20em'}}>
                                         <div className="col">
 
                                             <div className="row align-items-center">
