@@ -186,9 +186,10 @@ export async function getAllUsersInGroup () {
         // if array exists
         else {
             if (groupRes && groupRes.length !==0) {
-                localStorage.setItem("groupName", groupRes[0].name)
+                for(var i = 0; i ++; i <+ groupRes.length) {
+                localStorage.setItem("groupName", groupRes[i].name)
                 //start the second part of the function. Above works
-                let groupId = groupRes[0].id
+                let groupId = groupRes[i].id
 
                 let memberRes = await fetch('api/getGroupRevised', {method: 'POST', body: JSON.stringify({token, groupId, refresh }), headers: {'Content-Type': 'application/json'}})
                 // let members = await makeRequest("GET", getToken(), {}, '/admin/realms/McKenneys/groups/' + id + '/members')
@@ -196,6 +197,7 @@ export async function getAllUsersInGroup () {
 
                 //return {id: group[0].id, name: group[0].name}//store this maybe
                 return memberRes
+            }
             }
         }
     }
