@@ -186,7 +186,7 @@ export async function getAllUsersInGroup () {
         // if array exists
         else {
             if (groupRes && groupRes.length !==0) {
-                for(var i = 0; i ++; i <+ groupRes.length) {
+                for(var i = 0; i ++; i <= groupRes.length) {
                 localStorage.setItem("groupName", groupRes[i].name)
                 //start the second part of the function. Above works
                 let groupId = groupRes[i].id

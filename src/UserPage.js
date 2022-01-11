@@ -5,6 +5,7 @@ import {deleteMember} from "./KeycloakHelper"
 import {Confirmation} from "./Confirmation";
 
 const UserPage = (props) => {
+    console.log(props)
     const [input, inputChange] = useState("");
     //const [arrayOfInfo, updateArray] = useState(props.people);
     //const {updateEdit} = useState(props.person)
