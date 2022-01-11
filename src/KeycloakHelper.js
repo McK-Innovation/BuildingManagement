@@ -304,7 +304,7 @@ export async function addUser (credentials = {username: '', email: '', password:
     console.log(credentials.permissionLevel)
     let groupPermission = {
         "attributes": {
-            "groups": localStorage.getItem("groupName"),
+            "group": localStorage.getItem("groupName"),
             "permissionLevel": credentials.permissionLevel
         }
     }
