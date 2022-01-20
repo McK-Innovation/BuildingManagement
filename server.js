@@ -4,7 +4,7 @@ const app = express();
 app.use(express.json());
 const cors = require('cors');
 const {string} = require("prop-types");
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
 const fetch = require('node-fetch');
 const { request } = require('express');
 const session = require('express-session')
@@ -21,7 +21,7 @@ const memoryStore = new session.MemoryStore();
 // ​};
 
 const key = {
-    url: 'https://auth.mckenneys.tech/',
+    url: 'http://localhost:8080',
     realm: 'McKenneys',
     clientId: 'react',
     sslRequired: "external",
@@ -31,7 +31,7 @@ const key = {
 
 var keycloak = new Keycloak({store: memoryStore}, key)
 
-let baseUrl = 'https://auth.mckenneys.tech/auth' //will change in the future (env variable)
+let baseUrl = 'http://localhost:8080/auth' //will change in the future (env variable)
 
 /*app.use(
     cors({
@@ -210,6 +210,15 @@ async function getGroup(request) {
     }
 }
 
+async function getSubGroups(request) {
+    try {
+        let subgroups = await makeRequest('GET', request.token, {}, '/admin/realms/McKenneys/groups/' + request.groupId , request.refresh)
+        return subgroups
+    } catch (error) {
+        return error
+    }
+}
+
 async function getMembers(request) {
     try {
     let members = await makeRequest("GET", request.token, {}, '/admin/realms/McKenneys/groups/' + request.groupId + '/members',"", request.refresh)
@@ -344,6 +353,13 @@ app.post('/api/getGroupRevised',async (req,res) => {
     console.log(result)
     res.json(result)
 });
+
+app.post('/api/getSubGroups', async (req,res) => {
+    let result = await getSubGroups(req.body)
+    console.log(result)
+    res.json(result)
+})
+
 app.post('/api/getUserRevised',async (req,res) => {
     let result = await getUserRevised(req.body)
     console.log(result)

@@ -1,9 +1,10 @@
 import react from "react"
 import {isEmptyArray} from "formik";
 
-let baseUrl = 'https://auth.mckenneys.tech/auth' //will change in the future
-let adminRoleId = 'ecb6edc2-594e-4ab5-a38d-141f32c793d7'
+// let baseUrl = 'http://localhost:8080' //will change in the future
+// let adminRoleId = 'ecb6edc2-594e-4ab5-a38d-141f32c793d7'
 let refresh = ''
+
 //checks the expiration date and if the token is expired, gets the refresh token and sets a new access token with it
 export async function checkExpiration() {
 
@@ -147,6 +148,7 @@ export async function isUserAdmin() {
         return false
     }
 }
+
 export async function getAllUsersInGroup () {
     let token = getToken()
     let username = localStorage.getItem("username")
@@ -188,77 +190,116 @@ export async function getAllUsersInGroup () {
             if (groupRes && groupRes.length !==0) {
                 localStorage.setItem("groupName", groupRes[0].name)
                 //start the second part of the function. Above works
+
+                // let groupId = '97a5ba82-0b58-4264-9f4b-f3fb9aa01d07'
                 let groupId = groupRes[0].id
+                console.log(groupId);
 
-                let memberRes = await fetch('api/getGroupRevised', {method: 'POST', body: JSON.stringify({token, groupId, refresh }), headers: {'Content-Type': 'application/json'}})
+                // let memberRes = await fetch('api/getGroupRevised', {method: 'GET'})
+
+                let memberRes =  await fetch('api/getGroupRevised', {method: 'POST', body: JSON.stringify({token, groupId, refresh }), headers: {'Content-Type': 'application/json'}})
                 // let members = await makeRequest("GET", getToken(), {}, '/admin/realms/McKenneys/groups/' + id + '/members')
-                memberRes = await memberRes.json()
-
+                memberRes =  await memberRes.json()
+                // memberRes = "hello"
                 //return {id: group[0].id, name: group[0].name}//store this maybe
                 return memberRes
             }
+            
         }
     }
     catch(error) {
         console.log(error)
     }
-
-
-
-
+    
+    
+    
+    
     // let users =  await getUser()
     //needs username
-//     try {
-//         for (let val of users) {
-//             if (val.hasOwnProperty('username')) {
-//                 console.log(localStorage.getItem("username"))
-//                 console.log(val)
-//
-//                 if (val.username === localStorage.getItem("username").toLowerCase()) {
-//                     console.log(val)
-//
-//                     localStorage.setItem("name", val.firstName)
-//
-//                     let group = await makeRequest("GET", localStorage.getItem("token"), {}, '/admin/realms/McKenneys/users/' + val.id + '/groups')
-//                     if (group) {
-//                         console.log(group)
-//                         //groupRef.current = group
-//
-//                         localStorage.setItem("groupName", group[0].name)
-//                         //localStorage.setItem("groupID", group[0].id)
-//
-//
-//
-//                         console.log("found")
-//
-//                         //start the second part of the function. Above works
-//
-//                         let id = group[0].id
-//
-//                         let members =  await makeRequest("GET", getToken(), {}, '/admin/realms/McKenneys/groups/' + id + '/members'  )
-//
-//
-//                         //return {id: group[0].id, name: group[0].name}//store this maybe
-//                         return members;
-//                     }
-//                 } else {
-//                     console.log("not found")
-//                 }
-//
-//             }
-//         }
-//     }
-//
-// catch(error)
-//         {
-//             console.log(error)
-//         }
+    //     try {
+        //         for (let val of users) {
+            //             if (val.hasOwnProperty('username')) {
+                //                 console.log(localStorage.getItem("username"))
+                //                 console.log(val)
+                //
+                //                 if (val.username === localStorage.getItem("username").toLowerCase()) {
+                    //                     console.log(val)
+                    //
+                    //                     localStorage.setItem("name", val.firstName)
+                    //
+                    //                     let group = await makeRequest("GET", localStorage.getItem("token"), {}, '/admin/realms/McKenneys/users/' + val.id + '/groups')
+                    //                     if (group) {
+                        //                         console.log(group)
+                        //                         //groupRef.current = group
+                        //
+                        //                         localStorage.setItem("groupName", group[0].name)
+                        //                         //localStorage.setItem("groupID", group[0].id)
+                        //
+                        //
+                        //
+                        //                         console.log("found")
+                        //
+                        //                         //start the second part of the function. Above works
+                        //
+                        //                         let id = group[0].id
+                        //
+                        //                         let members =  await makeRequest("GET", getToken(), {}, '/admin/realms/McKenneys/groups/' + id + '/members'  )
+                        //
+                        //
+                        //                         //return {id: group[0].id, name: group[0].name}//store this maybe
+                        //                         return members;
+                        //                     }
+                        //                 } else {
+                            //                     console.log("not found")
+                            //                 }
+                            //
+                            //             }
+                            //         }
+                            //     }
+                            //
+                            // catch(error)
+                            //         {
+                                //             console.log(error)
+                                //         }
+                                
+                            }
+
+export async function getSubGroups () {
+    let token = getToken();
+    let userId = localStorage.getItem('userId')
+
+    try {
+    let groupRes = await fetch('api/getGroup', {method: 'POST', body: JSON.stringify({token, userId, refresh }), headers: {'Content-Type': 'application/json'}})
+        // let group = await makeRequest("GET", localStorage.getItem("token"), {}, '/admin/realms/McKenneys/users/' + user.id + '/groups')
+        groupRes = await groupRes.json()
+        // if empty array
+        if(!groupRes || groupRes.length === 0) {
+            alert("No one is currently in your group. Go to the Add tab to begin adding")
+        }
+        // if error
+        else if(groupRes.hasOwnProperty("error")) {
+            return groupRes
+        }
+    
+    let groupId = groupRes[0].id
+    let subGroups = await fetch('api/getSubGroups', {method: 'POST', body: JSON.stringify({token, groupId, refresh }), headers: {'Content-Type': 'application/json'}})
+
+    let subGroupsRes = await subGroups.json()
+
+    localStorage.setItem('subGroups', subGroupsRes)
+
+    console.log("hello" + subGroupsRes)
+
+    return subGroupsRes
+
+    } catch (error) {
+        console.log(error)
+    }
 
 }
-
-
+                            
 export async function deleteMember (userID){
-
+                                
     //await client.users.delFromGroup({id: userID, groupId: groupID});
     let token = getToken()
     let deleteRes = await fetch('api/deleteUser', {method: 'POST', body: JSON.stringify({token, userID, refresh }), headers: {'Content-Type': 'application/json'}})
@@ -272,16 +313,13 @@ export async function deleteMember (userID){
     // await makeRequest("DELETE", getToken(),{},'/admin/realms/McKenneys/users/' + userID)
 }
 
-export async function addUser (credentials = {username: '', email: '', password: '', firstName: '', lastName: '', permissionLevel: ''}) {
-
-
+export async function addUser (credentials = {username: '', email: '', password: '', firstName: '', lastName: '', groups: '',  permissionLevel: ''}) {
     let token = getToken()
-    let group = localStorage.getItem("groupName")
     let userId = localStorage.getItem("userId")
     let username = credentials.username
+    let groupName = localStorage.getItem('groupName')
 
-
-    //let group = groupRef.current[0].name
+    let newGroups = credentials.groups.map(i => `/${groupName}/` + i);
 
     let body = {
 
@@ -298,16 +336,10 @@ export async function addUser (credentials = {username: '', email: '', password:
         }
 
     ],
-        "groups": [group]
+        "groups": newGroups
 
     }
-    console.log(credentials.permissionLevel)
-    let groupPermission = {
-        "attributes": {
-            "group": localStorage.getItem("groupName"),
-            "permissionLevel": credentials.permissionLevel
-        }
-    }
+
     //adds the user
     console.log(body)
     let addRes = await fetch('api/addUser', {method: 'POST', body: JSON.stringify({token, body, refresh}), headers: {'Content-Type': 'application/json'}})
@@ -315,8 +347,7 @@ export async function addUser (credentials = {username: '', email: '', password:
     if(addRes.hasOwnProperty("error")) {
         return addRes
     }
-    // let resp = await makeRequest("POST", getToken(), body, '/admin/realms/McKenneys/users', "Add")
-
+        
     //finds the added user
     let getRes = await fetch('api/getUserRevised', {method: 'POST', body: JSON.stringify({token, username, refresh}), headers: {'Content-Type': 'application/json'}})
     getRes = await getRes.json()
@@ -325,9 +356,23 @@ export async function addUser (credentials = {username: '', email: '', password:
     }
     if(getRes.hasOwnProperty("newResponse")) {
         setToken(getRes.refreshTok)
-        getRes = getRes.newResponse
+         getRes = getRes.newResponse
     }
     userId = getRes.id
+
+    
+    // removes the path name from each string containing it in the array and creates a new array
+    var resultArr = credentials.groups.map(function(x){return x.replace(`/${groupName}/`, '');});
+
+        
+    // sets the groupPermissions based on the array from credentials
+    let groupPermission = resultArr.reduce((acc,item,i) => {
+        acc.attributes[`group${i}`]  = item;
+        acc.attributes.permissionLevel = credentials.permissionLevel;
+        return acc
+    },{attributes:{}})
+        
+
     //edits the permission of found user
     let editRes = await fetch('api/updateUserPermission', {
         method: 'POST',
@@ -362,13 +407,18 @@ export  async function updateIndividual(userId, credentials = {username: '', ema
         }
 
         console.log(creds)
-        if (creds === 'permissionLevel' && credentials[creds] !== '') {
-            let groupPermission = {
-                "attributes": {
-                    "groups": localStorage.getItem("groupName"),
-                    "permissionLevel": credentials[creds]
-                }
-            }
+        console.log(body)
+        if (creds === 'permissionLevel' || creds === 'currentGroups' && credentials[creds] !== '') {
+            let groupName = localStorage.getItem('groupName')
+
+            var resultArr = body.currentGroups.map(function(x){return x.replace(`/${groupName}/`, '');});
+
+            let groupPermission = resultArr.reduce((acc,item,i) => {
+                acc.attributes[`group${i}`]  = item;
+                acc.attributes.permissionLevel = credentials.permissionLevel;
+                return acc
+            },{attributes:{}})
+
             let editRes = await fetch('api/updateUserPermission', {method: 'POST', body: JSON.stringify({token, userId, groupPermission, refresh }), headers: {'Content-Type': 'application/json'}})
             if(editRes.hasOwnProperty("error")) {
                 console.log(editRes)
@@ -379,14 +429,12 @@ export  async function updateIndividual(userId, credentials = {username: '', ema
                 return editRes.newResponse
             }
 
-
             // await makeRequest("PUT", getToken(), groupPermission, "/admin/realms/McKenneys/users/" + userId, "Edit")
-
+            
         }
         console.log(creds)
     }
     console.log(body)
-
     const {password, ...other} = body
     console.log(password)
     console.log(other)

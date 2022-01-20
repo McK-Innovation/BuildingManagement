@@ -3,11 +3,12 @@ import {useKeycloak} from "@react-keycloak/web";
 import {useCallback, useRef, useState} from "react";
 import {Redirect, useHistory} from "react-router-dom";
 import * as Yup from "yup";
-import {ErrorMessage, Field, Form, Formik} from "formik";
-
+import {ErrorMessage, Field, Form, Formik, FieldArray} from "formik";
+import {getSubGroups} from "./KeycloakHelper"
 import {addUser} from "./KeycloakHelper"
 import {Confirmation} from "./Confirmation";
 const NewUser= (props)=> {
+    console.log(props)
     let history = useHistory()
     const [show, setShow] = useState(false)
     let val = useRef({})
@@ -40,36 +41,24 @@ const NewUser= (props)=> {
     });
 
     const initialValues = {
-
         email: '',
-
         password: '' ,
-
         firstname: '',
-
         lastname: '',
-
         newpassword: '',
-
         username: '' ,
-
+        group: '',
         permissionLevel: ''
-
-
     }
 
-    async function submitH(username, email, password, firstname, lastname, permissionLevel) {
+    async function submitH(username, email, password, firstname, lastname, group, permissionLevel) {
 
-        await addUser({username: username, email: email, password: password, firstName: firstname, lastName: lastname, permissionLevel: permissionLevel })
+        await addUser({username: username, email: email, password: password, firstName: firstname, lastName: lastname, groups: group, permissionLevel: permissionLevel })
     }
-
-    // async function tester(values) {
-    //     console.log(values)
-    // }
 
     return (
         <div className="container text-light">
-            {show ? (<Confirmation caller = { ()=>{let values = val.current; submitH(values.username, values.email, values.password, values.firstname, values.lastname, values.permissionLevel).catch((e) => (alert(e))).then((r) =>
+            {show ? (<Confirmation caller = { ()=>{let values = val.current; submitH(values.username, values.email, values.password, values.firstname, values.lastname, values.group, values.permissionLevel).catch((e) => (alert(e))).then((r) =>
             { if(r !== undefined)
                 {
                     alert(r)
@@ -83,43 +72,13 @@ const NewUser= (props)=> {
             }} open = {setShow}/> ) : null}
             <div className="row justify-content-center">
                 <div className="col-12 col-lg-10 col-xl-8 mx-auto overflow-auto">
-
                     <div className="my-4">
-
-
-                        <Formik
-                            initialValues={initialValues}
-                            validationSchema={SignUpSchema}
-                            validateOnBlur={true}
-                            onSubmit={(values) => {
+                        <Formik initialValues={initialValues} validationSchema={SignUpSchema} validateOnBlur={true} onSubmit={(values) => { 
                                 console.log(values);
                                 val.current = values
                                 setShow(true);
-
-                                // if(confirm) {
-                                //
-                                //
-                                //
-                                //
-                                //     console.log("added")
-                                //     submitH(values.username, values.email, values.password, values.firstname, values.lastname).catch((e) => (alert(e))).then((r) => alert("Added a new user"))
-                                //     setShow(false)
-                                //
-                                // }
-                                //
-                                // else {
-                                //
-                                //     console.log("nothing done")
-                                //     setShow(false)
-                                // }
-                                //async function to create the user and then assign to a "my" group
-                                //are you sure messages
-
-
-                            }}
-                        >
+                            }}>
                             {({values, errors, touched}) => (
-
                                 <Form>
                                     <div className="row mt-4 align-items-center border border-secondary rounded" style={{height:'20em'}}>
                                         <div className="col">
@@ -134,9 +93,11 @@ const NewUser= (props)=> {
                                             <div className="row mb-4">
                                                 <div className="col">
                                                     <p className="mb-0 text-muted h1 mt-3">{values.email? values.email: "Email"}</p>
-                                                    <p className="mb-0 text-muted h1 mt-3">{localStorage.getItem("groupName")}</p>
+                                                    <p className="mb-0 text-muted h1 mt-3">{values.group? values.group + '--': 'Building'}</p>
                                                 </div>
-
+                                                {/* {values.group===''? 'Building' : values.group ? values.group + '--' : 'Building'} */}
+                                                {/* {values.group? values.group + ',   ': 'Building'} */}
+                                                {/* {values.group? values.group + ', ': values.group = '' ? "Building" : 'Building'} */}
                                             </div>
                                         </div>
                                     </div>
@@ -196,14 +157,47 @@ const NewUser= (props)=> {
                                     </div>
                                     <div className="form-row">
                                         <div className="form-group col-md-6 offset-3">
-                                            <label htmlFor="inputCompany5">Company</label>
-                                            <Field
-                                                name="currentGroup"
+                                            <label htmlFor="inputCompany5">Building</label>
+                                            {/* <Field
+                                                name="group"
                                                 placeholder={localStorage.getItem("groupName")}
-                                                type="text"
+                                                as = 'select'
                                                 className="form-control"
-                                                readOnly
-                                            />
+                                                isMulti={true}
+                                            >
+                                                <option>{localStorage.getItem('groupName')}</option>
+                                            {props.groups.map((group, index) => {
+                                                return <option>{group.path}</option>
+                                            })}
+                                            </Field> */}
+            <FieldArray
+            name="group"
+            render={arrayHelpers => (
+              <div>
+                {props.groups.map((group, index) => (
+                  <div key={group.name}>
+                    <label>
+                      <input
+                        name="group"
+                        type="checkbox"
+                        value={group.name}
+                        checked={values.group.includes(group.name)}
+                        onChange={e => {
+                          if (e.target.checked) arrayHelpers.push(group.name);
+                          else {
+                            const idx = values.group.indexOf(group.name);
+                            arrayHelpers.remove(idx);
+                          }
+                        }}
+                      />
+                      {group.name}
+                    </label>
+                  </div>
+                ))}
+              </div>
+            )}
+          />
+                                            
                                         </div>
 
                                         <div className="form-group col-md-6 offset-3">

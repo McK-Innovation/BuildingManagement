@@ -3,7 +3,7 @@ import {useKeycloak} from "@react-keycloak/web";
 import {useCallback, useRef, useState} from "react";
 import {Redirect, useHistory} from "react-router-dom";
 import * as Yup from "yup";
-import {ErrorMessage, Field, Form, Formik} from "formik";
+import {ErrorMessage, Field, Form, Formik, FieldArray} from "formik";
 //import {addUser, updateIndividual} from "./keycloakUtils";
 
 import {updateIndividual} from "./KeycloakHelper"
@@ -13,9 +13,43 @@ const ViewEdit = (props)=> {
     let history = useHistory()
     const [person, updatePerson] = useState(props.person);
     console.log(props.person)
+    console.log(props.groups)
+    console.log(props.person.attributes)
     console.log(person)
+    let keys = Object.keys(props.person.attributes)
+    let groups = []
+    console.log(keys)
+    console.log(keys.length)
+    // let groups = []
+    // let keys = Object.entries(props.person.attributes);
+    // console.log(keys)
+    // let getCurrentGroups = (key) =>  {
+    //     // key [['group0', 'Child 1'], ['group1', 'Child 2'], [ 'permissionLevel', 'Supervisor']]
+    //     groups = key.filter((group, index) => {
+
+    //         if(group[index] = `group${index}`) {
+    //             return group[index]
+    //         }
+    //     })
+    // }
+    // getCurrentGroups(keys);
 
     //get user from context, then update if update is clicked and route to the users page
+
+    // console.log(groups)
+    for(let x = 0; x <= keys.length; x ++) {
+    for( let group in props.person.attributes) {
+        
+        if (group === `group${x}`) {
+            console.log(props.person.attributes[group])
+            groups.push(props.person.attributes[group])
+        }
+        
+    }
+}
+let merged = [].concat.apply([], groups)
+console.log(groups)
+console.log(merged)
 
     let val = useRef({})
     const [show, setShow] = useState(false)
@@ -45,9 +79,9 @@ const ViewEdit = (props)=> {
 
     });
 
-    async function editUser(username, email, password, firstname, lastname, permissionLevel ) {
+    async function editUser(username, email, password, firstname, lastname, currentGroup, permissionLevel ) {
         console.log(props.person.id)
-        await updateIndividual(props.person.id, {username: username, email: email, password: password, firstName: firstname, lastName: lastname, permissionLevel: permissionLevel  })
+        await updateIndividual(props.person.id, {username: username, email: email, password: password, firstName: firstname, lastName: lastname, currentGroups: currentGroup, permissionLevel: permissionLevel  })
     }
 
    const initialValues = {
@@ -64,7 +98,7 @@ const ViewEdit = (props)=> {
 
        username: person.username ,
 
-       currentGroup: person.currentGroup,
+       currentGroup: '',
 
        permissionLevel: person.hasOwnProperty("attributes")? person.attributes.permissionLevel : ''
 
@@ -79,7 +113,7 @@ const ViewEdit = (props)=> {
 
             {show && <Confirmation caller = {() => {
                 let values = val.current;
-                editUser(values.username, values.email, values.password, values.firstname, values.lastname, values.permissionLevel)
+                editUser(values.username, values.email, values.password, values.firstname, values.lastname, values.currentGroup, values.permissionLevel)
                     .catch((e)=>(console.log(e)))
                     .then((r) => {
                         props.updateDashboard(values)
@@ -124,7 +158,9 @@ const ViewEdit = (props)=> {
                                             <div className="row mb-4">
                                                 <div className="col">
                                                     <p className="mb-0 text-muted h1 mt-3">{values.email ? values.email: "Email"}</p>
-                                                    <p className="mb-0 text-muted h1 mt-3">{localStorage.getItem("groupName")}</p>
+                                                    <p className="mb-0 text-muted h1 mt-1">{values.currentGroup ? values.currentGroup + '--': merged.map((item, i) => { 
+                                                        return <span>{item}, </span>
+                                                    })}</p>
                                                 </div>
 
                                             </div>
@@ -140,6 +176,8 @@ const ViewEdit = (props)=> {
                                                 placeholder={initialValues.firstname}
                                                 type="text"
                                                 className="form-control"
+                                                readOnly
+                                                disabled
 
                                             />
 
@@ -153,6 +191,8 @@ const ViewEdit = (props)=> {
                                                 placeholder={initialValues.lastname}
                                                 type="text"
                                                 className="form-control"
+                                                readOnly
+                                                disabled
 
                                             />
 
@@ -167,6 +207,8 @@ const ViewEdit = (props)=> {
                                             placeholder={initialValues.email}
                                             type="email"
                                             className="form-control"
+                                            readOnly
+                                            disabled
 
                                         />
 
@@ -180,6 +222,8 @@ const ViewEdit = (props)=> {
                                             placeholder={initialValues.username}
                                             type="text"
                                             className="form-control"
+                                            readOnly
+                                            disabled
 
                                         />
 
@@ -188,15 +232,42 @@ const ViewEdit = (props)=> {
                                     </div>
                                     <div className="form-row">
                                         <div className="form-group col-md-6 offset-3">
-                                            <label htmlFor="inputCompany5">Company</label>
-                                            <Field
+                                            <label htmlFor="inputCompany5">Building</label>
+                                            {/* <Field
                                                 name="currentGroup"
                                                 placeholder={localStorage.getItem("groupName")}
                                                 type="text"
                                                 className="form-control"
                                                 readOnly
 
-                                            />
+                                            /> */}
+                                            <FieldArray
+            name="currentGroup"
+            render={arrayHelpers => (
+              <div>
+                {props.groups.map((group, index) => (
+                  <div key={group.name}>
+                    <label>
+                      <input
+                        name="currentGroup"
+                        type="checkbox"
+                        value={group.path}
+                        checked={values.currentGroup.includes(group.name)}
+                        onChange={e => {
+                          if (e.target.checked) arrayHelpers.push(group.name);
+                          else {
+                            const idx = values.currentGroup.indexOf(group.name);
+                            arrayHelpers.remove(idx);
+                          }
+                        }}
+                      />
+                      {group.name}
+                    </label>
+                  </div>
+                ))}
+              </div>
+            )}
+          />
                                         </div>
 
                                         <div className="form-group col-md-6 offset-3">

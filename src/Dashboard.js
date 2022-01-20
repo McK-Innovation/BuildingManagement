@@ -10,26 +10,22 @@ import ManageUser from "./ManageUser";
 import ViewEdit from "./ManageUser";
 import Authorization from "./authContext";
 //import {getAllUsersInGroup} from "./keycloakUtils";
-import {getAllUsersInGroup, logout} from "./KeycloakHelper"
+import {getAllUsersInGroup, logout, getSubGroups} from "./KeycloakHelper"
 import KcAdminClient from "keycloak-admin";
 import {checkExpiration} from "./KeycloakHelper";
 import IdleTimer from "react-idle-timer";
 
 
 const Dashboard = ()=> {
-
     //props will be the token of the user that logged in. Api call to keycloak to get all information.
     //store the data here
-
     let history = useHistory()
-
     //will be used by useEffect to call the api for certain features of a user and store them here (if group == token.person.group) {}
-
     //this is for loading the initial data, keycloak api here for the particular user that logs in
-
     //once the state updates, ill have data. Loaded some initial dummy data
 
     const [arrayOfPeople , updatePeople] =useState([{FirstName: "sally", LastName: "hanson", id: 11111, }])
+    const [arrayOfGroups, updateArray] = useState([])
     const [person, updatePerson] = useState ('')
     const [client, updateCLI] = useState(null)
     const [dashboard, updateDashboard] = useState('')
@@ -58,10 +54,13 @@ const Dashboard = ()=> {
 
     }
     useEffect(() => {
-        checkExpiration().then((r) => {if(r !== undefined) history.push("/"); else storePeople().then((r) => {
+        checkExpiration().then((r) => {if(r !== undefined) history.push("/"); else 
+        storePeople().then((r) => {
+            storeSubGroups()
             if(r && r.hasOwnProperty("error")) {
                 alert(r.error)
             }
+        
         }).catch(err=>{alert("Communication Error: Check console for details"); console.log(err)})})
 
         async function storePeople() {
@@ -72,6 +71,17 @@ const Dashboard = ()=> {
             console.log(arr)
 
             updatePeople(arr)
+        }
+
+        async function storeSubGroups() {
+            let sub = await getSubGroups()
+            if(sub && sub.hasOwnProperty('error')) {
+                return sub
+            }
+            console.log(sub)
+            console.log(sub.subGroups)
+            updateArray(sub.subGroups)
+            console.log(arrayOfGroups)
         }
 
         if(localStorage.getItem("token") === undefined) {
@@ -90,44 +100,15 @@ const Dashboard = ()=> {
 
     return (
         <>
-        <IdleTimer
-            ref={ref => {
-                idleNode.current = ref;
-            }}
-            element={document}
-            onActive={onActive}
-            onIdle={onIdle}
-            onAction={onAction}
-            debounce={250}
-            timeout={1000 * 60 * 5}
-        />
+            <IdleTimer ref={ref => {idleNode.current = ref;}} element={document} onActive={onActive} onIdle={onIdle} onAction={onAction} debounce={250} timeout={1000 * 60 * 5}/>
             <SideBar></SideBar>
-        <div className="wrapper" >
-            {/* <SideBar className = 'sidebar'>
-
-</SideBar> */}
-
-            <div className="main back">
-                    {/* <div className="navbar navbar-dark bar font-weight-light navbar-expand text-light text-center ">
-                       <div className="navbar navbar-collapse">
-                           <span className="mx-auto"> Welcome Back <span className= "font-weight-bold text-light">{name}</span>!</span>
-                       </div>
-                    </div> */}
+            <div className="wrapper" >
+                <div className="main back">
                     <div className= "content p-5">
                         <div className="container-fluid p-0">
-                            {/* <div className= "row text-left">
-                                <div className="col">
-                                    <h4 className= "text-light">Manage <span className= "font-weight-light">Dashboard</span></h4>
-                                </div>
-                            </div> */}
                             <div className= "row py-4 text-center">
                                 <div className="col">
                                     <div className="p-10 pt-5 mainBack rounded shadow mb-5">
-                                        <div className="row pb-5">
-                                            {/* <div className="col text-dark">
-                                                <Pilled person = {person}/>
-                                            </div> */}
-                                        </div>
                                         <div className="row">
                                             <div className="col">
                                                 <Switch>
@@ -135,10 +116,10 @@ const Dashboard = ()=> {
                                                             <UserPage people = {arrayOfPeople} updatePerson = {updatePerson} updateDashboard = {updateDashboard}   />
                                                         </Route>
                                                         <Route path = "/dashboard/edit-user">
-                                                            <ViewEdit person = {person} updateDashboard = {updateDashboard}/>
+                                                            <ViewEdit person = {person} groups = {arrayOfGroups} updateDashboard = {updateDashboard}/>
                                                         </Route>
                                                         <Route path = "/dashboard/new-user" >
-                                                            <NewUser updateDashboard = {updateDashboard} />
+                                                            <NewUser groups = {arrayOfGroups} updateDashboard = {updateDashboard} />
                                                         </Route>
                                                 </Switch>
                                             </div>
