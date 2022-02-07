@@ -170,6 +170,8 @@ export async function getAllUsersInGroup () {
         }
         // localStorage.setItem("userId", user.id)
 
+        // if(res.attributes = )
+        // localStorage.setItem("attributes", JSON.stringify(res.attributes))
         let userId = res.id
         console.log(userId)
 
@@ -189,6 +191,7 @@ export async function getAllUsersInGroup () {
         else {
             if (groupRes && groupRes.length !==0) {
                 localStorage.setItem("groupName", groupRes[0].name)
+                // localStorage.setItem("groupArray", JSON.Stringify(groupRes))
                 //start the second part of the function. Above works
 
                 // let groupId = '97a5ba82-0b58-4264-9f4b-f3fb9aa01d07'
@@ -264,7 +267,7 @@ export async function getAllUsersInGroup () {
                                 
                             }
 
-export async function getSubGroups () {
+export async function getGroups () {
     let token = getToken();
     let userId = localStorage.getItem('userId')
 
@@ -281,16 +284,16 @@ export async function getSubGroups () {
             return groupRes
         }
     
-    let groupId = groupRes[0].id
-    let subGroups = await fetch('api/getSubGroups', {method: 'POST', body: JSON.stringify({token, groupId, refresh }), headers: {'Content-Type': 'application/json'}})
+    // let groupId = groupRes[0].id
+    // let subGroups = await fetch('api/getSubGroups', {method: 'POST', body: JSON.stringify({token, groupId, refresh }), headers: {'Content-Type': 'application/json'}})
 
-    let subGroupsRes = await subGroups.json()
+    // let subGroupsRes = await subGroups.json()
 
-    localStorage.setItem('subGroups', subGroupsRes)
+    // localStorage.setItem('subGroups', subGroupsRes)
 
-    console.log("hello" + subGroupsRes)
+    // console.log("hello" + subGroupsRes)
 
-    return subGroupsRes
+    return groupRes
 
     } catch (error) {
         console.log(error)
@@ -318,8 +321,8 @@ export async function addUser (credentials = {username: '', email: '', password:
     let userId = localStorage.getItem("userId")
     let username = credentials.username
     let groupName = localStorage.getItem('groupName')
-
-    let newGroups = credentials.groups.map(i => `/${groupName}/` + i);
+    console.log(credentials.groups)
+    let newGroups = credentials.groups.map(i => `/${i}`);
 
     let body = {
 
@@ -362,15 +365,65 @@ export async function addUser (credentials = {username: '', email: '', password:
 
     
     // removes the path name from each string containing it in the array and creates a new array
-    var resultArr = credentials.groups.map(function(x){return x.replace(`/${groupName}/`, '');});
+    // var resultArr = credentials.groups.map(function(x){return x.replace(`/${groupName}/`, '');});
 
         
     // sets the groupPermissions based on the array from credentials
-    let groupPermission = resultArr.reduce((acc,item,i) => {
-        acc.attributes[`group${i}`]  = item;
-        acc.attributes.permissionLevel = credentials.permissionLevel;
-        return acc
-    },{attributes:{}})
+    // let groupPermission = resultArr.reduce((acc,item,i) => {
+    //     acc.attributes[`group${i}`]  = item;
+    //     acc.attributes.permissionLevel = credentials.permissionLevel;
+    //     return acc
+    // },{attributes:{}})
+
+    let groupRes = await fetch('api/getGroup', {method: 'POST', body: JSON.stringify({token, userId, refresh }), headers: {'Content-Type': 'application/json'}})
+        // let group = await makeRequest("GET", localStorage.getItem("token"), {}, '/admin/realms/McKenneys/users/' + user.id + '/groups')
+        groupRes = await groupRes.json()
+        // if empty array
+        if(!groupRes || groupRes.length === 0) {
+            alert("No one is currently in your group. Go to the Add tab to begin adding")
+        }
+        // if error
+        else if(groupRes.hasOwnProperty("error")) {
+            return groupRes
+        }
+
+    let attributeArray = []
+
+    credentials.groups.forEach(userGroup => {
+        console.log(userGroup)
+        groupRes.forEach(groupObj => {
+            console.log(groupObj)
+            if(groupObj.name == userGroup) {
+                console.log(groupObj.attributes)
+                console.log(Object.values(groupObj.attributes).toString())
+                // let stringValue = 
+                let value = Object.values(groupObj.attributes).toString()
+                let key = Object.keys(groupObj.attributes)
+                let object = {}
+                object[key] = value
+                attributeArray.push(object)
+            }
+        })
+    })
+
+    console.log(attributeArray)
+
+    let attributes = Object.assign({}, ...attributeArray)
+
+    console.log(attributes)
+
+    attributes.permissionLevel = credentials.permissionLevel
+
+    let groupPermission = {
+        attributes
+    }
+
+    // let groupPermission = {
+    //     attributes: {
+    //         group0: "TEST"
+    //     }, 
+    //     permissionLevel: "TEST"
+    // }
         
 
     //edits the permission of found user
@@ -397,27 +450,80 @@ export async function addUser (credentials = {username: '', email: '', password:
 
 
 export  async function updateIndividual(userId, credentials = {username: '', email: '', password: '', firstName: '', lastName: '', permissionLevel: ''}, ) {
-    let body = {}
+    let object = {}
     let token = getToken()
+    let adminId = localStorage.getItem("userId")
+    
 
     for (let creds in credentials) {
         if (credentials[creds] !== '' && creds !== 'permissionLevel') {
-            body[creds] = credentials[creds]
+            object[creds] = credentials[creds]
 
         }
 
         console.log(creds)
-        console.log(body)
+        console.log(object)
         if (creds === 'permissionLevel' || creds === 'currentGroups' && credentials[creds] !== '') {
             let groupName = localStorage.getItem('groupName')
 
-            var resultArr = body.currentGroups.map(function(x){return x.replace(`/${groupName}/`, '');});
+            let groupRes = await fetch('api/getAdminGroups', {method: 'POST', body: JSON.stringify({token, adminId, refresh }), headers: {'Content-Type': 'application/json'}})
+            // let group = await makeRequest("GET", localStorage.getItem("token"), {}, '/admin/realms/McKenneys/users/' + user.id + '/groups')
+            groupRes = await groupRes.json()
+            // if empty array
+            if(!groupRes || groupRes.length === 0) {
+            alert("No one is currently in your group. Go to the Add tab to begin adding")
+            }
+            // if error
+            else if(groupRes.hasOwnProperty("error")) {
+                return groupRes
+            }
 
-            let groupPermission = resultArr.reduce((acc,item,i) => {
-                acc.attributes[`group${i}`]  = item;
-                acc.attributes.permissionLevel = credentials.permissionLevel;
-                return acc
-            },{attributes:{}})
+            let attributeArray = []
+
+            object.groups.forEach(userGroup => {
+                console.log(userGroup)
+                groupRes.forEach(groupObj => {
+                    console.log(groupObj)
+                    if(groupObj.name == userGroup) {
+                        console.log(groupObj.attributes)
+                        console.log(Object.values(groupObj.attributes).toString())
+                        // let stringValue = 
+                        let value = Object.values(groupObj.attributes).toString()
+                        let key = Object.keys(groupObj.attributes)
+                        let object = {}
+                        object[key] = value
+                        attributeArray.push(object)
+                    }
+                })
+            })
+        
+            console.log(attributeArray)
+        
+            let attributes = Object.assign({}, ...attributeArray)
+        
+            console.log(attributes)
+        
+            attributes.permissionLevel = credentials.permissionLevel
+        
+            let groupPermission = {
+                attributes
+            }
+
+            // var resultArr = body.currentGroups.map(function(x){return x.replace(`/${groupName}/`, '');});
+
+            // let groupPermission = resultArr.reduce((acc,item,i) => {
+            //     acc.attributes[`group${i}`]  = item;
+            //     acc.attributes.permissionLevel = credentials.permissionLevel;
+            //     return acc
+            // },{attributes:{}})
+
+            // let groupPermission = {
+            //     attributes: {
+            //         group0: "TEST"
+            //     }, 
+            //     permissionLevel: "TEST"
+            // }
+               
 
             let editRes = await fetch('api/updateUserPermission', {method: 'POST', body: JSON.stringify({token, userId, groupPermission, refresh }), headers: {'Content-Type': 'application/json'}})
             if(editRes.hasOwnProperty("error")) {
@@ -430,14 +536,11 @@ export  async function updateIndividual(userId, credentials = {username: '', ema
             }
 
             // await makeRequest("PUT", getToken(), groupPermission, "/admin/realms/McKenneys/users/" + userId, "Edit")
-            
-        }
-        console.log(creds)
-    }
-    console.log(body)
-    const {password, ...other} = body
+
+            console.log(object)
+    const {password, ...body} = object
     console.log(password)
-    console.log(other)
+    console.log(body)
     if(password && password !== '') {
         let update = await fetch('api/updatePass', {method: 'POST', body: JSON.stringify({token, userId, password, refresh }), headers: {'Content-Type': 'application/json'}})
         if(update.hasOwnProperty("error")) {
@@ -448,7 +551,11 @@ export  async function updateIndividual(userId, credentials = {username: '', ema
             return update.newResponse
         }
     }
-    let update = await fetch('api/updateUser', {method: 'POST', body: JSON.stringify({token, userId, other, refresh }), headers: {'Content-Type': 'application/json'}})
+
+    let newGroups = object.groups.map(i => `/${i}`);
+    body.groups = newGroups
+
+    let update = await fetch('api/updateUser', {method: 'POST', body: JSON.stringify({token, userId, body, refresh }), headers: {'Content-Type': 'application/json'}})
     // await makeRequest("PUT", getToken(), body, "/admin/realms/McKenneys/users/" + userId, "Add")
 
     update = await update.json()
@@ -461,6 +568,128 @@ export  async function updateIndividual(userId, credentials = {username: '', ema
         return update.newResponse
     }
 
+            
+        
+        console.log(creds)
+
+    // let groupId = 'd9753c5c-605a-4b4a-bb18-467365213338'
+
+    let allGroupNames = []
+
+    groupRes.forEach(groupObj => {
+        allGroupNames.push(groupObj.name)
+    })
+
+    console.log(allGroupNames)
+
+    let leaveGroups = allGroupNames.filter(val => !object.groups.includes(val))
+
+    let keepGroups = allGroupNames.filter(val => object.groups.includes(val))
+
+    console.log(keepGroups)
+
+    console.log(leaveGroups)
+
+    let leaveGroupIds = []
+    let keepGroupIds = []
+
+    leaveGroups.forEach(leaveGroup => {
+        groupRes.forEach(groupObj => {
+            if(groupObj.name === leaveGroup){
+                leaveGroupIds.push(groupObj.id)
+            }
+        })
+    })
+
+
+    keepGroups.forEach(keepGroup => {
+        groupRes.forEach(groupObj => {
+            if(groupObj.name===keepGroup){
+                keepGroupIds.push(groupObj.id)
+            }
+        })
+    })
+
+    if(keepGroups.length == 0) {
+        alert('Are you sure you want to remove this user from every building?')
+    }
+
+    console.log(leaveGroupIds)
+    await Promise.all(
+    leaveGroupIds.forEach(async (groupId) => {
+    let remove = await fetch('api/removeUserFromGroup', {method: 'POST', body: JSON.stringify({token, userId, groupId, refresh}), headers: {'Content-Type': 'application/json'}})
+    remove = await remove.json()
+    if(remove.hasOwnProperty("error")) {
+        return remove
+    }
+    if(remove.hasOwnProperty("newResponse")) {
+        setToken(remove.refreshTok)
+        return remove.newResponse
+    }
+
+    },
+
+    keepGroupIds.forEach(async (groupId) => {
+            let add = await fetch('api/addUserToGroup', {method: 'POST', body: JSON.stringify({token, userId, groupId, refresh}), headers: {'Content-Type': 'application/json'}})
+            add = await add.json()
+            if(add.hasOwnProperty("error")) {
+                return add
+            }
+            if(add.hasOwnProperty("newResponse")) {
+                setToken(add.refreshTok)
+                return add.newResponse
+            }
+        
+            }
+            )
+    
+    ))
+
+    // console.log(keepGroupIds)
+    // await Promise.all(
+    //     keepGroupIds.forEach(async (groupId) => {
+    //     let add = await fetch('api/addUserToGroup', {method: 'POST', body: JSON.stringify({token, userId, groupId, refresh}), headers: {'Content-Type': 'application/json'}})
+    //     add = await add.json()
+    //     if(add.hasOwnProperty("error")) {
+    //         return add
+    //     }
+    //     if(add.hasOwnProperty("newResponse")) {
+    //         setToken(add.refreshTok)
+    //         return add.newResponse
+    //     }
+    
+    //     }
+    //     ))
+
+
+}
+    // console.log(body)
+    // const {password, ...other} = body
+    // console.log(password)
+    // console.log(other)
+    // if(password && password !== '') {
+    //     let update = await fetch('api/updatePass', {method: 'POST', body: JSON.stringify({token, userId, password, refresh }), headers: {'Content-Type': 'application/json'}})
+    //     if(update.hasOwnProperty("error")) {
+    //         return update
+    //     }
+    //     if(update.hasOwnProperty("newResponse")) {
+    //         setToken(update.refreshTok)
+    //         return update.newResponse
+    //     }
+    // }
+    // let update = await fetch('api/updateUser', {method: 'POST', body: JSON.stringify({token, userId, other, refresh }), headers: {'Content-Type': 'application/json'}})
+    // // await makeRequest("PUT", getToken(), body, "/admin/realms/McKenneys/users/" + userId, "Add")
+
+    // update = await update.json()
+    // // error handling
+    // if(update.hasOwnProperty("error")) {
+    //     return update
+    // }
+    // if(update.hasOwnProperty("newResponse")) {
+    //     setToken(update.refreshTok)
+    //     return update.newResponse
+    // }
+}
 }
 
 export const logout = async () => {

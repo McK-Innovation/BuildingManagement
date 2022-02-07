@@ -10,7 +10,7 @@ import ManageUser from "./ManageUser";
 import ViewEdit from "./ManageUser";
 import Authorization from "./authContext";
 //import {getAllUsersInGroup} from "./keycloakUtils";
-import {getAllUsersInGroup, logout, getSubGroups} from "./KeycloakHelper"
+import {getAllUsersInGroup, logout, getGroups, isUserAdmin} from "./KeycloakHelper"
 import KcAdminClient from "keycloak-admin";
 import {checkExpiration} from "./KeycloakHelper";
 import IdleTimer from "react-idle-timer";
@@ -25,7 +25,8 @@ const Dashboard = ()=> {
     //once the state updates, ill have data. Loaded some initial dummy data
 
     const [arrayOfPeople , updatePeople] =useState([{FirstName: "sally", LastName: "hanson", id: 11111, }])
-    const [arrayOfGroups, updateArray] = useState([])
+    const [attributes, updateAttributes] = useState()
+    const [arrayOfGroups, updateArray] = useState()
     const [person, updatePerson] = useState ('')
     const [client, updateCLI] = useState(null)
     const [dashboard, updateDashboard] = useState('')
@@ -56,7 +57,8 @@ const Dashboard = ()=> {
     useEffect(() => {
         checkExpiration().then((r) => {if(r !== undefined) history.push("/"); else 
         storePeople().then((r) => {
-            storeSubGroups()
+            storeGroups()
+            // checkUserAdmin()
             if(r && r.hasOwnProperty("error")) {
                 alert(r.error)
             }
@@ -73,16 +75,23 @@ const Dashboard = ()=> {
             updatePeople(arr)
         }
 
-        async function storeSubGroups() {
-            let sub = await getSubGroups()
+        async function storeGroups() {
+            let sub = await getGroups()
             if(sub && sub.hasOwnProperty('error')) {
                 return sub
             }
             console.log(sub)
-            console.log(sub.subGroups)
-            updateArray(sub.subGroups)
+            updateArray(sub)
             console.log(arrayOfGroups)
         }
+
+        // async function checkUserAdmin() {
+        //     let admin = await isUserAdmin() 
+        //     if(admin && admin.hasOwnProperty('error')){
+        //         return admin[0].attributes
+        //     }
+        //     updateAttributes(admin[0].attributes)
+        // }
 
         if(localStorage.getItem("token") === undefined) {
             history.push('/')

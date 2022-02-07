@@ -8,12 +8,14 @@ import {getSubGroups} from "./KeycloakHelper"
 import {addUser} from "./KeycloakHelper"
 import {Confirmation} from "./Confirmation";
 const NewUser= (props)=> {
+    // let attributes = JSON.parse(localStorage.getItem('attributes'))
+    // console.log(attributes)
     console.log(props)
     let history = useHistory()
     const [show, setShow] = useState(false)
     let val = useRef({})
 
-
+    let company = localStorage.getItem("groupName")
     const SignUpSchema = Yup.object().shape({
         email: Yup.string()
             .required("Email Required"),
@@ -86,7 +88,7 @@ const NewUser= (props)=> {
                                             <div className="row align-items-center">
                                                 <div className="col-md-12">
                                                     <h1 className="m-2 display-4">{values.firstname ?values.firstname : "First Name"} {values.lastname ? values.lastname : "Last Name"}</h1>
-                                                    <p className="mb-3 display-4 mt-3"><span
+                                                    <p className="mb-1 display-4 mt-1"><span
                                                         className="badge badge-light">{values.username? values.username : "Username"}</span></p>
                                                 </div>
                                             </div>
@@ -180,7 +182,7 @@ const NewUser= (props)=> {
                       <input
                         name="group"
                         type="checkbox"
-                        value={group.name}
+                        value={group.path}
                         checked={values.group.includes(group.name)}
                         onChange={e => {
                           if (e.target.checked) arrayHelpers.push(group.name);

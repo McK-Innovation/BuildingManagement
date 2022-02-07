@@ -20,6 +20,7 @@ const ViewEdit = (props)=> {
     let groups = []
     console.log(keys)
     console.log(keys.length)
+    let company = localStorage.getItem("groupName")
     // let groups = []
     // let keys = Object.entries(props.person.attributes);
     // console.log(keys)
@@ -37,7 +38,7 @@ const ViewEdit = (props)=> {
     //get user from context, then update if update is clicked and route to the users page
 
     // console.log(groups)
-    for(let x = 0; x <= keys.length; x ++) {
+    for(let x = 0; x <= 50; x ++) {
     for( let group in props.person.attributes) {
         
         if (group === `group${x}`) {
@@ -79,9 +80,9 @@ console.log(merged)
 
     });
 
-    async function editUser(username, email, password, firstname, lastname, currentGroup, permissionLevel ) {
+    async function editUser(username, email, password, firstname, lastname, group, permissionLevel ) {
         console.log(props.person.id)
-        await updateIndividual(props.person.id, {username: username, email: email, password: password, firstName: firstname, lastName: lastname, currentGroups: currentGroup, permissionLevel: permissionLevel  })
+        await updateIndividual(props.person.id, {username: username, email: email, password: password, firstName: firstname, lastName: lastname, groups: group, permissionLevel: permissionLevel  })
     }
 
    const initialValues = {
@@ -98,7 +99,7 @@ console.log(merged)
 
        username: person.username ,
 
-       currentGroup: '',
+       group: '',
 
        permissionLevel: person.hasOwnProperty("attributes")? person.attributes.permissionLevel : ''
 
@@ -113,7 +114,7 @@ console.log(merged)
 
             {show && <Confirmation caller = {() => {
                 let values = val.current;
-                editUser(values.username, values.email, values.password, values.firstname, values.lastname, values.currentGroup, values.permissionLevel)
+                editUser(values.username, values.email, values.password, values.firstname, values.lastname, values.group, values.permissionLevel)
                     .catch((e)=>(console.log(e)))
                     .then((r) => {
                         props.updateDashboard(values)
@@ -151,14 +152,14 @@ console.log(merged)
                                             <div className="row align-items-center">
                                                 <div className="col-md-12">
                                                     <h1 className="m-2 display-4">{values.firstname ?values.firstname : "First Name"} {values.lastname ? values.lastname : "Last Name"}</h1>
-                                                    <p className="mb-3 display-4 mt-3"><span
+                                                    <p className="mb-1 display-4 mt-1"><span
                                                         className="badge badge-light">{values.username? values.username : "Username"}</span></p>
                                                 </div>
                                             </div>
                                             <div className="row mb-4">
                                                 <div className="col">
                                                     <p className="mb-0 text-muted h1 mt-3">{values.email ? values.email: "Email"}</p>
-                                                    <p className="mb-0 text-muted h1 mt-1">{values.currentGroup ? values.currentGroup + '--': merged.map((item, i) => { 
+                                                    <p className="mb-0 text-muted h1 mt-3">{values.group ? values.group + '--': merged.map((item, i) => { 
                                                         return <span>{item}, </span>
                                                     })}</p>
                                                 </div>
@@ -242,7 +243,7 @@ console.log(merged)
 
                                             /> */}
                                             <FieldArray
-            name="currentGroup"
+            name="group"
             render={arrayHelpers => (
               <div>
                 {props.groups.map((group, index) => (
@@ -252,11 +253,11 @@ console.log(merged)
                         name="currentGroup"
                         type="checkbox"
                         value={group.path}
-                        checked={values.currentGroup.includes(group.name)}
+                        checked={values.group.includes(group.name)}
                         onChange={e => {
                           if (e.target.checked) arrayHelpers.push(group.name);
                           else {
-                            const idx = values.currentGroup.indexOf(group.name);
+                            const idx = values.group.indexOf(group.name);
                             arrayHelpers.remove(idx);
                           }
                         }}
@@ -332,6 +333,7 @@ console.log(merged)
                                             </ul>
                                         </div>
                                     </div>
+                                        <h5>** Building(s) must be checked prior to saving ** </h5>
                                     <div className="btn-group m-4">
                                         <button type="submit" className="btn btn-primary" style={{marginRight:'1em'}} disabled={!touched}>Save Change</button>
 
