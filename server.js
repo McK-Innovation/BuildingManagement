@@ -21,7 +21,7 @@ const memoryStore = new session.MemoryStore();
 // ​};
 
 const key = {
-    url: 'http://localhost:8080',
+    url: 'https://auth.mckenneys.tech/',
     realm: 'McKenneys',
     clientId: 'react',
     sslRequired: "external",
@@ -31,7 +31,7 @@ const key = {
 
 var keycloak = new Keycloak({store: memoryStore}, key)
 
-let baseUrl = 'http://localhost:8080/auth' //will change in the future (env variable)
+let baseUrl = 'https://auth.mckenneys.tech/auth' //will change in the future (env variable)
 
 /*app.use(
     cors({
@@ -202,7 +202,18 @@ async function getGroupRevised(request) {
 async function getGroup(request) {
     try {
     console.log(request.userId)
-    let group = await makeRequest("GET", request.token, {}, '/admin/realms/McKenneys/users/' + request.userId + '/groups', "", request.refresh)
+    let group = await makeRequest("GET", request.token, {}, '/admin/realms/McKenneys/users/' + request.userId + '/groups?briefRepresentation=false', "", request.refresh)
+    return group
+    }
+    catch(error) {
+        return error
+    }
+}
+
+async function getAdminGroups(request) {
+    try {
+    console.log(request.userId)
+    let group = await makeRequest("GET", request.token, {}, '/admin/realms/McKenneys/users/' + request.adminId + '/groups?briefRepresentation=false', "", request.refresh)
     return group
     }
     catch(error) {
@@ -260,6 +271,25 @@ async function updateUserPermission(request) {
         return error
     }
 }
+
+async function removeUserFromGroup(request) {
+    try {
+        let remove = await makeRequest("DELETE", request.token, {}, "/admin/realms/McKenneys/users/" + request.userId + "/groups/" + request.groupId, "", request.refresh)
+        return remove
+    }catch(error) {
+        return error
+    }
+}
+
+async function addUserToGroup(request) {
+    try {
+        let add = await makeRequest("PUT", request.token, {}, "/admin/realms/McKenneys/users/" + request.userId + "/groups/" + request.groupId, "", request.refresh)
+        return add
+    }catch(error) {
+        return error
+    }
+}
+
 
 async function updateUser(request) {
     try {
@@ -331,6 +361,19 @@ app.post('/api/updateUserPermission',async (req,res) => {
     res.json(result)
 });
 
+app.post('/api/removeUserFromGroup', async (req, res) => {
+    let result = await removeUserFromGroup(req.body)
+    console.log(result)
+    res.json(result)
+})
+
+app.post('/api/addUserToGroup', async (req, res) => {
+    let result = await addUserToGroup(req.body)
+    console.log(result)
+    res.json(result)
+})
+
+
 app.post('/api/updateUser',async (req,res) => {
     let result = await updateUser(req.body)
     console.log(result)
@@ -348,6 +391,13 @@ app.post('/api/getGroup',async (req,res) => {
     console.log(result)
     res.json(result)
 });
+
+app.post('/api/getAdminGroups',async (req,res) => {
+    let result = await getAdminGroups(req.body)
+    console.log(result)
+    res.json(result)
+});
+
 app.post('/api/getGroupRevised',async (req,res) => {
     let result = await getGroupRevised(req.body)
     console.log(result)
