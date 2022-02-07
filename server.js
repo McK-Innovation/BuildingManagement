@@ -4,7 +4,7 @@ const app = express();
 app.use(express.json());
 const cors = require('cors');
 const {string} = require("prop-types");
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
 const fetch = require('node-fetch');
 const { request } = require('express');
 const session = require('express-session')
@@ -202,10 +202,30 @@ async function getGroupRevised(request) {
 async function getGroup(request) {
     try {
     console.log(request.userId)
-    let group = await makeRequest("GET", request.token, {}, '/admin/realms/McKenneys/users/' + request.userId + '/groups', "", request.refresh)
+    let group = await makeRequest("GET", request.token, {}, '/admin/realms/McKenneys/users/' + request.userId + '/groups?briefRepresentation=false', "", request.refresh)
     return group
     }
     catch(error) {
+        return error
+    }
+}
+
+async function getAdminGroups(request) {
+    try {
+    console.log(request.userId)
+    let group = await makeRequest("GET", request.token, {}, '/admin/realms/McKenneys/users/' + request.adminId + '/groups?briefRepresentation=false', "", request.refresh)
+    return group
+    }
+    catch(error) {
+        return error
+    }
+}
+
+async function getSubGroups(request) {
+    try {
+        let subgroups = await makeRequest('GET', request.token, {}, '/admin/realms/McKenneys/groups/' + request.groupId , request.refresh)
+        return subgroups
+    } catch (error) {
         return error
     }
 }
@@ -251,6 +271,25 @@ async function updateUserPermission(request) {
         return error
     }
 }
+
+async function removeUserFromGroup(request) {
+    try {
+        let remove = await makeRequest("DELETE", request.token, {}, "/admin/realms/McKenneys/users/" + request.userId + "/groups/" + request.groupId, "", request.refresh)
+        return remove
+    }catch(error) {
+        return error
+    }
+}
+
+async function addUserToGroup(request) {
+    try {
+        let add = await makeRequest("PUT", request.token, {}, "/admin/realms/McKenneys/users/" + request.userId + "/groups/" + request.groupId, "", request.refresh)
+        return add
+    }catch(error) {
+        return error
+    }
+}
+
 
 async function updateUser(request) {
     try {
@@ -322,6 +361,19 @@ app.post('/api/updateUserPermission',async (req,res) => {
     res.json(result)
 });
 
+app.post('/api/removeUserFromGroup', async (req, res) => {
+    let result = await removeUserFromGroup(req.body)
+    console.log(result)
+    res.json(result)
+})
+
+app.post('/api/addUserToGroup', async (req, res) => {
+    let result = await addUserToGroup(req.body)
+    console.log(result)
+    res.json(result)
+})
+
+
 app.post('/api/updateUser',async (req,res) => {
     let result = await updateUser(req.body)
     console.log(result)
@@ -339,11 +391,25 @@ app.post('/api/getGroup',async (req,res) => {
     console.log(result)
     res.json(result)
 });
+
+app.post('/api/getAdminGroups',async (req,res) => {
+    let result = await getAdminGroups(req.body)
+    console.log(result)
+    res.json(result)
+});
+
 app.post('/api/getGroupRevised',async (req,res) => {
     let result = await getGroupRevised(req.body)
     console.log(result)
     res.json(result)
 });
+
+app.post('/api/getSubGroups', async (req,res) => {
+    let result = await getSubGroups(req.body)
+    console.log(result)
+    res.json(result)
+})
+
 app.post('/api/getUserRevised',async (req,res) => {
     let result = await getUserRevised(req.body)
     console.log(result)
